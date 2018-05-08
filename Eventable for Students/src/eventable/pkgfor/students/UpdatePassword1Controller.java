@@ -69,7 +69,7 @@ public class UpdatePassword1Controller extends Application implements Initializa
     public void inputSecurityQuestion() throws SQLException {
         //Security Question
         statement = openConnection();
-        currentQuery = "SELECT securityquestion_wording FROM security_question JOIN security_feature USING(securityquestion_id) WHERE email = '" + ForgetPassword1Controller.emailAddress + "'";
+        currentQuery = "SELECT securityquestion_wording FROM security_question JOIN security_feature USING(securityquestion_id) WHERE email = '" + LoginController.loggedInUser + "'";
         System.out.println(currentQuery);
         ResultSet rs = statement.executeQuery(currentQuery);
         while (rs.next()) {
@@ -88,23 +88,23 @@ public class UpdatePassword1Controller extends Application implements Initializa
         }
         
         //Security Answer
-        currentQuery1 = "SELECT security_answer FROM security_feature JOIN security_question USING(securityquestion_id) WHERE email = '" + ForgetPassword1Controller.emailAddress + "'" + " AND securityquestion_wording = '" + securityQuestionString + "'";
+        currentQuery1 = "SELECT security_answer FROM security_feature JOIN security_question USING(securityquestion_id) WHERE email = '" + LoginController.loggedInUser + "'" + " AND securityquestion_wording = '" + securityQuestionString + "'";
         ResultSet rs1 = statement.executeQuery(currentQuery1);
         String securityAnswer = answer.getText().trim().toLowerCase();
         while (rs1.next()) {
-        if (securityAnswer.matches(rs1.getString(1).toLowerCase())) {
-            return true;
-        }
-        else {
-            errorText2.setVisible(true);
-            return false;
-        }
+            System.out.print(rs1.getString(1));
+            if (securityAnswer.matches(rs1.getString(1).toLowerCase())) {
+                return true;
+            } else {
+                errorText2.setVisible(true);
+                return false;
+            }
     }
         return false;
     }
     
     @FXML
-    private void nextButton(ActionEvent event) throws SQLException {
+    private void nextButton(MouseEvent event) throws SQLException {
         if (verifyIdentity()) {
             loadNext("UpdatePassword.fxml");
         }
