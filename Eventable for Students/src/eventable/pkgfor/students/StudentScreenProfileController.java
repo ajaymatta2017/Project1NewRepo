@@ -108,6 +108,7 @@ public class StudentScreenProfileController extends Application implements Initi
         loadNext("StudentScreenProfile.fxml");
     }
     
+    @FXML
     private void updateAccountPasswordButton(MouseEvent event) {
         loadNext("UpdatePassword1.fxml");
     }

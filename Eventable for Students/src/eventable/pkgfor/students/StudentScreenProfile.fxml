@@ -39,7 +39,7 @@
                      </font>
                   </Text>
                   <Button fx:id="editAccountButton" layoutX="196.0" layoutY="432.0" mnemonicParsing="false" onMouseClicked="#updateAccount" onMouseEntered="#enableEditAccount" prefHeight="27.0" prefWidth="119.0" text="Edit Account" />
-                  <Button fx:id="deleteAccountButton" layoutX="19.0" layoutY="431.0" mnemonicParsing="false" onMouseClicked="#deleteAccount" prefHeight="27.0" prefWidth="120.0" text="Delete Account" />
+                  <Button fx:id="updateAccountPassword" layoutX="19.0" layoutY="431.0" mnemonicParsing="false" onMouseClicked="#updateAccountPasswordButton" prefHeight="27.0" prefWidth="120.0" text="Update Password" />
                   <TextField fx:id="firstName" editable="false" layoutX="122.0" layoutY="54.0" prefHeight="27.0" prefWidth="179.0" />
                   <Text layoutX="27.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
                      <font>
