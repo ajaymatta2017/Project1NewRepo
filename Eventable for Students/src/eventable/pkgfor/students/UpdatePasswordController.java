@@ -20,11 +20,13 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,42 +34,81 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class UpdatePasswordController extends Application implements Initializable {
-
     @FXML
     Stage stage;
     Parent root;
 
     @FXML
-    public Text society;
-    public TextField newPassword, confirmNewPassword;
+    private Button next;
+    @FXML
+    public TextField confirmNewPassword, newPassword;
     @FXML
     public Text errorText;
     @FXML
     public ImageView backButton;
-
-    public static Connection conn;
     
-    public char ch;
+    char ch;
+    
+    public static Connection conn;
 
     public String currentQuery;
 
     public static ResultSet rs;
 
     public static Statement statement;
-    
+
     public String userPassword;
     
     public static String userEmailAddress;
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    }
-
-    public void setError(String errorMessage) {
+    
+        public void setError(String errorMessage) {
         errorText.setText(errorMessage);
         errorText.setVisible(true);
     }
-
+     
+        public Boolean validatenewPassword() throws SQLException {
+        if (Utils.extractStringIsEmpty(confirmNewPassword)) {
+            setError("Please confirm new password");
+            return false;
+        }
+        if (Utils.extractStringIsEmpty(newPassword)) {
+            setError("Please input new password");
+            return false;
+        }
+        
+        if (!checkPasswordRequirements()) {
+            return false;
+        }
+        
+        if (!confirmNewPassword.getText().equals(newPassword.getText())) {
+            setError("Passwords entered do not match");
+            return false;
+        }
+        //Inputting details into database
+        int userPasswordHashed = newPassword.getText().hashCode();
+        String userPasswordHashedString = userPasswordHashed + "";
+        statement = openConnection();
+        currentQuery = "UPDATE APP_USER SET password = '" + userPasswordHashedString + "'" + "WHERE email = '" + ForgetPassword1Controller.emailAddress + "'";
+        int update = statement.executeUpdate(currentQuery);
+        return true;
+    }
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+    }    
+    
+    @FXML
+    private void nextButton(MouseEvent event) throws SQLException {
+        if (validatenewPassword()) {
+            loadNext("StudentScreenProfile.fxml");
+        }
+    }
+    
+    @FXML
+    private void backButtonPressed(MouseEvent event) {
+        loadNext("ForgetPassword2.fxml");
+    }
+    
     public boolean checkPasswordRequirements() {
         boolean hasUpper = false;
         boolean hasLower = false;
@@ -132,86 +173,25 @@ public class UpdatePasswordController extends Application implements Initializab
         return true;
     }
 
-    public Boolean validatenewPassword() throws SQLException {
-        if (Utils.extractStringIsEmpty(confirmNewPassword)) {
-            setError("Please confirm new password");
-            return false;
-        }
-        if (Utils.extractStringIsEmpty(newPassword)) {
-            setError("Please input new password");
-            return false;
-        }
-
-        if (!checkPasswordRequirements()) {
-            return false;
-        }
-
-        if (!confirmNewPassword.getText().equals(newPassword.getText())) {
-            setError("Passwords entered do not match");
-            return false;
-        }
-        //Inputting details into database
-        int userPasswordHashed = newPassword.getText().hashCode();
-        String userPasswordHashedString = userPasswordHashed + "";
-        statement = openConnection();
-        currentQuery = "UPDATE APP_USER SET password = '" + userPasswordHashedString + "'" + "WHERE email = '" + ForgetPassword1Controller.emailAddress + "'";
-        int update = statement.executeUpdate(currentQuery);
-        return true;
-    }
-
-    @FXML
-    private void updateAccount(MouseEvent event) throws SQLException {
-        currentQuery = "UPDATE app_user SET password = '" + newPassword.getText() + " WHERE email = '" + LoginController.loggedInUser + "'";
-        System.out.println(currentQuery);
-        int rs1 = statement.executeUpdate(currentQuery);
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        stage = (Stage) society.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    @FXML
-    private void bottomNavSocietyButton(MouseEvent event) {
-        loadNext("StudentScreenSociety_All.fxml");
-    }   
-
-    @FXML
-    private void bottomNavCodeButton(MouseEvent event) {
-        loadNext("StudentScreenCode.fxml");
-    }
-
-    @FXML
-    private void bottomNavEventsButton(MouseEvent event) {
-        loadNext("StudentScreenEvents_All.fxml");
-    }
-
-    @FXML
-    private void bottomNavFeedbackButton(MouseEvent event) {
-        loadNext("StudentScreenFeedback_Feedback.fxml");
-    }
-
-    @FXML
-    private void bottomNavProfileButton(MouseEvent event) {
-        loadNext("StudentScreenProfile.fxml");
-    }
-    
-    private void backToUserProfile (MouseEvent event) {
-        loadNext("UpdatePassword1.fxml");
-    }
-
     public void loadNext(String destination) {
-        stage = (Stage) society.getScene().getWindow();
+        stage = (Stage) next.getScene().getWindow();
         try {
             root = FXMLLoader.load(getClass().getResource(destination));
         } catch (IOException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         Scene scene = new Scene(root);
+
         stage.setScene(scene);
         stage.show();
     }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        stage = (Stage) next.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }    
 }
