@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
@@ -19,21 +20,33 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenEvents_AllController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenEvents_AllController">
    <children>
       <AnchorPane prefHeight="602.0" prefWidth="186.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Ellipse fill="DODGERBLUE" layoutX="169.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
-            <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="581.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
-            <Text fx:id="code" fill="WHITE" layoutX="82.0" layoutY="581.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code">
+            <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="582.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies">
                <cursor>
                   <Cursor fx:constant="OPEN_HAND" />
                </cursor></Text>
-            <Text fx:id="events" fill="WHITE" layoutX="149.0" layoutY="581.0" onMouseClicked="#bottomNavEventsButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
-            <Text fx:id="feedback" fill="WHITE" layoutX="214.0" layoutY="580.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
-            <Text fx:id="profile" fill="WHITE" layoutX="286.0" layoutY="581.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text fx:id="code" fill="WHITE" layoutX="85.0" layoutY="582.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></Text>
+            <Text fx:id="events" fill="WHITE" layoutX="148.0" layoutY="581.0" onMouseClicked="#bottomNavEventsButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Events">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></Text>
+            <Text fx:id="feedback" fill="WHITE" layoutX="214.0" layoutY="582.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></Text>
+            <Text fx:id="profile" fill="WHITE" layoutX="286.0" layoutY="582.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></Text>
             <Text fx:id="all" fill="WHITE" layoutX="28.0" layoutY="28.0" onMouseClicked="#topNavAll" strokeType="OUTSIDE" strokeWidth="0.0" text="All">
                <font>
                   <Font size="14.0" />
@@ -62,30 +75,60 @@
       </AnchorPane>
       <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="335.0" vbarPolicy="NEVER">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="338.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="599.0" prefWidth="338.0">
                <children>
-                  <TextField layoutX="28.0" layoutY="14.0" prefHeight="32.0" prefWidth="282.0" promptText="Search" />
-                  <TableView fx:id="tableofEvents" layoutX="26.0" layoutY="103.0" prefHeight="413.0" prefWidth="283.0">
+                  <TextField layoutX="6.0" layoutY="14.0" prefHeight="32.0" prefWidth="317.0" promptText="Search" stylesheets="@SearchBox.css">
+                     <styleClass>
+                        <String fx:value="button" />
+                        <String fx:value="search-box" />
+                        <String fx:value="text-field" />
+                     </styleClass>
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
+                  <TableView fx:id="tableofEvents" layoutX="-1.0" layoutY="94.0" prefHeight="420.0" prefWidth="335.0" stylesheets="@TableView.css">
                      <columns>
                         <TableColumn fx:id="event" prefWidth="125.0" text="Event" />
                         <TableColumn fx:id="startDate" prefWidth="77.0" text="Start Date" />
                         <TableColumn fx:id="location" prefWidth="95.0" text="Location" /> 
                      </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <styleClass>
+                        <String fx:value="column-header-background" />
+                        <String fx:value="column-header" />
+                        <String fx:value="root" />
+                        <String fx:value="label" />
+                        <String fx:value="table-cell" />
+                        <String fx:value="table-row-cell" />
+                        <String fx:value="table-view" />
+                     </styleClass>
                   </TableView>
                   <Accordion layoutX="77.0" layoutY="83.0" />
-                <TitledPane animated="false" expanded="false" layoutX="27.0" layoutY="59.0" prefHeight="119.0" prefWidth="282.0" text="Filters">
+                <TitledPane animated="false" expanded="false" layoutX="-2.0" layoutY="51.0" prefHeight="156.0" prefWidth="335.0" stylesheets="@titledpane.css" text="Filters">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <DatePicker layoutX="16.0" layoutY="11.0" prefHeight="27.0" prefWidth="90.0" promptText="From" />
                               <DatePicker layoutX="113.0" layoutY="11.0" prefHeight="27.0" prefWidth="83.0" promptText="To" />
                               <Hyperlink layoutX="204.0" layoutY="12.0" text="Today" />
-                              <Button layoutX="16.0" layoutY="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="A-Z" />
+                              <Button layoutX="16.0" layoutY="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" stylesheets="@../../../../../Desktop/Button.css" text="A-Z" />
                               <ComboBox layoutX="86.0" layoutY="50.0" prefHeight="27.0" prefWidth="109.0" promptText="By Society" />
                               <Button layoutX="199.0" layoutY="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Apply" />
                            </children>
                         </AnchorPane>
                   </content>
+                     <styleClass>
+                        <String fx:value="titled-pane" />
+                        <String fx:value="title" />
+                     </styleClass>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
                 </TitledPane>
                </children>
             </AnchorPane>
