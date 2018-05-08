@@ -134,6 +134,11 @@ public class StudentScreenProfileController extends Application implements Initi
         System.out.println(currentQuery1);
         int rs1 = statement.executeUpdate(currentQuery1);
     }
+    
+    @FXML
+    private void deleteAccount (MouseEvent event) throws SQLException {
+        //TODO: fill this in
+    }
        
     @FXML
     private void enableEditAccount(MouseEvent event) {
