@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenFeedback_FeedbackController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Ellipse fill="DODGERBLUE" layoutX="239.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
+            <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="581.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
+            <Text fx:id="code" fill="WHITE" layoutX="82.0" layoutY="581.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
+            <Text fx:id="events" fill="WHITE" layoutX="149.0" layoutY="581.0" onMouseClicked="#bottomNavEventsButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
+            <Text fx:id="feedback" fill="WHITE" layoutX="214.0" layoutY="580.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+            <Text fx:id="profile" fill="WHITE" layoutX="286.0" layoutY="581.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text fill="WHITE" layoutX="137.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="335.0" vbarPolicy="NEVER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="514.0" prefWidth="338.0">
+               <children>
+                  <TextField layoutX="27.0" layoutY="18.0" prefHeight="32.0" prefWidth="282.0" promptText="Search" />
+                  <TableView fx:id="tableofFeedback" layoutX="26.0" layoutY="88.0" prefHeight="418.0" prefWidth="283.0">
+                     <columns>
+                        <TableColumn fx:id="societyName" prefWidth="75.0" text="Date" />
+                        <TableColumn fx:id="event" prefWidth="75.0" text="Society" />
+                        <TableColumn fx:id="endDate" prefWidth="132.0" text="Event" />
+                     </columns>
+                  </TableView>
+                  <Accordion />
+                  <Text fill="#979090" layoutX="28.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The following events require your feedback" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</StackPane>

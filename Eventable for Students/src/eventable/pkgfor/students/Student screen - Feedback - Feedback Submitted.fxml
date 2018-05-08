@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Ellipse fill="DODGERBLUE" layoutX="169.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
+            <Text fill="WHITE" layoutX="15.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
+            <Text fill="WHITE" layoutX="82.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
+            <Text fill="WHITE" layoutX="149.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
+            <Text fill="WHITE" layoutX="214.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+            <Text fill="WHITE" layoutX="286.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text fill="WHITE" layoutX="137.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Button layoutX="6.0" layoutY="4.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="&lt;" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+      <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="335.0" vbarPolicy="NEVER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="515.0" prefWidth="338.0">
+               <children>
+                  <Text fill="#6f6868" layoutX="119.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="148.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="149.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="112.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="137.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" textAlignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Line endX="150.0" layoutX="164.0" layoutY="184.0" startX="-150.0" stroke="#7c7474" />
+                  <Circle fill="#039be5" layoutX="164.0" layoutY="265.0" radius="54.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="131.0" layoutY="270.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmed">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Hyperlink layoutX="111.0" layoutY="336.0" text="Save to photos" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</StackPane>

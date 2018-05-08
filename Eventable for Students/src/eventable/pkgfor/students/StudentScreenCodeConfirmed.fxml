@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenCodeConfirmedController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Ellipse fill="DODGERBLUE" layoutX="99.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
+            <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="581.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
+            <Text fx:id="code" fill="WHITE" layoutX="82.0" layoutY="581.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
+            <Text fx:id="events" fill="WHITE" layoutX="149.0" layoutY="581.0" onMouseClicked="#bottomNavEventsButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
+            <Text fx:id="feedback" fill="WHITE" layoutX="214.0" layoutY="580.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+            <Text fx:id="profile" fill="WHITE" layoutX="286.0" layoutY="581.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text fill="WHITE" layoutX="152.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="335.0" vbarPolicy="NEVER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="514.0" prefWidth="338.0">
+               <children>
+                  <Text layoutX="27.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You are currently at">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="27.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="28.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="28.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="28.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="28.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Circle fill="#039be5" layoutX="169.0" layoutY="250.0" radius="54.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <Text fill="WHITE" layoutX="135.0" layoutY="255.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmed">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</StackPane>

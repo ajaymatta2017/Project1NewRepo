@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenSociety_FavouritesController">
+   <children>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Ellipse fill="DODGERBLUE" layoutX="40.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
+            <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="581.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
+            <Text fx:id="code" fill="WHITE" layoutX="82.0" layoutY="581.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
+            <Text fx:id="events" fill="WHITE" layoutX="149.0" layoutY="581.0" onMouseClicked="#bottomNavEventsButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
+            <Text fx:id="feedback" fill="WHITE" layoutX="214.0" layoutY="580.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+            <Text fx:id="profile" fill="WHITE" layoutX="286.0" layoutY="581.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text fx:id="all" fill="WHITE" layoutX="82.0" layoutY="30.0" onMouseClicked="#topNavAll" strokeType="OUTSIDE" strokeWidth="0.0" text="All">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="favourites" fill="WHITE" layoutX="216.0" layoutY="30.0" onMouseClicked="#topNavFavourites" strokeType="OUTSIDE" strokeWidth="0.0" text="Favourites">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Line endX="235.0" layoutX="98.0" layoutY="42.0" startX="75.0" stroke="WHITE" strokeWidth="5.0" />
+         </children>
+      </AnchorPane>
+      <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="335.0" vbarPolicy="NEVER">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="338.0">
+               <children>
+                  <TextField layoutX="26.0" layoutY="12.0" prefHeight="32.0" prefWidth="282.0" promptText="Search" />
+                  <TableView fx:id="tableOfSocieties" layoutX="26.0" layoutY="60.0" prefHeight="449.0" prefWidth="283.0">
+                    <columns>
+                      <TableColumn fx:id="societyName" prefWidth="75.0" text="Society Name" />
+                      <TableColumn fx:id="societyDescription" prefWidth="207.0" text="Society Description" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</StackPane>
