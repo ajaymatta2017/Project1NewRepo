@@ -6,6 +6,8 @@
 package eventable.pkgfor.students;
 
 import static eventable.pkgfor.students.DBController.openConnection;
+import static eventable.pkgfor.students.StudentScreenSociety_AllController.societySelectedDescription;
+import static eventable.pkgfor.students.StudentScreenSociety_AllController.societySelectedName;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -173,6 +175,16 @@ public class StudentScreenSociety_FavouritesController extends Application imple
         stage.show();
     }
     
+    @FXML
+    private void tableviewItemClicked(MouseEvent event) throws SQLException {
+        if (event.getClickCount() == 2) {
+            FavouriteSocieties societySelected = tableOfSocieties.getSelectionModel().getSelectedItem();
+            societySelectedName = societySelected.getSocietyName();
+            societySelectedDescription = societySelected.getSocietyDescription();
+            loadNext("StudentScreenSociety_SingleSociety.fxml");
+        }
+    }
+   
     @Override
     public void start(Stage primaryStage) throws Exception {
         populateTableView();

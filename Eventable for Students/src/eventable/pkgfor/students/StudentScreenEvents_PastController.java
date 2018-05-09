@@ -232,7 +232,6 @@ public class StudentScreenEvents_PastController extends Application implements I
     
     @FXML
     private void tableviewItemClicked(MouseEvent event) throws SQLException {
-        //TODO: FINISH
         if (event.getClickCount() == 2) {
             Events eventSelected = tableofEvents.getSelectionModel().getSelectedItem();
             eventName = eventSelected.getEvent();

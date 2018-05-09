@@ -42,7 +42,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="338.0">
                <children>
                   <TextField layoutX="26.0" layoutY="12.0" prefHeight="32.0" prefWidth="282.0" promptText="Search" />
-                  <TableView fx:id="tableOfSocieties" layoutX="26.0" layoutY="60.0" prefHeight="449.0" prefWidth="283.0">
+                  <TableView fx:id="tableOfSocieties" layoutX="26.0" layoutY="60.0" onMouseClicked="#tableviewItemClicked" prefHeight="449.0" prefWidth="283.0">
                     <columns>
                       <TableColumn fx:id="societyName" prefWidth="75.0" text="Society Name" />
                       <TableColumn fx:id="societyDescription" prefWidth="207.0" text="Society Description" />

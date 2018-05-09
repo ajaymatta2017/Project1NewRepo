@@ -47,7 +47,7 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     @FXML
     Stage stage;
     Parent root;
-    
+
     @FXML
     private Text society;
     @FXML
@@ -80,7 +80,7 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     public Text eventDate;
     @FXML
     public Text myStatusText;
-    
+
 //    @FXML
 //    public TableView<Events> tableofEvents;
 //    @FXML
@@ -91,7 +91,6 @@ public class StudentScreenEvent_SingleEventController extends Application implem
 //    public TableColumn<Events, String> location;
 //
 //    ObservableList<Events> eventsSingleData;
-
     public static Connection conn;
 
     public String currentQuery;
@@ -99,11 +98,11 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     public static ResultSet rs;
 
     public static Statement statement;
-  
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         populateEventData();
-    }    
+    }
 
 //    public void populateTableView() throws SQLException {
 //        //Only display events that are in the future
@@ -137,8 +136,7 @@ public class StudentScreenEvent_SingleEventController extends Application implem
 //            closeConnection(conn, rs, statement);
 //        }
 //    }
-    
-        @FXML
+    @FXML
     private void bottomNavSocietyButton(MouseEvent event) {
         loadNext("StudentScreenSociety_All.fxml");
     }
@@ -177,28 +175,26 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     private void topNavBackButton(MouseEvent event) {
         loadNext("StudentScreenEvents_All.fxml");
     }
-    
+
     @FXML
-    private void imInButtonClicked (ActionEvent event) {
+    private void imInButtonClicked(ActionEvent event) {
         //TODO: Store this in DB
         myStatusText.setText("Already Going");
     }
-    
+
     @FXML
-    private void imOutButtonClicked (ActionEvent event) {
+    private void imOutButtonClicked(ActionEvent event) {
         //TODO: Store this in DB
         myStatusText.setText("Dogs the boizzz");
     }
-    
+
     @FXML
-    private void postCommentButtonClicked (ActionEvent event) {
+    private void postCommentButtonClicked(ActionEvent event) {
         //TODO: Store this in DB
     }
-    
-    
-    
-    public void loadNext(String destination){
-        stage=(Stage) society.getScene().getWindow();
+
+    public void loadNext(String destination) {
+        stage = (Stage) society.getScene().getWindow();
         try {
             root = FXMLLoader.load(getClass().getResource(destination)); //putting it to 'Seek a Ride' for now, before we know what type of user each person is
         } catch (IOException ex) {
@@ -208,7 +204,7 @@ public class StudentScreenEvent_SingleEventController extends Application implem
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public void populateEventData() {
         //Populate Event Data
         eventName.setText(StudentScreenEvents_AllController.eventName);
@@ -216,7 +212,7 @@ public class StudentScreenEvent_SingleEventController extends Application implem
         eventDate.setText(StudentScreenEvents_AllController.eventStartDate + " - " + StudentScreenEvents_AllController.eventEndDate);
         societyName.setText(StudentScreenEvents_AllController.eventSocietyName);
     }
-    
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         populateEventData();
@@ -225,7 +221,7 @@ public class StudentScreenEvent_SingleEventController extends Application implem
         stage.setScene(scene);
         stage.show();
     }
-    
+
     //    @FXML
 //    private void SignInButton(ActionEvent event) throws Exception{
 //        DBController auth = new DBController();

@@ -224,7 +224,6 @@ public class StudentScreenEvents_GoingController extends Application implements 
     
     @FXML
     private void tableviewItemClicked(MouseEvent event) throws SQLException {
-        //TODO: FINISH
         if (event.getClickCount() == 2) {
             Events eventSelected = tableofEventsGoing.getSelectionModel().getSelectedItem();
             eventName = eventSelected.getEvent();

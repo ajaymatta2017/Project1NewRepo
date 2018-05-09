@@ -66,6 +66,9 @@ public class StudentScreenSociety_AllController extends Application implements I
 
     public static Statement statement;
 
+    public static String societySelectedName;
+    public static String societySelectedDescription;
+    
     public void populateTableView() throws SQLException {
         String loggedInUser = LoginController.loggedInUser;
         statement = openConnection();
@@ -179,6 +182,16 @@ public class StudentScreenSociety_AllController extends Application implements I
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    @FXML
+    private void tableviewItemClicked(MouseEvent event) throws SQLException {
+        if (event.getClickCount() == 2) {
+            FavouriteSocieties societySelected = tableOfSocieties.getSelectionModel().getSelectedItem();
+            societySelectedName = societySelected.getSocietyName();
+            societySelectedDescription = societySelected.getSocietyDescription();
+            loadNext("StudentScreenSociety_SingleSociety.fxml");
+        }
     }
 
     @Override

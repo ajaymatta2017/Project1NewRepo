@@ -235,7 +235,6 @@ public class StudentScreenEvents_FavouritesController extends Application implem
     
     @FXML
     private void tableviewItemClicked(MouseEvent event) throws SQLException {
-        //TODO: FINISH
         if (event.getClickCount() == 2) {
             Events eventSelected = tableofEventsFavourites.getSelectionModel().getSelectedItem();
             eventName = eventSelected.getEvent();
