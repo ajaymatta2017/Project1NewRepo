@@ -20,9 +20,9 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Ellipse fill="DODGERBLUE" layoutX="169.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
             <Text fill="WHITE" layoutX="15.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
-            <Text fill="WHITE" layoutX="82.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
+            <Text fill="WHITE" layoutX="84.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
             <Text fill="WHITE" layoutX="149.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
-            <Text fill="WHITE" layoutX="214.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+            <Text fill="WHITE" layoutX="213.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
             <Text fill="WHITE" layoutX="286.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
             <Text fill="WHITE" layoutX="137.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback">
                <font>

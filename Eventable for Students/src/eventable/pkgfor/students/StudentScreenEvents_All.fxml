@@ -95,53 +95,58 @@
                         <String fx:value="table-view" />
                      </styleClass>
                   </TableView>
-                  <TextField layoutX="10.0" layoutY="16.0" prefHeight="30.0" prefWidth="309.0" promptText=" Search" stylesheets="@SearchBox.css">
-                     <styleClass>
-                        <String fx:value="button" />
-                        <String fx:value="search-box" />
-                        <String fx:value="text-field" />
-                     </styleClass>
-                     <font>
-                        <Font size="14.0" />
-                     </font></TextField>
+                  <AnchorPane layoutX="10.0" layoutY="16.0">
+                     <children>
+                        <TextField prefHeight="30.0" prefWidth="309.0" promptText=" Search" stylesheets="@SearchBox.css">
+                           <styleClass>
+                              <String fx:value="button" />
+                              <String fx:value="search-box" />
+                              <String fx:value="text-field" />
+                           </styleClass>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                        <DatePicker layoutX="2.0" layoutY="65.0" prefHeight="31.0" prefWidth="131.0" promptText="From" stylesheets="@DatePicker.css">
+                           <styleClass>
+                              <String fx:value="date-picker" />
+                              <String fx:value="text-field" />
+                           </styleClass>
+                        </DatePicker>
+                        <DatePicker layoutX="137.0" layoutY="65.0" prefHeight="31.0" prefWidth="123.0" promptText="To" stylesheets="@DatePicker.css">
+                           <styleClass>
+                              <String fx:value="arrow-button" />
+                              <String fx:value="date-picker" />
+                              <String fx:value="text-field" />
+                           </styleClass>
+                        </DatePicker>
+                        <Hyperlink layoutX="262.0" layoutY="67.0" text="Today" />
+                        <Button contentDisplay="CENTER" graphicTextGap="0.0" layoutX="3.0" layoutY="102.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="84.0" stylesheets="@AZButton.css" text="A-Z" />
+                        <ComboBox layoutX="95.0" layoutY="102.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="33.0" prefWidth="211.0" promptText="By Society" stylesheets="@ComboBox.css">
+                           <styleClass>
+                              <String fx:value="combo-box" />
+                              <String fx:value="combo-box-base" />
+                              <String fx:value="combo-box-popup" />
+                              <String fx:value="list-cell" />
+                              <String fx:value="list-view" />
+                           </styleClass>
+                           <cursor>
+                              <Cursor fx:constant="OPEN_HAND" />
+                           </cursor>
+                        </ComboBox>
+                        <Button layoutY="144.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="309.0" stylesheets="@PrimaryButton.css" text="Apply">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Button>
+                        <Text layoutX="8.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
                   <Accordion layoutX="77.0" layoutY="83.0" />
-                  <DatePicker layoutX="9.0" layoutY="81.0" prefHeight="31.0" prefWidth="134.0" promptText="From" stylesheets="@DatePicker.css">
-                     <styleClass>
-                        <String fx:value="date-picker" />
-                        <String fx:value="text-field" />
-                     </styleClass>
-                  </DatePicker>
-                  <DatePicker layoutX="147.0" layoutY="81.0" prefHeight="31.0" prefWidth="125.0" promptText="To" stylesheets="@DatePicker.css">
-                     <styleClass>
-                        <String fx:value="arrow-button" />
-                        <String fx:value="date-picker" />
-                        <String fx:value="text-field" />
-                     </styleClass>
-                  </DatePicker>
-                  <Hyperlink layoutX="273.0" layoutY="83.0" text="Today" />
-                  <Button contentDisplay="CENTER" graphicTextGap="0.0" layoutX="12.0" layoutY="118.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="84.0" stylesheets="@AZButton.css" text="A-Z" />
-                  <ComboBox layoutX="105.0" layoutY="118.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="33.0" prefWidth="211.0" promptText="By Society" stylesheets="@ComboBox.css">
-                     <styleClass>
-                        <String fx:value="combo-box" />
-                        <String fx:value="combo-box-base" />
-                        <String fx:value="combo-box-popup" />
-                        <String fx:value="list-cell" />
-                        <String fx:value="list-view" />
-                     </styleClass>
-                     <cursor>
-                        <Cursor fx:constant="OPEN_HAND" />
-                     </cursor>
-                  </ComboBox>
-                  <Button layoutX="10.0" layoutY="160.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="309.0" stylesheets="@PrimaryButton.css" text="Apply">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Button>
-                  <Text layoutX="13.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
                </children>
             </AnchorPane>
         </content>
