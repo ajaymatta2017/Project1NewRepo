@@ -42,7 +42,7 @@
                   <Accordion layoutX="49.0" layoutY="416.0" />
                   <Accordion layoutX="90.0" layoutY="427.0" />
                   <Accordion layoutX="25.0" layoutY="412.0" />
-                  <Button fx:id="favouriteSocietyButton" layoutX="26.0" layoutY="464.0" mnemonicParsing="false" onAction="#favouriteSociety" prefHeight="25.0" prefWidth="281.0" stylesheets="@Button.css" text="Button" />
+                  <Button fx:id="favouriteSocietyButton" layoutX="27.0" layoutY="463.0" mnemonicParsing="false" onAction="#favouriteSociety" prefHeight="25.0" prefWidth="281.0" stylesheets="@Button.css" text="Favouite" />
                   <Text fx:id="societyDescriptionLabel" layoutX="22.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Description" textAlignment="CENTER" wrappingWidth="291.63671875" />
                </children>
             </AnchorPane>

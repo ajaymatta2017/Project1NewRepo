@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 public class FavouriteSocieties {
     
     public final SimpleStringProperty societyName, societyDescription;
+    public final int id;
 
     public String getSocietyName() {
         return this.societyName.get();
@@ -26,8 +27,13 @@ public class FavouriteSocieties {
         this.societyDescription.set(societyDescription);
     }
      
-    public FavouriteSocieties(String societyName, String societyDescription) {
+    public FavouriteSocieties(String societyName, String societyDescription, int id) {
         this.societyName = new SimpleStringProperty(societyName);
         this.societyDescription = new SimpleStringProperty(societyDescription);
+        this.id = id;
+    }
+    
+    public String getId() {
+        return Integer.toString(id);
     }
 }

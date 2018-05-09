@@ -7,6 +7,7 @@ package eventable.pkgfor.students;
 
 import static eventable.pkgfor.students.DBController.openConnection;
 import static eventable.pkgfor.students.StudentScreenSociety_AllController.societySelectedDescription;
+import static eventable.pkgfor.students.StudentScreenSociety_AllController.societySelectedId;
 import static eventable.pkgfor.students.StudentScreenSociety_AllController.societySelectedName;
 import java.io.IOException;
 import java.net.URL;
@@ -71,7 +72,7 @@ public class StudentScreenSociety_FavouritesController extends Application imple
     public void populateTableView() throws SQLException {
         String loggedInUser = LoginController.loggedInUser;
         statement = openConnection();
-        currentQuery = "SELECT society_name, society_description FROM society JOIN favourites f USING (society_id) WHERE f.email = '"+ loggedInUser + "'";
+        currentQuery = "SELECT society_name, society_description, society_id FROM society JOIN favourites f USING (society_id) WHERE f.email = '"+ loggedInUser + "'";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         societyName.setCellValueFactory(new PropertyValueFactory<>("societyName"));
@@ -83,7 +84,7 @@ public class StudentScreenSociety_FavouritesController extends Application imple
         try {
             while (rs.next()) {
                 int i = 1;
-                societyData.add(new FavouriteSocieties(rs.getString(i), rs.getString(i + 1)));
+                societyData.add(new FavouriteSocieties(rs.getString(i), rs.getString(i + 1), Integer.parseInt(rs.getString(i + 2))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentScreenEvents_FavouritesController.class.getName()).log(Level.SEVERE, null, ex);
@@ -181,6 +182,7 @@ public class StudentScreenSociety_FavouritesController extends Application imple
             FavouriteSocieties societySelected = tableOfSocieties.getSelectionModel().getSelectedItem();
             societySelectedName = societySelected.getSocietyName();
             societySelectedDescription = societySelected.getSocietyDescription();
+            societySelectedId = societySelected.getId();
             loadNext("StudentScreenSociety_SingleSociety.fxml");
         }
     }

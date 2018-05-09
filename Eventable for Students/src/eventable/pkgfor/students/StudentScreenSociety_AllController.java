@@ -68,11 +68,12 @@ public class StudentScreenSociety_AllController extends Application implements I
 
     public static String societySelectedName;
     public static String societySelectedDescription;
+    public static String societySelectedId;
     
     public void populateTableView() throws SQLException {
         String loggedInUser = LoginController.loggedInUser;
         statement = openConnection();
-        currentQuery = "SELECT society_name, society_description FROM society";
+        currentQuery = "SELECT society_name, society_description, society_id FROM society";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         societyName.setCellValueFactory(new PropertyValueFactory<>("societyName"));
@@ -84,7 +85,7 @@ public class StudentScreenSociety_AllController extends Application implements I
         try {
             while (rs.next()) {
                 int i = 1;
-                societyData.add(new FavouriteSocieties(rs.getString(i), rs.getString(i + 1)));
+                societyData.add(new FavouriteSocieties(rs.getString(i), rs.getString(i + 1), Integer.parseInt(rs.getString(i + 2))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentScreenEvents_FavouritesController.class.getName()).log(Level.SEVERE, null, ex);
@@ -190,6 +191,7 @@ public class StudentScreenSociety_AllController extends Application implements I
             FavouriteSocieties societySelected = tableOfSocieties.getSelectionModel().getSelectedItem();
             societySelectedName = societySelected.getSocietyName();
             societySelectedDescription = societySelected.getSocietyDescription();
+            societySelectedId = societySelected.getId();
             loadNext("StudentScreenSociety_SingleSociety.fxml");
         }
     }
