@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.LoginController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.LoginController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -30,7 +30,7 @@
                   <Image url="@EventAble%20logo%20v2.png" />
                </image>
             </ImageView>
-            <Button fx:id="loginButton" contentDisplay="CENTER" graphicTextGap="100.0" layoutX="807.0" layoutY="880.0" mnemonicParsing="false" onAction="#loginButton" opacity="0.0" prefHeight="36.0" prefWidth="79.0" style="-fx-border-color: WHITE; -fx-text-fill: WHITE; -fx-background-color: BLACK; -fx-opacity: 0.5;" text="LOGIN" textAlignment="CENTER">
+            <Button fx:id="loginButton" contentDisplay="CENTER" graphicTextGap="100.0" layoutX="807.0" layoutY="880.0" mnemonicParsing="false" onAction="#loginButton" opacity="0.0" prefHeight="36.0" prefWidth="79.0" stylesheets="@Starting%20screen%20button.css" text="LOGIN" textAlignment="CENTER">
                <font>
                   <Font name="Helvetica Neue Medium" size="14.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TextField fx:id="email" layoutX="716.0" layoutY="722.0" prefHeight="39.0" prefWidth="260.0" style="-fx-border-color: white; -fx-background-color: black; -fx-opacity: 0.5; -fx-text-fill: white">
+            <TextField fx:id="email" layoutX="716.0" layoutY="722.0" prefHeight="39.0" prefWidth="260.0" stylesheets="@SearchBox.css">
                <font>
                   <Font name="Helvetica Neue" size="14.0" />
                </font>
@@ -53,10 +53,13 @@
                   <Font name="Helvetica Neue" size="14.0" />
                </font>
             </Text>
-            <Text fx:id="forgotPassword" fill="WHITE" layoutX="789.0" layoutY="940.0" onMouseClicked="#forgotPassword" strokeType="OUTSIDE" strokeWidth="0.0" text="FORGOT PASSWORD?" underline="true">
+            <Text fx:id="forgotPassword" fill="WHITE" layoutX="789.0" layoutY="941.0" onMouseClicked="#forgotPassword" strokeType="OUTSIDE" strokeWidth="0.0" text="FORGOT PASSWORD?" underline="true">
                <font>
                   <Font name="Helvetica Neue" size="12.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
             </Text>
             <Text fx:id="errorText" fill="RED" layoutX="745.0" layoutY="863.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter username and/or password" textAlignment="CENTER" visible="false">
                <font>
@@ -68,12 +71,12 @@
                   <Font name="Helvetica Neue" size="12.0" />
                </font>
             </Text>
-            <ImageView fx:id="backButton" fitHeight="30.0" fitWidth="30.0" layoutX="709.0" layoutY="431.0" onMouseClicked="#backButtonPressed" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="backButton" fitHeight="30.0" fitWidth="30.0" layoutX="704.0" layoutY="429.0" onMouseClicked="#backButtonPressed" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@backIcon1.png" />
                </image>
             </ImageView>
-            <PasswordField fx:id="password" layoutX="716.0" layoutY="796.0" prefHeight="39.0" prefWidth="260.0" style="-fx-border-color: white; -fx-background-color: black; -fx-opacity: 0.5; -fx-text-fill: white" />
+            <PasswordField fx:id="password" layoutX="716.0" layoutY="796.0" prefHeight="39.0" prefWidth="260.0" stylesheets="@SearchBox.css" />
          </children>
       </AnchorPane>
    </children>

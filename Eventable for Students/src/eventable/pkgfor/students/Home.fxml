@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.HomeController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.HomeController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -27,7 +27,7 @@
                   <Image url="@EventAble%20logo%20v2.png" />
                </image>
             </ImageView>
-            <Button fx:id="login" graphicTextGap="100.0" layoutX="727.0" layoutY="815.0" mnemonicParsing="false" onAction="#LoginButton" opacity="0.0" prefHeight="43.0" prefWidth="108.0" style="-fx-border-color: WHITE; -fx-text-fill: WHITE; -fx-background-color: BLACK; -fx-opacity: 0.5;" text="LOGIN">
+            <Button fx:id="login" graphicTextGap="100.0" layoutX="727.0" layoutY="815.0" mnemonicParsing="false" onAction="#LoginButton" opacity="0.0" prefHeight="43.0" prefWidth="108.0" stylesheets="@Starting%20screen%20button.css" text="LOGIN">
                <font>
                   <Font name="Helvetica Neue" size="14.0" />
                </font>
@@ -35,7 +35,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="signUp" contentDisplay="CENTER" graphicTextGap="100.0" layoutX="863.0" layoutY="815.0" mnemonicParsing="false" onAction="#SignUpButton" opacity="0.0" prefHeight="43.0" prefWidth="108.0" style="-fx-border-color: WHITE; -fx-text-fill: WHITE; -fx-background-color: BLACK; -fx-opacity: 0.5;" text="SIGN UP" textAlignment="CENTER">
+            <Button fx:id="signUp" contentDisplay="CENTER" graphicTextGap="100.0" layoutX="863.0" layoutY="815.0" mnemonicParsing="false" onAction="#SignUpButton" opacity="0.0" prefHeight="43.0" prefWidth="108.0" stylesheets="@Starting%20screen%20button.css" text="SIGN UP" textAlignment="CENTER">
                <font>
                   <Font name="Helvetica Neue" size="14.0" />
                </font>
@@ -43,7 +43,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="proceed" contentDisplay="CENTER" graphicTextGap="100.0" layoutX="727.0" layoutY="867.0" mnemonicParsing="false" onAction="#proceedWithoutLoggingIn" opacity="0.0" prefHeight="43.0" prefWidth="244.0" style="-fx-border-color: WHITE; -fx-text-fill: WHITE; -fx-background-color: BLACK; -fx-opacity: 0.5;" text="PROCEED WITHOUT LOGGING IN" textAlignment="CENTER">
+            <Button fx:id="proceed" contentDisplay="CENTER" graphicTextGap="100.0" layoutX="727.0" layoutY="867.0" mnemonicParsing="false" onAction="#proceedWithoutLoggingIn" opacity="0.0" prefHeight="43.0" prefWidth="244.0" stylesheets="@Starting%20screen%20button.css" text="PROCEED WITHOUT LOGGING IN" textAlignment="CENTER">
                <font>
                   <Font name="Helvetica Neue" size="14.0" />
                </font>
