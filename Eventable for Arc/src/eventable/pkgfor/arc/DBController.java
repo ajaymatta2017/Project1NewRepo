@@ -1,6 +1,5 @@
 package eventable.pkgfor.arc;
 
-//import oracle.jdbc.OracleDriver;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -12,26 +11,36 @@ public class DBController {
     
     public static Connection conn;
     protected String currentQuery;
+    public static Statement statement;
       
     //Open database connection
-   public static void openConnection() throws ClassNotFoundException {
+   public static Statement openConnection() {
         if (conn == null) {
             try {
                 Class.forName("oracle.jdbc.driver.OracleDriver");
-                conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","hr","hr");
+            }
+                catch (ClassNotFoundException ex) {
+                Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                conn = DriverManager.getConnection("jdbc:oracle:thin:@sage.business.unsw.edu.au:1521:orcl01","Y17GROUP214","zanyheart47");
+                statement = conn.createStatement();
             }
             catch (SQLException ex) {
                 ex.printStackTrace();
-            }
+            } 
         }
+        return statement;
     }
 
     //Close database connection
-    public static void closeConnetion() {
+    public static void closeConnection(Connection conn, ResultSet rs, Statement statement) {
     try {
+        rs.close();
+        statement.close();
         conn.close();
     }
-     catch (SQLException ex) {
+     catch (Exception ex) {
         ex.printStackTrace();
         }
     }
