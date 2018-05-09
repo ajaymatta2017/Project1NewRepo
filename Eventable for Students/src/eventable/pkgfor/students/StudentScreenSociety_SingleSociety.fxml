@@ -17,11 +17,11 @@
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Ellipse fill="DODGERBLUE" layoutX="38.0" layoutY="567.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
-            <Text fill="WHITE" layoutX="15.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
-            <Text fill="WHITE" layoutX="82.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
-            <Text fill="WHITE" layoutX="149.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
-            <Text fill="WHITE" layoutX="214.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
-            <Text fill="WHITE" layoutX="286.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="581.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
+            <Text fx:id="code" fill="WHITE" layoutX="82.0" layoutY="581.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
+            <Text fx:id="events" fill="WHITE" layoutX="149.0" layoutY="581.0" onMouseClicked="#bottomNavEventsButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
+            <Text fx:id="feedback" fill="WHITE" layoutX="214.0" layoutY="580.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+            <Text fx:id="profile" fill="WHITE" layoutX="286.0" layoutY="581.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
             <Button fx:id="backButton" layoutX="5.0" layoutY="2.0" mnemonicParsing="false" onMouseClicked="#topNavBackButton" prefHeight="18.0" prefWidth="27.0" style="-fx-background-color: transparent;" text="&lt;" textFill="WHITE">
                <font>
                   <Font size="18.0" />
