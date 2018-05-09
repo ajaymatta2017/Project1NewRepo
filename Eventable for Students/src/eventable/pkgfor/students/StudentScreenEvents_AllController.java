@@ -89,6 +89,7 @@ public class StudentScreenEvents_AllController extends Application implements In
     Date currentDate;
 
     ObservableList<Events> eventsData;
+    ObservableList<Events> eventsDataAll;
 
     public static Connection conn;
 
@@ -98,12 +99,18 @@ public class StudentScreenEvents_AllController extends Application implements In
 
     public static Statement statement;
 
+    public static String eventName;
+    public static String eventLocation;
+    public static String eventStartDate;
+    public static String eventEndDate;
+    public static String eventSocietyName;
+
     public void populateTableView() throws SQLException {
         //Only display events that are in the future
         statement = openConnection();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy HH:mm:ss");
         currentDate = new Date();
-        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE FROM EVENT WHERE EVENT_START >= '05/MAY/2018'";
+        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_CODE, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm') AS VARCHAR2(50)) FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_CODE) WHERE EVENT_START >= '05/MAY/2018'";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         event.setCellValueFactory(new PropertyValueFactory<>("event"));
@@ -112,10 +119,13 @@ public class StudentScreenEvents_AllController extends Application implements In
 
         //Data added to observable List
         eventsData = FXCollections.observableArrayList();
+        eventsDataAll = FXCollections.observableArrayList();
         try {
             while (rs.next()) {
                 int i = 1;
-                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
+                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4), 
+                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9), 
+                        rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
@@ -219,6 +229,28 @@ public class StudentScreenEvents_AllController extends Application implements In
     @FXML
     private void topNavPast(MouseEvent event) throws SQLException {
         loadNext("StudentScreenEvents_Past.fxml");
+    }
+
+    @FXML
+    private void tableviewItemClicked(MouseEvent event) throws SQLException {
+        //TODO: FINISH
+        if (event.getClickCount() == 2) {
+            Events eventSelected = tableofEvents.getSelectionModel().getSelectedItem();
+            eventName = eventSelected.getEvent();
+            String eventLocationType = eventSelected.getLocationType();
+            if (eventLocationType.equals("On Campus")) {
+                eventLocation = eventSelected.getRoomNo() + " " + eventSelected.getBuildingName() + ", " + eventSelected.getBuildingCode();
+            }
+            else {
+                eventLocation = eventSelected.getStreetNo() + " " + eventSelected.getStreetName() + ", " + eventSelected.getSuburb() + ", " + 
+                        eventSelected.getPostcode();
+            }
+            eventStartDate = eventSelected.getStartDate() + " " + eventSelected.getEventStartTime();
+            eventEndDate = eventSelected.getEventEnd() + " " + eventSelected.getEventEndTime();
+            eventSocietyName = eventSelected.getSocietyName();
+            System.out.println(eventName + "..." + eventLocation + "..." + eventStartDate + "..." + eventSocietyName + "..." + eventSelected.getLocationType());
+            loadNext("StudentScreenEvent_SingleEvent.fxml");
+        }
     }
 
     public void loadNext(String destination) {

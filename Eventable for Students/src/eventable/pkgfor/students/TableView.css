@@ -14,9 +14,6 @@
  -fx-background-color: transparent;
 }
 
-/* Spaltenköpfe
- Struktur column-header-background -> column-header */
-
 .table-view .column-header-background{
  -fx-background-color: #039be5;
 }
@@ -68,4 +65,4 @@
 .table-view > .virtual-flow > .scroll-bar > .increment-button,
 .table-view > .virtual-flow > .scroll-bar > .decrement-button {
  -fx-opacity: 0;
-}*
+}

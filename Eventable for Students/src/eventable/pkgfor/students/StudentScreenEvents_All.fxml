@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenEvents_AllController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenEvents_AllController">
    <children>
       <AnchorPane prefHeight="602.0" prefWidth="186.0">
          <children>
@@ -75,7 +75,7 @@
       </AnchorPane>
       <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="335.0" vbarPolicy="NEVER">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="599.0" prefWidth="338.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="7.0" prefWidth="338.0">
                <children>
                   <TextField layoutX="6.0" layoutY="14.0" prefHeight="32.0" prefWidth="317.0" promptText="Search" stylesheets="@SearchBox.css">
                      <styleClass>
@@ -86,7 +86,7 @@
                      <font>
                         <Font size="14.0" />
                      </font></TextField>
-                  <TableView fx:id="tableofEvents" layoutX="-1.0" layoutY="94.0" prefHeight="420.0" prefWidth="335.0" stylesheets="@TableView.css">
+                  <TableView fx:id="tableofEvents" layoutX="-1.0" layoutY="94.0" onMouseClicked="#tableviewItemClicked" prefHeight="420.0" prefWidth="335.0" stylesheets="@TableView.css">
                      <columns>
                         <TableColumn fx:id="event" prefWidth="125.0" text="Event" />
                         <TableColumn fx:id="startDate" prefWidth="77.0" text="Start Date" />
@@ -106,14 +106,14 @@
                      </styleClass>
                   </TableView>
                   <Accordion layoutX="77.0" layoutY="83.0" />
-                <TitledPane animated="false" expanded="false" layoutX="-2.0" layoutY="51.0" prefHeight="156.0" prefWidth="335.0" stylesheets="@titledpane.css" text="Filters">
+                <TitledPane animated="false" expanded="false" layoutX="-2.0" layoutY="51.0" prefHeight="130.0" prefWidth="335.0" stylesheets="@titledpane.css" text="Filters">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <DatePicker layoutX="16.0" layoutY="11.0" prefHeight="27.0" prefWidth="90.0" promptText="From" />
                               <DatePicker layoutX="113.0" layoutY="11.0" prefHeight="27.0" prefWidth="83.0" promptText="To" />
                               <Hyperlink layoutX="204.0" layoutY="12.0" text="Today" />
-                              <Button layoutX="16.0" layoutY="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" stylesheets="@../../../../../Desktop/Button.css" text="A-Z" />
+                              <Button layoutX="16.0" layoutY="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" stylesheets="@Button.css" text="A-Z" />
                               <ComboBox layoutX="86.0" layoutY="50.0" prefHeight="27.0" prefWidth="109.0" promptText="By Society" />
                               <Button layoutX="199.0" layoutY="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Apply" />
                            </children>

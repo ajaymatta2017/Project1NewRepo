@@ -6,40 +6,85 @@
 package eventable.pkgfor.students;
 
 import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author Ajay Matta
  */
 public class Events {
-    public final SimpleStringProperty event, startDate, location;
+    public final SimpleStringProperty event, startDate, locationType, streetNo, streetName, postcode, suburb, buildingCode, buildingName, roomNo, societyName, eventEnd, eventEndTime, eventStartTime;
+
+    public Events(String event, String startDate, String locationType, String streetNo, String streetName, String postcode, String suburb, String buildingCode, String buildingName, String roomNo, String societyName, String eventEnd, String eventEndTime, String eventStartTime) {
+        this.event = new SimpleStringProperty(event);
+        this.startDate = new SimpleStringProperty(startDate);
+        this.locationType = new SimpleStringProperty(locationType);
+        this.streetNo = new SimpleStringProperty(streetNo);
+        this.streetName = new SimpleStringProperty(streetName);
+        this.postcode = new SimpleStringProperty(postcode);
+        this.suburb = new SimpleStringProperty(suburb);
+        this.buildingCode = new SimpleStringProperty(buildingCode);
+        this.buildingName = new SimpleStringProperty(buildingName);
+        this.roomNo = new SimpleStringProperty(roomNo);
+        this.societyName = new SimpleStringProperty(societyName);
+        this.eventEnd = new SimpleStringProperty(eventEnd);
+        this.eventEndTime = new SimpleStringProperty(eventEndTime);
+        this.eventStartTime = new SimpleStringProperty(eventStartTime);
+    }
 
     public String getEvent() {
         return event.get();
     }
-    
-    public void setEvent(String event) {
-        this.event.set(event);
-    }
-    
+
     public String getStartDate() {
         return startDate.get();
     }
-    
-     public void setStartDate(String startDate) {
-        this.startDate.set(startDate);
+
+    public String getLocationType() {
+        return locationType.get();
     }
 
-    public String getLocation() {
-        return location.get();
-    }
-    
-     public void setLocation(String location) {
-        this.location.set(location);
+    public String getStreetNo() {
+        return streetNo.get();
     }
 
-    public Events(String eventName, String startDates, String locations) {
-        event = new SimpleStringProperty(eventName);
-        startDate = new SimpleStringProperty(startDates);
-        this.location = new SimpleStringProperty(locations);
+    public String getStreetName() {
+        return streetName.get();
     }
+
+    public String getPostcode() {
+        return postcode.get();
+    }
+
+    public String getSuburb() {
+        return suburb.get();
+    }
+
+    public String getBuildingCode() {
+        return buildingCode.get();
+    }
+
+    public String getRoomNo() {
+        return roomNo.get();
+    }
+
+    public String getSocietyName() {
+        return societyName.get();
+    }
+
+    public String getEventEnd() {
+        return eventEnd.get();
+    }
+
+    public String getBuildingName() {
+        return buildingName.get();
+    }
+
+    public String getEventEndTime() {
+        return eventEndTime.get();
+    }
+
+    public String getEventStartTime() {
+        return eventStartTime.get();
+    }
+      
 }

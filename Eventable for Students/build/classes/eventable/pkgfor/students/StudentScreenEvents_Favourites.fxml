@@ -57,7 +57,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="512.0" prefWidth="338.0">
                <children>
                   <TextField layoutX="28.0" layoutY="14.0" prefHeight="32.0" prefWidth="282.0" promptText="Search" />
-                  <TableView fx:id="tableofEventsFavourites" layoutX="26.0" layoutY="103.0" prefHeight="403.0" prefWidth="283.0">
+                  <TableView fx:id="tableofEventsFavourites" layoutX="26.0" layoutY="103.0" onMouseClicked="#tableviewItemClicked" prefHeight="403.0" prefWidth="283.0">
                      <columns>
                         <TableColumn fx:id="event" prefWidth="125.0" text="Event" />
                         <TableColumn fx:id="startDate" prefWidth="77.0" text="Start Date" />
@@ -65,7 +65,7 @@
                      </columns>
                   </TableView>
                   <Accordion layoutX="77.0" layoutY="83.0" />
-                <TitledPane animated="false" expanded="false" layoutX="27.0" layoutY="59.0" maxHeight="-Infinity" prefHeight="398.0" prefWidth="282.0" text="Filters">
+                <TitledPane animated="false" expanded="false" layoutX="27.0" layoutY="59.0" maxHeight="-Infinity" prefHeight="5.0" prefWidth="282.0" text="Filters">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>

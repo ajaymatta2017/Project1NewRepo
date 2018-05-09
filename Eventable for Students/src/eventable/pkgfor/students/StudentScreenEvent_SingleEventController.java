@@ -20,8 +20,10 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -40,7 +42,7 @@ import javafx.stage.Stage;
  *
  * @author AriSurfacePro
  */
-public class StudentScreenEvent_SingleEventController implements Initializable {
+public class StudentScreenEvent_SingleEventController extends Application implements Initializable {
 
     @FXML
     Stage stage;
@@ -63,15 +65,32 @@ public class StudentScreenEvent_SingleEventController implements Initializable {
     @FXML
     private Button backButton;
     @FXML
-    public TableView<Events> tableofEvents;
+    private Button imInButton;
     @FXML
-    public TableColumn<Events, String> event;
+    private Button imOutButton;
     @FXML
-    public TableColumn<Events, String> startDate;
+    private Button postCommentButton;
     @FXML
-    public TableColumn<Events, String> location;
-
-    ObservableList<Events> eventsSingleData;
+    public Text eventName;
+    @FXML
+    public Text societyName;
+    @FXML
+    public Text eventLocation;
+    @FXML
+    public Text eventDate;
+    @FXML
+    public Text myStatusText;
+    
+//    @FXML
+//    public TableView<Events> tableofEvents;
+//    @FXML
+//    public TableColumn<Events, String> event;
+//    @FXML
+//    public TableColumn<Events, String> startDate;
+//    @FXML
+//    public TableColumn<Events, String> location;
+//
+//    ObservableList<Events> eventsSingleData;
 
     public static Connection conn;
 
@@ -83,40 +102,41 @@ public class StudentScreenEvent_SingleEventController implements Initializable {
   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        populateEventData();
     }    
 
-    public void populateTableView() throws SQLException {
-        //Only display events that are in the future
-        statement = openConnection();
-       
-        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE FROM EVENT WHERE EVENT_START >= '05/MAY/2018'";
-        rs = statement.executeQuery(currentQuery);
-
-        event.setCellValueFactory(new PropertyValueFactory<>("event"));
-        startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        location.setCellValueFactory(new PropertyValueFactory<>("location"));
-
-        //Data added to observable List
-        eventsSingleData = FXCollections.observableArrayList();
-        try {
-            while (rs.next()) {
-                int i = 1;
-                eventsSingleData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        //Data added to TableView
-        try {
-            tableofEvents.setItems(eventsSingleData);
-            //tableofEvents.getColumns().setAll(event, startDate, location);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeConnection(conn, rs, statement);
-        }
-    }
+//    public void populateTableView() throws SQLException {
+//        //Only display events that are in the future
+//        statement = openConnection();
+//       
+//        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE FROM EVENT WHERE EVENT_START >= '05/MAY/2018'";
+//        rs = statement.executeQuery(currentQuery);
+//
+//        event.setCellValueFactory(new PropertyValueFactory<>("event"));
+//        startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+//        location.setCellValueFactory(new PropertyValueFactory<>("location"));
+//
+//        //Data added to observable List
+//        eventsSingleData = FXCollections.observableArrayList();
+//        try {
+//            while (rs.next()) {
+//                int i = 1;
+//                eventsSingleData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        //Data added to TableView
+//        try {
+//            tableofEvents.setItems(eventsSingleData);
+//            //tableofEvents.getColumns().setAll(event, startDate, location);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            closeConnection(conn, rs, statement);
+//        }
+//    }
     
         @FXML
     private void bottomNavSocietyButton(MouseEvent event) {
@@ -158,6 +178,25 @@ public class StudentScreenEvent_SingleEventController implements Initializable {
         loadNext("StudentScreenEvents_All.fxml");
     }
     
+    @FXML
+    private void imInButtonClicked (ActionEvent event) {
+        //TODO: Store this in DB
+        myStatusText.setText("Already Going");
+    }
+    
+    @FXML
+    private void imOutButtonClicked (ActionEvent event) {
+        //TODO: Store this in DB
+        myStatusText.setText("Dogs the boizzz");
+    }
+    
+    @FXML
+    private void postCommentButtonClicked (ActionEvent event) {
+        //TODO: Store this in DB
+    }
+    
+    
+    
     public void loadNext(String destination){
         stage=(Stage) society.getScene().getWindow();
         try {
@@ -165,6 +204,23 @@ public class StudentScreenEvent_SingleEventController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void populateEventData() {
+        //Populate Event Data
+        eventName.setText(StudentScreenEvents_AllController.eventName);
+        eventLocation.setText(StudentScreenEvents_AllController.eventLocation);
+        eventDate.setText(StudentScreenEvents_AllController.eventStartDate + " - " + StudentScreenEvents_AllController.eventEndDate);
+        societyName.setText(StudentScreenEvents_AllController.eventSocietyName);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        populateEventData();
+        stage = (Stage) society.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
