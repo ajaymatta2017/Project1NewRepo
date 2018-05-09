@@ -11,7 +11,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Ellipse?>
@@ -20,11 +19,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenEvents_AllController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenEvents_AllController">
    <children>
       <AnchorPane prefHeight="602.0" prefWidth="186.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="45.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Ellipse fill="DODGERBLUE" layoutX="169.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
             <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="582.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies">
@@ -75,18 +74,9 @@
       </AnchorPane>
       <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="335.0" vbarPolicy="NEVER">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="7.0" prefWidth="338.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="573.0" prefWidth="338.0">
                <children>
-                  <TextField layoutX="6.0" layoutY="14.0" prefHeight="32.0" prefWidth="317.0" promptText="Search" stylesheets="@SearchBox.css">
-                     <styleClass>
-                        <String fx:value="button" />
-                        <String fx:value="search-box" />
-                        <String fx:value="text-field" />
-                     </styleClass>
-                     <font>
-                        <Font size="14.0" />
-                     </font></TextField>
-                  <TableView fx:id="tableofEvents" layoutX="-1.0" layoutY="94.0" onMouseClicked="#tableviewItemClicked" prefHeight="420.0" prefWidth="335.0" stylesheets="@TableView.css">
+                  <TableView fx:id="tableofEvents" layoutX="11.0" layoutY="205.0" onMouseClicked="#tableviewItemClicked" prefHeight="387.0" prefWidth="308.0" stylesheets="@TableView.css">
                      <columns>
                         <TableColumn fx:id="event" prefWidth="125.0" text="Event" />
                         <TableColumn fx:id="startDate" prefWidth="77.0" text="Start Date" />
@@ -105,31 +95,53 @@
                         <String fx:value="table-view" />
                      </styleClass>
                   </TableView>
-                  <Accordion layoutX="77.0" layoutY="83.0" />
-                <TitledPane animated="false" expanded="false" layoutX="-2.0" layoutY="51.0" prefHeight="130.0" prefWidth="335.0" stylesheets="@titledpane.css" text="Filters">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <DatePicker layoutX="16.0" layoutY="11.0" prefHeight="27.0" prefWidth="90.0" promptText="From" />
-                              <DatePicker layoutX="113.0" layoutY="11.0" prefHeight="27.0" prefWidth="83.0" promptText="To" />
-                              <Hyperlink layoutX="204.0" layoutY="12.0" text="Today" />
-                              <Button layoutX="16.0" layoutY="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" stylesheets="@Button.css" text="A-Z" />
-                              <ComboBox layoutX="86.0" layoutY="50.0" prefHeight="27.0" prefWidth="109.0" promptText="By Society" />
-                              <Button layoutX="199.0" layoutY="50.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="60.0" text="Apply" />
-                           </children>
-                        </AnchorPane>
-                  </content>
+                  <TextField layoutX="10.0" layoutY="16.0" prefHeight="30.0" prefWidth="309.0" promptText=" Search" stylesheets="@SearchBox.css">
                      <styleClass>
-                        <String fx:value="titled-pane" />
-                        <String fx:value="title" />
+                        <String fx:value="button" />
+                        <String fx:value="search-box" />
+                        <String fx:value="text-field" />
+                     </styleClass>
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextField>
+                  <Accordion layoutX="77.0" layoutY="83.0" />
+                  <DatePicker layoutX="9.0" layoutY="81.0" prefHeight="31.0" prefWidth="134.0" promptText="From" stylesheets="@DatePicker.css">
+                     <styleClass>
+                        <String fx:value="date-picker" />
+                        <String fx:value="text-field" />
+                     </styleClass>
+                  </DatePicker>
+                  <DatePicker layoutX="147.0" layoutY="81.0" prefHeight="31.0" prefWidth="125.0" promptText="To" stylesheets="@DatePicker.css">
+                     <styleClass>
+                        <String fx:value="arrow-button" />
+                        <String fx:value="date-picker" />
+                        <String fx:value="text-field" />
+                     </styleClass>
+                  </DatePicker>
+                  <Hyperlink layoutX="273.0" layoutY="83.0" text="Today" />
+                  <Button contentDisplay="CENTER" graphicTextGap="0.0" layoutX="12.0" layoutY="118.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="84.0" stylesheets="@AZButton.css" text="A-Z" />
+                  <ComboBox layoutX="105.0" layoutY="118.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="33.0" prefWidth="211.0" promptText="By Society" stylesheets="@ComboBox.css">
+                     <styleClass>
+                        <String fx:value="combo-box" />
+                        <String fx:value="combo-box-base" />
+                        <String fx:value="combo-box-popup" />
+                        <String fx:value="list-cell" />
+                        <String fx:value="list-view" />
                      </styleClass>
                      <cursor>
                         <Cursor fx:constant="OPEN_HAND" />
                      </cursor>
+                  </ComboBox>
+                  <Button layoutX="10.0" layoutY="160.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="309.0" stylesheets="@PrimaryButton.css" text="Apply">
                      <font>
-                        <Font name="System Bold" size="13.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
-                </TitledPane>
+                  </Button>
+                  <Text layoutX="13.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
         </content>

@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenEvent_SingleEventController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenEvent_SingleEventController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -48,7 +48,7 @@
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="502.0" prefWidth="338.0">
                <children>
                   <Accordion layoutX="77.0" layoutY="83.0" />
-                  <Text fx:id="societyName" fill="#6f6868" layoutX="37.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name" textAlignment="CENTER" wrappingWidth="264.000002393499">
+                  <Text fx:id="societyName" fill="#6f6868" layoutX="37.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name" textAlignment="CENTER" wrappingWidth="264.000002393499">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -68,28 +68,28 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="13.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" textAlignment="CENTER" wrappingWidth="311.1435546875">
+                  <Text layoutX="13.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" textAlignment="CENTER" wrappingWidth="311.1435546875">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="commentBox" layoutX="24.0" layoutY="221.0" prefHeight="75.0" prefWidth="283.0" promptText="Enter Comment Here" />
-                  <Text layoutX="27.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
+                  <TextArea fx:id="commentBox" layoutX="26.0" layoutY="365.0" prefHeight="44.0" prefWidth="283.0" promptText="Enter Comment Here" />
+                  <Text layoutX="26.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Text fx:id="myStatusText" layoutX="39.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already Going">
+                  <Text fx:id="myStatusText" layoutX="44.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already Going">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button fx:id="imInButton" layoutX="232.0" layoutY="170.0" mnemonicParsing="false" onAction="#imInButtonClicked" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #039be5#039be5;" text="Im in +" textFill="WHITE">
+                  <Button fx:id="imInButton" layoutX="231.0" layoutY="269.0" mnemonicParsing="false" onAction="#imInButtonClicked" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #039be5#039be5;" text="Im in +" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="imOutButton" layoutX="151.0" layoutY="170.0" mnemonicParsing="false" onAction="#imOutButtonClicked" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: white; -fx-border-color: #039be5#039be5;" text="Im out -" textFill="#039be5">
+                  <Button fx:id="imOutButton" layoutX="150.0" layoutY="269.0" mnemonicParsing="false" onAction="#imOutButtonClicked" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: white; -fx-border-color: #039be5#039be5;" text="Im out -" textFill="#039be5">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
@@ -97,12 +97,12 @@
                   <Accordion layoutX="49.0" layoutY="416.0" />
                   <Accordion layoutX="90.0" layoutY="427.0" />
                   <Accordion layoutX="25.0" layoutY="412.0" />
-                  <Button fx:id="postCommentButton" layoutX="84.0" layoutY="305.0" mnemonicParsing="false" onAction="#postCommentButtonClicked" prefHeight="29.0" prefWidth="159.0" style="-fx-background-color: #039be5#039be5;" text="Post Comment" textFill="WHITE">
+                  <Button fx:id="postCommentButton" layoutX="86.0" layoutY="418.0" mnemonicParsing="false" onAction="#postCommentButtonClicked" prefHeight="29.0" prefWidth="159.0" style="-fx-background-color: #039be5#039be5;" text="Post Comment" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                <TitledPane animated="false" expanded="false" layoutX="29.0" layoutY="350.0" prefHeight="22.0" prefWidth="280.0" text="Comments">
+                <TitledPane animated="false" expanded="false" layoutX="31.0" layoutY="463.0" prefHeight="22.0" prefWidth="280.0" text="Comments">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
@@ -112,6 +112,7 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
+                  <TextArea layoutX="29.0" layoutY="129.0" prefHeight="116.0" prefWidth="277.0" />
                </children>
             </AnchorPane>
         </content>
