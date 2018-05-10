@@ -33,7 +33,7 @@
                         <Image url="@EventAble%20logo%20v2%20copy.png" />
                      </image>
                   </ImageView>
-                  <Text layoutX="87.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Events">
+                  <Text fill="#0376ab" layoutX="87.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Events">
                      <font>
                         <Font size="24.0" />
                      </font>
