@@ -5,7 +5,6 @@
  */
 package eventable.pkgfor.students;
 
-
 import eventable.pkgfor.*;
 import static eventable.pkgfor.students.DBController.closeConnection;
 import static eventable.pkgfor.students.DBController.openConnection;
@@ -53,59 +52,61 @@ public class LoginController implements Initializable {
     private Button loginButton;
     @FXML
     private ImageView backButton;
-    
+
     @FXML
     private TextField email;
     @FXML
     public PasswordField password;
-    
+
     @FXML
     private Text errorText, errorText2, forgotPassword;
-    
+
     public static Connection conn;
-    
+
     public String currentQuery;
-    
+
     public static ResultSet rs;
-    
+
     public static Statement statement;
-    
+
     public static String loggedInUser;
-    
+
     public static Boolean userInSystem;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
-    
+
     //Authenticate
-    public boolean authenticate() throws ClassNotFoundException, SQLException{
+    public boolean authenticate() throws ClassNotFoundException, SQLException {
         //Get email and password from fields
         statement = openConnection();
         loggedInUser = email.getText().trim().toLowerCase();
         int loggedInPasswordHashed = password.getText().hashCode();
         String loggedInPasswordHashedString = loggedInPasswordHashed + "";
-   
-       //Checks if either field is empty
+
+        //Checks if either field is empty
         if ((email.getText().isEmpty()) || (password.getText().isEmpty())) {
             errorText.setVisible(true);
-        }
-        else {
-        currentQuery = "SELECT PASSWORD FROM APP_USER WHERE EMAIL = lower('" + loggedInUser + "')";
-        String passwordStoredInDB = null;
-        int passwordStoredInDBHashed;
-        String passwordStoredInDBHashedString = null; //as passwords stored in DB are currently not hashed 
-        
-        try {
+        } else {
+            currentQuery = "SELECT PASSWORD FROM APP_USER WHERE EMAIL = lower('" + loggedInUser + "')";
+            String passwordStoredInDB = null;
+            int passwordStoredInDBHashed;
+            String passwordStoredInDBHashedString = null; //as passwords stored in DB are currently not hashed 
+
             try {
-            ResultSet rs = statement.executeQuery(currentQuery);
-            while (rs.next()) {
-                    passwordStoredInDB = rs.getString("PASSWORD");
+                try {
+                    ResultSet rs = statement.executeQuery(currentQuery);
+                    if (rs.isBeforeFirst()) {
+                        while (rs.next()) {
+                            passwordStoredInDB = rs.getString("PASSWORD");
 //                    passwordStoredInDBHashed = passwordStoredInDB.hashCode();
 //                    passwordStoredInDBHashedString = passwordStoredInDBHashed + "";
-            }
-            }
-                    catch (NullPointerException e) {
+                        }
+                    } else {
+                        errorText2.setVisible(true);
+                    }
+                } catch (NullPointerException e) {
                     errorText2.setVisible(true);
                     return false;
                 }
@@ -118,35 +119,34 @@ public class LoginController implements Initializable {
                     errorText2.setVisible(true);
                     return false;
                 }
+            } catch (Exception ex) {
+                Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
-        catch (Exception ex) {
-            Logger.getLogger(DBController.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
         }
-    }
         return false;
     }
-    
+
     @FXML
     private void loginButton(ActionEvent event) throws Exception {
-       errorText.setVisible(false);
-       errorText2.setVisible(false);
-       userInSystem = true;
+        errorText.setVisible(false);
+        errorText2.setVisible(false);
+        userInSystem = true;
         //Checks if password is correct
-            if (authenticate()) {
+        if (authenticate()) {
 //                closeConnection(conn, rs, statement);
-                loadNext("StudentScreenEvents_All.fxml");
-                //loadNext("StudentScreenEvents_Favourites.fxml");
-               // loadNext("StudentScreenEvents_Going.fxml");
+            loadNext("StudentScreenEvents_All.fxml");
+            //loadNext("StudentScreenEvents_Favourites.fxml");
+            // loadNext("StudentScreenEvents_Going.fxml");
 //                loadNext("StudentScreenEvents_Past.fxml");
-                //loadNext("SignUp3.fxml");
-               // loadNext("ForgetPassword1.fxml");
-                //loadNext("SignUp1.fxml");
-            }
+            //loadNext("SignUp3.fxml");
+            // loadNext("ForgetPassword1.fxml");
+            //loadNext("SignUp1.fxml");
         }
-    
+    }
+
     @FXML
-    private void backButtonPressed (MouseEvent event) throws SQLException {
+    private void backButtonPressed(MouseEvent event) throws SQLException {
         loadNext("Home.fxml");
     }
 
@@ -154,7 +154,7 @@ public class LoginController implements Initializable {
     private void forgotPassword(MouseEvent event) {
         loadNext("ForgetPassword1.fxml");
     }
-    
+
     public void loadNext(String destination) {
         stage = (Stage) loginButton.getScene().getWindow();
         try {
@@ -167,7 +167,6 @@ public class LoginController implements Initializable {
         stage.show();
     }
 
-    
     //    @FXML
 //    private void SignInButton(ActionEvent event) throws Exception{
 //        DBController auth = new DBController();
@@ -189,8 +188,6 @@ public class LoginController implements Initializable {
 //        else {
 //            InjectionError.setVisible(true);
 //        }
-      
-  
 //    @FXML
 //    private void SignInButton(ActionEvent event) throws Exception{
 //        DBController auth = new DBController();
