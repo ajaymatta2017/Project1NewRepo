@@ -9,18 +9,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenCodeConfirmedController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenCodeConfirmedController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
-            <Ellipse fill="DODGERBLUE" layoutX="99.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
+            <Ellipse fill="DODGERBLUE" layoutX="167.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
             <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="581.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
-            <Text fx:id="code" fill="WHITE" layoutX="82.0" layoutY="581.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
+            <Text fx:id="code" fill="WHITE" layoutX="83.0" layoutY="582.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
             <Text fx:id="events" fill="WHITE" layoutX="149.0" layoutY="581.0" onMouseClicked="#bottomNavEventsButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
-            <Text fx:id="feedback" fill="WHITE" layoutX="214.0" layoutY="580.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
-            <Text fx:id="profile" fill="WHITE" layoutX="286.0" layoutY="581.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text fx:id="feedback" fill="WHITE" layoutX="213.0" layoutY="582.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+            <Text fx:id="profile" fill="WHITE" layoutX="285.0" layoutY="582.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
             <Text fill="WHITE" layoutX="152.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code">
                <font>
                   <Font size="14.0" />

@@ -12,9 +12,10 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Ajay Matta
  */
 public class Events {
-    public final SimpleStringProperty event, startDate, locationType, streetNo, streetName, postcode, suburb, buildingCode, buildingName, roomNo, societyName, eventEnd, eventEndTime, eventStartTime;
+    public final SimpleStringProperty event, startDate, locationType, streetNo, streetName, postcode, suburb, buildingCode, buildingName, roomNo, societyName, eventEnd, eventEndTime, eventStartTime, eventText;
+    public final int id;
 
-    public Events(String event, String startDate, String locationType, String streetNo, String streetName, String postcode, String suburb, String buildingCode, String buildingName, String roomNo, String societyName, String eventEnd, String eventEndTime, String eventStartTime) {
+    public Events(String event, String startDate, String locationType, String streetNo, String streetName, String postcode, String suburb, String buildingCode, String buildingName, String roomNo, String societyName, String eventEnd, String eventEndTime, String eventStartTime, String eventText, int id) {
         this.event = new SimpleStringProperty(event);
         this.startDate = new SimpleStringProperty(startDate);
         this.locationType = new SimpleStringProperty(locationType);
@@ -29,6 +30,8 @@ public class Events {
         this.eventEnd = new SimpleStringProperty(eventEnd);
         this.eventEndTime = new SimpleStringProperty(eventEndTime);
         this.eventStartTime = new SimpleStringProperty(eventStartTime);
+        this.eventText = new SimpleStringProperty(eventText);
+        this.id = id;
     }
 
     public String getEvent() {
@@ -86,5 +89,14 @@ public class Events {
     public String getEventStartTime() {
         return eventStartTime.get();
     }
+
+    public String getEventText() {
+        return eventText.get();
+    }
+
+    public String getId() {
+        return Integer.toString(id);
+    }
+    
       
 }

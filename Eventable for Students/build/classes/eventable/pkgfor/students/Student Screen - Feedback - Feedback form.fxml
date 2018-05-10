@@ -76,19 +76,19 @@
                   <RadioButton contentDisplay="BOTTOM" layoutX="148.0" layoutY="232.0" mnemonicParsing="false" text="3" textOverrun="CENTER_ELLIPSIS" />
                   <RadioButton contentDisplay="BOTTOM" layoutX="199.0" layoutY="232.0" mnemonicParsing="false" text="4" textOverrun="CENTER_ELLIPSIS" />
                   <RadioButton contentDisplay="BOTTOM" layoutX="252.0" layoutY="233.0" mnemonicParsing="false" text="5" textOverrun="CENTER_ELLIPSIS" />
-                  <TextArea layoutX="21.0" layoutY="292.0" prefHeight="77.0" prefWidth="292.0" promptText="Leave a comment" />
+                  <TextArea layoutX="21.0" layoutY="292.0" prefHeight="77.0" prefWidth="292.0" promptText="Leave a comment" stylesheets="@TextArea.css" />
                   <Text layoutX="25.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thoughts?" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextArea layoutX="22.0" layoutY="404.0" prefHeight="77.0" prefWidth="292.0" promptText="Leave a comment" />
+                  <TextArea layoutX="22.0" layoutY="404.0" prefHeight="77.0" prefWidth="292.0" promptText="Leave a comment" stylesheets="@TextArea.css" />
                   <Text layoutX="26.0" layoutY="394.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What did you enjoy about this event?" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextArea layoutX="19.0" layoutY="526.0" prefHeight="77.0" prefWidth="292.0" promptText="Leave a comment" />
+                  <TextArea layoutX="19.0" layoutY="526.0" prefHeight="77.0" prefWidth="292.0" promptText="Leave a comment" stylesheets="@TextArea.css" />
                   <Text layoutX="23.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="What can be improved about this event?" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />

@@ -12,10 +12,12 @@ import static eventable.pkgfor.students.LoginController.rs;
 import static eventable.pkgfor.students.LoginController.statement;
 import static eventable.pkgfor.students.LoginController.userInSystem;
 import static eventable.pkgfor.students.StudentScreenEvents_AllController.eventEndDate;
+import static eventable.pkgfor.students.StudentScreenEvents_AllController.eventId;
 import static eventable.pkgfor.students.StudentScreenEvents_AllController.eventLocation;
 import static eventable.pkgfor.students.StudentScreenEvents_AllController.eventName;
 import static eventable.pkgfor.students.StudentScreenEvents_AllController.eventSocietyName;
 import static eventable.pkgfor.students.StudentScreenEvents_AllController.eventStartDate;
+import static eventable.pkgfor.students.StudentScreenEvents_AllController.eventText;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -100,7 +102,7 @@ public class StudentScreenEvents_FavouritesController extends Application implem
     public void populateTableView() throws SQLException {
         String loggedInUser = LoginController.loggedInUser;
         statement = openConnection();
-        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_CODE, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm') AS VARCHAR2(50)) FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_CODE) JOIN favourites f USING (society_id) WHERE f.email = '"+ loggedInUser + "'";
+        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_CODE, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_CODE) JOIN favourites f USING (society_id) WHERE f.email = '"+ loggedInUser + "'";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         event.setCellValueFactory(new PropertyValueFactory<>("event"));
@@ -115,7 +117,7 @@ public class StudentScreenEvents_FavouritesController extends Application implem
                 int i = 1;
                 eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4), 
                         rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9), 
-                        rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13)));
+                        rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13), rs.getString(i + 14), Integer.parseInt(rs.getString(i + 15))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentScreenEvents_FavouritesController.class.getName()).log(Level.SEVERE, null, ex);
@@ -235,7 +237,7 @@ public class StudentScreenEvents_FavouritesController extends Application implem
     
     @FXML
     private void tableviewItemClicked(MouseEvent event) throws SQLException {
-        if (event.getClickCount() == 2) {
+         if (event.getClickCount() == 2) {
             Events eventSelected = tableofEventsFavourites.getSelectionModel().getSelectedItem();
             eventName = eventSelected.getEvent();
             String eventLocationType = eventSelected.getLocationType();
@@ -249,9 +251,11 @@ public class StudentScreenEvents_FavouritesController extends Application implem
             eventStartDate = eventSelected.getStartDate() + " " + eventSelected.getEventStartTime();
             eventEndDate = eventSelected.getEventEnd() + " " + eventSelected.getEventEndTime();
             eventSocietyName = eventSelected.getSocietyName();
+            eventText = eventSelected.getEventText();
+            eventId = eventSelected.getId();
             System.out.println(eventName + "..." + eventLocation + "..." + eventStartDate + "..." + eventSocietyName + "..." + eventSelected.getLocationType());
             loadNext("StudentScreenEvent_SingleEvent.fxml");
-        }
+    }
     }
     
     @Override

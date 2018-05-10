@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,18 +13,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenSociety_FavouritesController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenSociety_FavouritesController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#039be5" height="44.0" layoutX="-2.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#006db3" height="53.0" layoutY="549.0" stroke="#ffffff00" strokeType="INSIDE" width="338.0" />
-            <Ellipse fill="DODGERBLUE" layoutX="40.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
-            <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="581.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
-            <Text fx:id="code" fill="WHITE" layoutX="82.0" layoutY="581.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
+            <Ellipse fill="DODGERBLUE" layoutX="168.0" layoutY="568.0" radiusX="34.0" radiusY="34.0" stroke="#039be500" strokeType="INSIDE" />
+            <Text fx:id="society" fill="WHITE" layoutX="15.0" layoutY="583.0" onMouseClicked="#bottomNavSocietyButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Societies" />
+            <Text fx:id="code" fill="WHITE" layoutX="84.0" layoutY="583.0" onMouseClicked="#bottomNavCodeButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" />
             <Text fx:id="events" fill="WHITE" layoutX="149.0" layoutY="581.0" onMouseClicked="#bottomNavEventsButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Events" />
-            <Text fx:id="feedback" fill="WHITE" layoutX="214.0" layoutY="580.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
-            <Text fx:id="profile" fill="WHITE" layoutX="286.0" layoutY="581.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
+            <Text fx:id="feedback" fill="WHITE" layoutX="212.0" layoutY="582.0" onMouseClicked="#bottomNavFeedbackButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Feedback" />
+            <Text fx:id="profile" fill="WHITE" layoutX="285.0" layoutY="582.0" onMouseClicked="#bottomNavProfileButton" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" />
             <Text fx:id="all" fill="WHITE" layoutX="82.0" layoutY="30.0" onMouseClicked="#topNavAll" strokeType="OUTSIDE" strokeWidth="0.0" text="All">
                <font>
                   <Font size="14.0" />
@@ -41,13 +42,41 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="511.0" prefWidth="338.0">
                <children>
-                  <TextField layoutX="26.0" layoutY="12.0" prefHeight="32.0" prefWidth="282.0" promptText="Search" />
-                  <TableView fx:id="tableOfSocieties" layoutX="26.0" layoutY="60.0" onMouseClicked="#tableviewItemClicked" prefHeight="449.0" prefWidth="283.0">
+                  <TableView fx:id="tableOfSocieties" fixedCellSize="0.0" layoutX="11.0" layoutY="60.0" onMouseClicked="#tableviewItemClicked" prefHeight="515.0" prefWidth="308.0" stylesheets="@TableView.css">
                     <columns>
                       <TableColumn fx:id="societyName" prefWidth="75.0" text="Society Name" />
                       <TableColumn fx:id="societyDescription" prefWidth="207.0" text="Society Description" />
                     </columns>
+                     <styleClass>
+                        <String fx:value="table-row-cell" />
+                        <String fx:value="table-cell" />
+                        <String fx:value="column-header" />
+                        <String fx:value="column-header-background" />
+                        <String fx:value="decrement-button" />
+                        <String fx:value="increment-button" />
+                        <String fx:value="label" />
+                        <String fx:value="root" />
+                        <String fx:value="scroll-bar" />
+                        <String fx:value="track-background" />
+                     </styleClass>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
+                  <AnchorPane layoutX="10.0" layoutY="16.0">
+                     <children>
+                        <TextField prefHeight="30.0" prefWidth="309.0" promptText=" Search" stylesheets="@SearchBox.css">
+                           <styleClass>
+                              <String fx:value="button" />
+                              <String fx:value="search-box" />
+                              <String fx:value="text-field" />
+                           </styleClass>
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
         </content>

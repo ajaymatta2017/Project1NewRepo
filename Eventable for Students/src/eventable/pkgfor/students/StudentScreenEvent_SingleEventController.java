@@ -79,6 +79,8 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     @FXML
     public Text eventDate;
     @FXML
+    public Text eventDetails;
+    @FXML
     public Text myStatusText;
 
 //    @FXML
@@ -94,14 +96,27 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     public static Connection conn;
 
     public String currentQuery;
+    public String currentQuery1;
+    public String currentQuery2;
+    public String currentQuery3;
 
     public static ResultSet rs;
+    public static ResultSet rs1;
+    public static ResultSet rs2;
+    public static ResultSet rs3;
+
+    public boolean hasSelectedAttendance = false;
 
     public static Statement statement;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         populateEventData();
+        try {
+            checkAttendanceStatus();
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvent_SingleEventController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 //    public void populateTableView() throws SQLException {
@@ -177,15 +192,39 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     }
 
     @FXML
-    private void imInButtonClicked(ActionEvent event) {
-        //TODO: Store this in DB
-        myStatusText.setText("Already Going");
+    private void imInButtonClicked(ActionEvent event) throws SQLException {
+        statement = openConnection();
+        if (!hasSelectedAttendance) {
+            currentQuery2 = "INSERT INTO ATTENDANCE (event_id, email, event_theoretical_attendance) VALUES ('" + 
+                    StudentScreenEvents_AllController.eventId + "', '" + LoginController.loggedInUser + "', 'Y')";
+            rs2 = statement.executeQuery(currentQuery2);
+            myStatusText.setText("Already Going");
+            hasSelectedAttendance = true;
+        }
+        else {
+            currentQuery2 = "UPDATE ATTENDANCE SET EVENT_THEORETICAL_ATTENDANCE = 'Y' WHERE event_id = '" + StudentScreenEvents_AllController.eventId +
+                    "' AND email = '" + LoginController.loggedInUser + "'";
+            rs2 = statement.executeQuery(currentQuery2);
+            myStatusText.setText("Already Going");
+        }
     }
 
     @FXML
-    private void imOutButtonClicked(ActionEvent event) {
-        //TODO: Store this in DB
-        myStatusText.setText("Dogs the boizzz");
+    private void imOutButtonClicked(ActionEvent event) throws SQLException {
+        statement = openConnection();
+        if (!hasSelectedAttendance) {
+            currentQuery3 = "INSERT INTO ATTENDANCE (event_id, email, event_theoretical_attendance) VALUES ('" + 
+                    StudentScreenEvents_AllController.eventId + "', '" + LoginController.loggedInUser + "', 'N')";
+            rs3 = statement.executeQuery(currentQuery3);
+            myStatusText.setText("Dogs the boizzz");
+            hasSelectedAttendance = true;
+        }
+        else {
+            currentQuery3 = "UPDATE ATTENDANCE SET EVENT_THEORETICAL_ATTENDANCE = 'N' WHERE event_id = '" + StudentScreenEvents_AllController.eventId +
+                    "' AND email = '" + LoginController.loggedInUser + "'";
+            rs3 = statement.executeQuery(currentQuery3);
+            myStatusText.setText("Dogs the boizzz");
+        }
     }
 
     @FXML
@@ -211,11 +250,43 @@ public class StudentScreenEvent_SingleEventController extends Application implem
         eventLocation.setText(StudentScreenEvents_AllController.eventLocation);
         eventDate.setText(StudentScreenEvents_AllController.eventStartDate + " - " + StudentScreenEvents_AllController.eventEndDate);
         societyName.setText(StudentScreenEvents_AllController.eventSocietyName);
+        eventDetails.setText(StudentScreenEvents_AllController.eventText);
+    }
+
+    private void checkAttendanceStatus() throws SQLException {
+        //Checks DB to see whether the user is already attending or not
+        statement = openConnection();
+
+        currentQuery1 = "SELECT * FROM ATTENDANCE WHERE email = '" + LoginController.loggedInUser + "' AND event_id = '"
+                + StudentScreenEvents_AllController.eventId + "'";
+
+        rs1 = statement.executeQuery(currentQuery1);
+
+        try {
+            if (rs1.isBeforeFirst()) {
+                rs1.next();
+                if (rs1.getString(4).equalsIgnoreCase("y")) {
+                    hasSelectedAttendance = true;
+                    myStatusText.setText("Already Going");
+                    imOutButton.setStyle("fx-background-color: #808080");
+                } else {
+                    hasSelectedAttendance = true;
+                    myStatusText.setText("Dogs the boizzz");
+                    imInButton.setStyle("fx-background-color: #808080");
+                }
+            } else {
+                hasSelectedAttendance = false;
+                myStatusText.setText("Undecided");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         populateEventData();
+        checkAttendanceStatus();
         stage = (Stage) society.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
