@@ -17,7 +17,7 @@ public class EventableForArc extends Application {
     @Override
     public void start(Stage stage) throws IOException  {
         
-        Parent root = FXMLLoader.load(getClass().getResource("Sign In.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("ARCSocietyHome.fxml"));
         
         stage.setResizable(false);
         Scene scene = new Scene(root);
