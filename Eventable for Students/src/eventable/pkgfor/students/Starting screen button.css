@@ -1,0 +1,10 @@
+.button {
+  -fx-border-color: white ;
+  -fx-text-fill: white ;
+  -fx-background-color: black ;
+  -fx-opacity: 0.5 ;
+}
+
+.button: hover {
+  -fx-opacity: 0.9 ;
+}
