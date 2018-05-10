@@ -66,7 +66,7 @@
                      </font>
                   </Text>
                   <Line endX="150.0" layoutX="164.0" layoutY="184.0" startX="-150.0" stroke="#7c7474" />
-                  <Text layoutX="149.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" textAlignment="CENTER">
+                  <Text layoutX="148.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
