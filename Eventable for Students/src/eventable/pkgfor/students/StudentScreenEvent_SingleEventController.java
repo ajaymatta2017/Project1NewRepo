@@ -268,11 +268,9 @@ public class StudentScreenEvent_SingleEventController extends Application implem
                 if (rs1.getString(4).equalsIgnoreCase("y")) {
                     hasSelectedAttendance = true;
                     myStatusText.setText("Already Going");
-                    imOutButton.setStyle("fx-background-color: #808080");
                 } else {
                     hasSelectedAttendance = true;
                     myStatusText.setText("Dogs the boizzz");
-                    imInButton.setStyle("fx-background-color: #808080");
                 }
             } else {
                 hasSelectedAttendance = false;
