@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.arc.SocietyScreensEventsController">
+    <children>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <children>
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#47b5e8" height="79.0" layoutX="-12.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1293.0" />
+                <ImageView fitHeight="55.0" fitWidth="57.0" layoutX="19.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Eventable%20logo%20copy.png" />
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="65.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@EventAble%20logo%20v2%20copy.png" />
+                    </image>
+                </ImageView>
+                <Circle fx:id="societyPage" fill="WHITE" layoutX="1229.0" layoutY="40.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
+                <TabPane layoutY="75.0" prefHeight="727.0" prefWidth="1280.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="                                      All                           ">
+                            <content>
+                                <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                    <content>
+                                        <ScrollPane prefHeight="669.0" prefWidth="1282.0">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
+                                                    <children>
+                                                        <TableView fx:id="tableOfEventsAll" layoutX="65.0" layoutY="88.0" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
+                                                            <columns>
+                                                                <TableColumn fx:id="eventNameAll" prefWidth="75.0" text="Event" />
+                                                                <TableColumn fx:id="startDateAll" prefWidth="75.0" text="Start Date" />
+                                                                <TableColumn fx:id="locationTypeAll" prefWidth="75.0" text="Location" />
+                                                                <TableColumn fx:id="eventTypeAll" prefWidth="125.0" text="Type of Event" />
+                                                            </columns>
+                                                        </TableView>
+                                                        <TextField layoutX="847.0" layoutY="58.0" prefHeight="26.0" prefWidth="285.0" promptText="Search" />
+                                                        <Button alignment="TOP_LEFT" layoutX="1139.0" layoutY="53.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="54.0" text="Go" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font size="8.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <TextField fx:id="societyName" editable="false" layoutX="100.0" layoutY="24.0" onAction="#populateSocietyPageTitle" opacity="0.5" prefHeight="34.0" prefWidth="200.0" />
+                                          <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                          <Text fx:id="newEvent" fill="WHITE" layoutX="37.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                             <font>
+                                                <Font name="Helvetica Neue" size="51.0" />
+                                             </font>
+                                          </Text>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </ScrollPane>
+                                    </content>
+                                </ScrollPane>
+                            </content>
+                        </Tab>
+                        <Tab text="                           Upcoming                           ">
+                            <content>
+                                <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                    <content>
+                                        <ScrollPane prefHeight="669.0" prefWidth="1282.0">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
+                                                    <children>
+                                                        <TableView fx:id="tableOfEventsUpcoming" layoutX="65.0" layoutY="88.0" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
+                                                            <columns>
+                                                                <TableColumn fx:id="eventNameUpcoming" prefWidth="75.0" text="Event" />
+                                                                <TableColumn fx:id="startDateUpcoming" prefWidth="75.0" text="Start Date" />
+                                                                <TableColumn fx:id="locationTypeUpcoming" prefWidth="75.0" text="Location" />
+                                                                <TableColumn fx:id="eventTypeUpcoming" prefWidth="125.0" text="Type of Event" />
+                                                            </columns>
+                                                        </TableView>
+                                                        <TextField layoutX="844.0" layoutY="61.0" prefHeight="26.0" prefWidth="285.0" promptText="Search" />
+                                                        <Button alignment="TOP_LEFT" layoutX="1136.0" layoutY="56.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="54.0" text="Go" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font size="8.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <TextField fx:id="societyName1" editable="false" layoutX="100.0" layoutY="24.0" onAction="#populateSocietyPageTitle" opacity="0.5" prefHeight="34.0" prefWidth="200.0" />
+                                          <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                          <Text fx:id="newEvent1" fill="WHITE" layoutX="37.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                             <font>
+                                                <Font name="Helvetica Neue" size="51.0" />
+                                             </font>
+                                          </Text>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </ScrollPane>
+                                    </content>
+                                </ScrollPane>
+                            </content>
+                        </Tab>
+                        <Tab text="                           Past                           ">
+                            <content>
+                                <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                    <content>
+                                        <ScrollPane prefHeight="669.0" prefWidth="1282.0">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
+                                                    <children>
+                                                        <TableView fx:id="tableOfEventsPast" layoutX="65.0" layoutY="88.0" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
+                                                            <columns>
+                                                                <TableColumn fx:id="eventNamePast" prefWidth="75.0" text="Event" />
+                                                                <TableColumn fx:id="startDatePast" prefWidth="75.0" text="Start Date" />
+                                                                <TableColumn fx:id="locationTypePast" prefWidth="75.0" text="Location" />
+                                                                <TableColumn fx:id="eventTypePast" prefWidth="125.0" text="Type of Event" />
+                                                            </columns>
+                                                        </TableView>
+                                                        <TextField layoutX="847.0" layoutY="57.0" prefHeight="26.0" prefWidth="285.0" promptText="Search" />
+                                                        <Button alignment="TOP_LEFT" layoutX="1139.0" layoutY="52.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="54.0" text="Go" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font size="8.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <TextField fx:id="societyName2" editable="false" layoutX="100.0" layoutY="24.0" onAction="#populateSocietyPageTitle" opacity="0.5" prefHeight="34.0" prefWidth="200.0" />
+                                          <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                          <Text fx:id="newEvent2" fill="WHITE" layoutX="37.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                             <font>
+                                                <Font name="Helvetica Neue" size="51.0" />
+                                             </font>
+                                          </Text>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </ScrollPane>
+                                    </content>
+                                </ScrollPane>
+                            </content>
+                        </Tab>
+                        <Tab text="                           Codes                           ">
+                            <content>
+                                <ScrollPane prefHeight="200.0" prefWidth="200.0">
+                                    <content>
+                                        <ScrollPane prefHeight="669.0" prefWidth="1282.0">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
+                                                    <children>
+                                                        <Text layoutX="98.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name">
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="24.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text layoutX="98.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description">
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="18.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text layoutX="99.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="18.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text layoutX="99.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="18.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text layoutX="244.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total number of attendees">
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="18.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <TableView fx:id="tableOfEventsCodes" layoutX="89.0" layoutY="172.0" prefHeight="660.0" prefWidth="1102.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="eventNameCodes" prefWidth="75.0" text="Event" />
+                                                                <TableColumn fx:id="startDateCodes" prefWidth="75.0" text="Start Date" />
+                                                                <TableColumn fx:id="locationTypeCodes" prefWidth="75.0" text="Location" />
+                                                                <TableColumn fx:id="eventTypeCodes" prefWidth="125.0" text="Type of Event" />
+                                                            </columns>
+                                                        </TableView>
+                                                        <TextField layoutX="847.0" layoutY="117.0" prefHeight="26.0" prefWidth="285.0" promptText="Search" />
+                                                        <Button alignment="TOP_LEFT" layoutX="1139.0" layoutY="112.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="54.0" text="Go" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font size="8.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <TextField fx:id="societyName3" editable="false" layoutX="100.0" layoutY="24.0" onAction="#populateSocietyPageTitle" opacity="0.5" prefHeight="34.0" prefWidth="200.0" />
+                                          <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </ScrollPane>
+                                    </content>
+                                </ScrollPane>
+                            </content>
+                        </Tab>
+                        <Tab text="                                      Profile                         ">
+                            <content>
+                                <ScrollPane disable="true" prefHeight="200.0" prefWidth="200.0">
+                                    <content>
+                                        <ScrollPane hbarPolicy="NEVER" prefHeight="669.0" prefWidth="1282.0" vbarPolicy="NEVER">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
+                                                    <children>
+                                                        <TextField fx:id="societyName4" editable="false" layoutX="32.0" layoutY="84.0" onAction="#populateSocietyPageTitle" opacity="0.5" prefHeight="34.0" prefWidth="200.0" />
+                                                        <Text fill="#000000af" layoutX="32.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Who are we?">
+                                                            <font>
+                                                                <Font name="System Bold" size="24.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Text fill="#000000af" layoutX="32.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name">
+                                                            <font>
+                                                                <Font name="System Bold" size="24.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <Button fx:id="editAccountButton" layoutX="668.0" layoutY="375.0" mnemonicParsing="false" onMouseClicked="#updateAccount" onMouseEntered="#enableEditAccount" prefHeight="37.0" prefWidth="276.0" stylesheets="@PrimaryButton.css" text="Edit Account" />
+                                                        <TextField fx:id="societyDescription" editable="false" layoutX="32.0" layoutY="203.0" prefHeight="209.0" prefWidth="598.0" />
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </ScrollPane>
+                                    </content>
+                                </ScrollPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <TextField fx:id="email" editable="false" layoutX="1085.0" layoutY="28.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="120.0" />
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>
