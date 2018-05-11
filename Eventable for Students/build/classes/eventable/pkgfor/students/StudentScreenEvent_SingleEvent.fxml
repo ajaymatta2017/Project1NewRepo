@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Accordion?>
+<?import java.lang.String?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Ellipse?>
@@ -45,74 +50,96 @@
       </AnchorPane>
       <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="335.0" vbarPolicy="NEVER">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="502.0" prefWidth="338.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="338.0">
                <children>
-                  <Accordion layoutX="77.0" layoutY="83.0" />
-                  <Text fx:id="societyName" fill="#6f6868" layoutX="37.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name" textAlignment="CENTER" wrappingWidth="264.000002393499">
+                  <ImageView fitHeight="168.0" fitWidth="438.0" layoutX="-84.0" opacity="0.19" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../BW_Banner16.jpg" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="53.0" fitWidth="56.0" layoutX="13.0" layoutY="100.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../baseline_event_black_48dp.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="societyName" layoutX="71.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name" wrappingWidth="227.00000239349902">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text fx:id="eventDate" layoutX="21.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="299.10546875">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="62.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="CENTER" wrappingWidth="214.0048828125">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="eventName" layoutX="31.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" textAlignment="CENTER" wrappingWidth="276.0673828125">
+                  <Text fx:id="eventName" fill="#202122" layoutX="70.0" layoutY="121.0" opacity="0.85" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" wrappingWidth="233.0673828125">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text layoutX="13.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" textAlignment="CENTER" wrappingWidth="311.1435546875">
+                  <Text fx:id="eventDate" layoutX="53.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date/Time" wrappingWidth="190.76952612400055">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <TextArea fx:id="commentBox" layoutX="26.0" layoutY="365.0" prefHeight="44.0" prefWidth="283.0" promptText="Enter Comment Here" />
-                  <Text layoutX="26.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
+                  <Text fx:id="eventLocation" layoutX="53.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" wrappingWidth="229.1435546875">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <TextArea fx:id="commentBox" layoutX="24.0" layoutY="579.0" prefHeight="80.0" prefWidth="283.0" promptText="Enter Comment Here" stylesheets="@TextArea.css">
+                     <rotationAxis>
+                        <Point3D />
+                     </rotationAxis></TextArea>
+                  <Text layoutX="28.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Text fx:id="myStatusText" layoutX="44.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already Going">
+                  <Text fx:id="myStatusText" layoutX="46.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Already Going">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button fx:id="imInButton" layoutX="231.0" layoutY="269.0" mnemonicParsing="false" onAction="#imInButtonClicked" prefHeight="27.0" prefWidth="75.0" style="-fx-background-color: #039be5#039be5;" text="Im in +" textFill="WHITE">
+                  <Button fx:id="imInButton" layoutX="21.0" layoutY="441.0" mnemonicParsing="false" onAction="#imInButtonClicked" prefHeight="27.0" prefWidth="290.0" stylesheets="@PrimaryButton.css" text="Im in +" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="imOutButton" layoutX="21.0" layoutY="482.0" mnemonicParsing="false" onAction="#imOutButtonClicked" prefHeight="29.0" prefWidth="289.0" stylesheets="@SecondaryButton.css" text="Im out -" textFill="#039be5">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Button fx:id="imOutButton" layoutX="150.0" layoutY="269.0" mnemonicParsing="false" onAction="#imOutButtonClicked" prefHeight="27.0" prefWidth="76.0" style="-fx-background-color: white; -fx-border-color: #039be5#039be5;" text="Im out -" textFill="#039be5">
+                  <Button fx:id="postCommentButton" layoutX="186.0" layoutY="669.0" mnemonicParsing="false" onAction="#postCommentButtonClicked" prefHeight="29.0" prefWidth="120.0" style="-fx-background-color: #039be5#039be5;" text="Post Comment" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
                   </Button>
-                  <Accordion layoutX="49.0" layoutY="416.0" />
-                  <Accordion layoutX="90.0" layoutY="427.0" />
-                  <Accordion layoutX="25.0" layoutY="412.0" />
-                  <Button fx:id="postCommentButton" layoutX="86.0" layoutY="418.0" mnemonicParsing="false" onAction="#postCommentButtonClicked" prefHeight="29.0" prefWidth="159.0" style="-fx-background-color: #039be5#039be5;" text="Post Comment" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font>
-                  </Button>
-                <TitledPane animated="false" expanded="false" layoutX="31.0" layoutY="463.0" prefHeight="22.0" prefWidth="280.0" text="Comments">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </TitledPane>
-                  <Text fx:id="eventDetails" layoutX="15.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="eventDetails" textAlignment="CENTER" wrappingWidth="311.1435546875">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="eventLocation" layoutX="21.0" layoutY="153.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="299.10546875">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="23.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../baseline_location_on_black_48dp.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="23.0" layoutY="209.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../baseline_access_time_black_48dp.png" />
+                     </image>
+                  </ImageView>
+                  <TextArea fx:id="eventDetails" editable="false" layoutX="20.0" layoutY="246.0" prefHeight="156.0" prefWidth="292.0" stylesheets="@TextArea.css" text="Event description" wrapText="true" />
+                  <TableView layoutX="20.0" layoutY="708.0" prefHeight="400.0" prefWidth="292.0" stylesheets="@TableView.css">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
+                     <styleClass>
+                        <String fx:value="table-cell" />
+                        <String fx:value="table-row-cell" />
+                     </styleClass>
+                  </TableView>
+                  <Line endX="185.0" layoutX="123.0" layoutY="540.0" startX="-100.0" stroke="#0000006e" />
+                  <Text fx:id="societyName1" fill="#000000d6" layoutX="25.0" layoutY="570.0" strokeType="OUTSIDE" strokeWidth="0.0" text="See what people are saying" wrappingWidth="227.00000239349902">
                      <font>
                         <Font size="14.0" />
                      </font>

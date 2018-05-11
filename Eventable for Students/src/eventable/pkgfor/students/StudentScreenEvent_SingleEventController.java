@@ -32,6 +32,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -79,7 +80,7 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     @FXML
     public Text eventDate;
     @FXML
-    public Text eventDetails;
+    public TextArea eventDetails;
     @FXML
     public Text myStatusText;
 

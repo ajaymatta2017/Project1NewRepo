@@ -24,6 +24,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -54,7 +55,7 @@ public class StudentScreenSociety_SingleSocietyController extends Application im
     @FXML
     private Text societyNameLabel;
     @FXML
-    private Text societyDescriptionLabel;
+    private TextArea societyDescriptionLabel;
     @FXML
     private Button favouriteSocietyButton;
 

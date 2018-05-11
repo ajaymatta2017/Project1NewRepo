@@ -66,16 +66,16 @@
                      </font>
                   </Text>
                   <Line endX="150.0" layoutX="164.0" layoutY="184.0" startX="-150.0" stroke="#7c7474" />
-                  <Text layoutX="149.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" textAlignment="CENTER">
+                  <Text layoutX="148.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rate" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <RadioButton contentDisplay="BOTTOM" layoutX="40.0" layoutY="232.0" mnemonicParsing="false" text="1" textOverrun="CENTER_ELLIPSIS" />
-                  <RadioButton contentDisplay="BOTTOM" layoutX="93.0" layoutY="233.0" mnemonicParsing="false" text="2" textOverrun="CENTER_ELLIPSIS" />
-                  <RadioButton contentDisplay="BOTTOM" layoutX="148.0" layoutY="232.0" mnemonicParsing="false" text="3" textOverrun="CENTER_ELLIPSIS" />
-                  <RadioButton contentDisplay="BOTTOM" layoutX="199.0" layoutY="232.0" mnemonicParsing="false" text="4" textOverrun="CENTER_ELLIPSIS" />
-                  <RadioButton contentDisplay="BOTTOM" layoutX="252.0" layoutY="233.0" mnemonicParsing="false" text="5" textOverrun="CENTER_ELLIPSIS" />
+                  <RadioButton contentDisplay="BOTTOM" layoutX="36.0" layoutY="225.0" mnemonicParsing="false" stylesheets="@radioButton.css" text="1" textOverrun="CENTER_ELLIPSIS" />
+                  <RadioButton contentDisplay="BOTTOM" layoutX="89.0" layoutY="226.0" mnemonicParsing="false" stylesheets="@radioButton.css" text="2" textOverrun="CENTER_ELLIPSIS" />
+                  <RadioButton contentDisplay="BOTTOM" layoutX="144.0" layoutY="225.0" mnemonicParsing="false" stylesheets="@radioButton.css" text="3" textOverrun="CENTER_ELLIPSIS" />
+                  <RadioButton contentDisplay="BOTTOM" layoutX="195.0" layoutY="225.0" mnemonicParsing="false" stylesheets="@radioButton.css" text="4" textOverrun="CENTER_ELLIPSIS" />
+                  <RadioButton contentDisplay="BOTTOM" layoutX="248.0" layoutY="226.0" mnemonicParsing="false" stylesheets="@radioButton.css" text="5" textOverrun="CENTER_ELLIPSIS" />
                   <TextArea layoutX="21.0" layoutY="292.0" prefHeight="77.0" prefWidth="292.0" promptText="Leave a comment" stylesheets="@TextArea.css" />
                   <Text layoutX="25.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thoughts?" textAlignment="CENTER">
                      <font>
@@ -99,8 +99,8 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button layoutX="25.0" layoutY="667.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: black;" text="Hell yeah" />
-                  <Button layoutX="168.0" layoutY="667.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: black;" text="Na" />
+                  <Button layoutX="28.0" layoutY="667.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-border-radius: 10 0 0 10;" stylesheets="@AZButton.css" text="Hell yeah" />
+                  <Button layoutX="166.0" layoutY="667.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@AZButton.css" text="Na" />
                   <Text layoutX="24.0" layoutY="659.0" strokeType="OUTSIDE" strokeWidth="0.0" text="friend?" textAlignment="CENTER">
                      <font>
                         <Font size="14.0" />
@@ -111,9 +111,9 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Button layoutX="26.0" layoutY="752.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: black;" text="Hell yeah" />
-                  <Button layoutX="169.0" layoutY="752.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: white; -fx-border-color: black;" text="Na" />
-                  <Button layoutX="43.0" layoutY="817.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="246.0" style="-fx-background-color: #039be5#039be5;" text="Submit feedback" textFill="WHITE">
+                  <Button layoutX="28.0" layoutY="752.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-border-radius: 10 0 0 10;" stylesheets="@AZButton.css" text="Hell yeah" />
+                  <Button layoutX="166.0" layoutY="752.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="140.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@AZButton.css" text="Na" />
+                  <Button layoutX="43.0" layoutY="817.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="246.0" stylesheets="@PrimaryButton.css" text="Submit feedback" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="13.0" />
                      </font>
