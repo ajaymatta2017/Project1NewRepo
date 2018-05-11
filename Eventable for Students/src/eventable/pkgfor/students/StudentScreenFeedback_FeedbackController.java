@@ -60,6 +60,11 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
     @FXML
     public TableColumn<Feedback, String> societyName;
     
+    public static String eventName;
+    public static String eventSocietyName;
+    public static String eventTime;
+    public static String eventId;
+    
     public static Connection conn;
 
     public String currentQuery;
@@ -72,7 +77,10 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
     
     public void populateTableView() throws SQLException {
         statement = openConnection();
-        currentQuery = "SELECT SOCIETY_NAME, EVENT_TITLE, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_END FROM SOCIETY  JOIN EVENT USING (SOCIETY_ID) JOIN ATTENDANCE USING (EVENT_ID) WHERE EVENT_ACTUAL_ATTENDANCE = 'Y' AND email = '" + LoginController.loggedInUser +"'";
+        currentQuery = "SELECT SOCIETY_NAME, EVENT_TITLE, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), "
+                + "CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), "
+                + "CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_id  FROM SOCIETY  JOIN EVENT USING (SOCIETY_ID) "
+                + "JOIN ATTENDANCE USING (EVENT_ID) WHERE EVENT_ACTUAL_ATTENDANCE = 'Y' AND email = '" + LoginController.loggedInUser +"'";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         societyName.setCellValueFactory(new PropertyValueFactory<>("societyName"));
@@ -84,7 +92,8 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
         try {
             while (rs.next()) {
                 int i = 1;
-                feedbackData.add(new Feedback(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
+                feedbackData.add(new Feedback(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2),
+                rs.getString(i + 3), rs.getString(i + 4), rs.getString(i + 5), Integer.parseInt(rs.getString(i + 6))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,6 +192,19 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    @FXML
+    private void tableviewItemClicked(MouseEvent event) throws SQLException {
+        if (event.getClickCount() == 2) {
+            Feedback feedbackSelected = tableofFeedback.getSelectionModel().getSelectedItem();
+            eventName = feedbackSelected.getEvent();
+            eventId = feedbackSelected.getEventId();
+            eventSocietyName = feedbackSelected.getSocietyName();
+            eventTime = feedbackSelected.getStartDate() + " " + feedbackSelected.getEventStartTime() + " - " + feedbackSelected.getEndDate() +
+                    " " + feedbackSelected.getEventEndTime();
+            loadNext("StudentScreenFeedback_FeedbackForm.fxml");
+        }
     }
 }
     

@@ -112,12 +112,12 @@ public class StudentScreenEvents_PastController extends Application implements I
         statement = openConnection();
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy HH:mm:ss");
         currentDate = new Date();
-        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_CODE, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_CODE) WHERE EVENT_START <= '05/MAY/2018'";
+        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_CODE, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_CODE) WHERE EVENT_START <= '05/MAY/2018'";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         event.setCellValueFactory(new PropertyValueFactory<>("event"));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        location.setCellValueFactory(new PropertyValueFactory<>("location"));
+        location.setCellValueFactory(new PropertyValueFactory<>("locationType"));
 
         //Data added to observable List
         eventsData = FXCollections.observableArrayList();

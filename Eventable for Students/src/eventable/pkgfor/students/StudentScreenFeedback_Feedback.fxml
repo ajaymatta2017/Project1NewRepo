@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenFeedback_FeedbackController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenFeedback_FeedbackController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -40,7 +40,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="514.0" prefWidth="338.0">
                <children>
-                  <TableView fx:id="tableofFeedback" layoutX="11.0" layoutY="240.0" prefHeight="385.0" prefWidth="308.0" stylesheets="@TableView.css">
+                  <TableView fx:id="tableofFeedback" layoutX="11.0" layoutY="240.0" onMouseClicked="#tableviewItemClicked" prefHeight="385.0" prefWidth="308.0" stylesheets="@TableView.css">
                      <columns>
                         <TableColumn fx:id="societyName" prefWidth="75.0" text="Date" />
                         <TableColumn fx:id="event" prefWidth="75.0" text="Society" />

@@ -30,6 +30,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -54,7 +56,7 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     @FXML
     private Text code;
     @FXML
-    private Text events;
+    private Text comments;
     @FXML
     private Text feedback;
     @FXML
@@ -82,31 +84,38 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     @FXML
     public TextArea eventDetails;
     @FXML
+    private TextArea commentBox;
+    @FXML
     public Text myStatusText;
 
-//    @FXML
-//    public TableView<Events> tableofEvents;
-//    @FXML
-//    public TableColumn<Events, String> event;
-//    @FXML
-//    public TableColumn<Events, String> startDate;
-//    @FXML
-//    public TableColumn<Events, String> location;
-//
-//    ObservableList<Events> eventsSingleData;
+    @FXML
+    public TableView<Comment> tableofComments;
+    @FXML
+    public TableColumn<Comment, String> comment;
+    @FXML
+    public TableColumn<Comment, String> user;
+    @FXML
+    public TableColumn<Comment, String> startDate;
+
+    ObservableList<Comment> commentsSingleData;
     public static Connection conn;
 
     public String currentQuery;
     public String currentQuery1;
     public String currentQuery2;
     public String currentQuery3;
+    public String currentQuery4;
+    public String currentQuery5;
 
     public static ResultSet rs;
     public static ResultSet rs1;
     public static ResultSet rs2;
     public static ResultSet rs3;
+    public static ResultSet rs4;
+    public static ResultSet rs5;
 
     public boolean hasSelectedAttendance = false;
+    public int maxCommentId;
 
     public static Statement statement;
 
@@ -115,43 +124,63 @@ public class StudentScreenEvent_SingleEventController extends Application implem
         populateEventData();
         try {
             checkAttendanceStatus();
+            populateTableView();
         } catch (SQLException ex) {
             Logger.getLogger(StudentScreenEvent_SingleEventController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-//    public void populateTableView() throws SQLException {
-//        //Only display events that are in the future
-//        statement = openConnection();
-//       
-//        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE FROM EVENT WHERE EVENT_START >= '05/MAY/2018'";
-//        rs = statement.executeQuery(currentQuery);
-//
-//        event.setCellValueFactory(new PropertyValueFactory<>("event"));
-//        startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-//        location.setCellValueFactory(new PropertyValueFactory<>("location"));
-//
-//        //Data added to observable List
-//        eventsSingleData = FXCollections.observableArrayList();
-//        try {
-//            while (rs.next()) {
-//                int i = 1;
-//                eventsSingleData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//        //Data added to TableView
-//        try {
-//            tableofEvents.setItems(eventsSingleData);
-//            //tableofEvents.getColumns().setAll(event, startDate, location);
-//        } catch (Exception e) {
-//            e.printStackTrace();
+    public void populateTableView() throws SQLException {
+        //Display comments
+        statement = openConnection();
+
+        currentQuery = "SELECT first_name, last_name, comment_content FROM APP_USER JOIN Comments USING(email) WHERE event_id = " + StudentScreenEvents_AllController.eventId;
+        rs = statement.executeQuery(currentQuery);
+
+        comment.setCellValueFactory(new PropertyValueFactory<>("comment"));
+        user.setCellValueFactory(new PropertyValueFactory<>("user"));
+
+        //Data added to observable List
+        commentsSingleData = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                int i = 1;
+                commentsSingleData.add(new Comment(rs.getString(i) + " " + rs.getString(i + 1), rs.getString(i + 2)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        comment.setCellFactory(tc -> {
+            TableCell<Comment, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(comment.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        user.setCellFactory(tc -> {
+            TableCell<Comment, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(user.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        //Data added to TableView
+        try {
+            tableofComments.setItems(commentsSingleData);
+            //tableofEvents.getColumns().setAll(event, startDate, location);
+        } catch (Exception e) {
+            e.printStackTrace();
 //        } finally {
 //            closeConnection(conn, rs, statement);
-//        }
-//    }
+        }
+    }
+
     @FXML
     private void bottomNavSocietyButton(MouseEvent event) {
         loadNext("StudentScreenSociety_All.fxml");
@@ -196,15 +225,14 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     private void imInButtonClicked(ActionEvent event) throws SQLException {
         statement = openConnection();
         if (!hasSelectedAttendance) {
-            currentQuery2 = "INSERT INTO ATTENDANCE (event_id, email, event_theoretical_attendance) VALUES ('" + 
-                    StudentScreenEvents_AllController.eventId + "', '" + LoginController.loggedInUser + "', 'Y')";
+            currentQuery2 = "INSERT INTO ATTENDANCE (event_id, email, event_theoretical_attendance) VALUES ('"
+                    + StudentScreenEvents_AllController.eventId + "', '" + LoginController.loggedInUser + "', 'Y')";
             rs2 = statement.executeQuery(currentQuery2);
             myStatusText.setText("Already Going");
             hasSelectedAttendance = true;
-        }
-        else {
-            currentQuery2 = "UPDATE ATTENDANCE SET EVENT_THEORETICAL_ATTENDANCE = 'Y' WHERE event_id = '" + StudentScreenEvents_AllController.eventId +
-                    "' AND email = '" + LoginController.loggedInUser + "'";
+        } else {
+            currentQuery2 = "UPDATE ATTENDANCE SET EVENT_THEORETICAL_ATTENDANCE = 'Y' WHERE event_id = '" + StudentScreenEvents_AllController.eventId
+                    + "' AND email = '" + LoginController.loggedInUser + "'";
             rs2 = statement.executeQuery(currentQuery2);
             myStatusText.setText("Already Going");
         }
@@ -214,23 +242,41 @@ public class StudentScreenEvent_SingleEventController extends Application implem
     private void imOutButtonClicked(ActionEvent event) throws SQLException {
         statement = openConnection();
         if (!hasSelectedAttendance) {
-            currentQuery3 = "INSERT INTO ATTENDANCE (event_id, email, event_theoretical_attendance) VALUES ('" + 
-                    StudentScreenEvents_AllController.eventId + "', '" + LoginController.loggedInUser + "', 'N')";
+            currentQuery3 = "INSERT INTO ATTENDANCE (event_id, email, event_theoretical_attendance) VALUES ('"
+                    + StudentScreenEvents_AllController.eventId + "', '" + LoginController.loggedInUser + "', 'N')";
             rs3 = statement.executeQuery(currentQuery3);
             myStatusText.setText("Dogs the boizzz");
             hasSelectedAttendance = true;
-        }
-        else {
-            currentQuery3 = "UPDATE ATTENDANCE SET EVENT_THEORETICAL_ATTENDANCE = 'N' WHERE event_id = '" + StudentScreenEvents_AllController.eventId +
-                    "' AND email = '" + LoginController.loggedInUser + "'";
+        } else {
+            currentQuery3 = "UPDATE ATTENDANCE SET EVENT_THEORETICAL_ATTENDANCE = 'N' WHERE event_id = '" + StudentScreenEvents_AllController.eventId
+                    + "' AND email = '" + LoginController.loggedInUser + "'";
             rs3 = statement.executeQuery(currentQuery3);
             myStatusText.setText("Dogs the boizzz");
         }
     }
 
     @FXML
-    private void postCommentButtonClicked(ActionEvent event) {
-        //TODO: Store this in DB
+    private void postCommentButtonClicked(ActionEvent event) throws SQLException {
+        statement = openConnection();
+        currentQuery5 = "SELECT comment_id FROM comments ORDER BY comment_id DESC";
+        rs5 = statement.executeQuery(currentQuery5);
+        while (rs5.next()) {
+            maxCommentId = rs5.getInt(1);
+            break;
+        }
+        maxCommentId += 1;
+        
+        if (!commentBox.toString().trim().isEmpty()) {
+            currentQuery4 = "INSERT INTO COMMENTS (comment_content, email, event_ID, comment_id) VALUES (' " + commentBox.getText().trim() + "', '"
+                    + LoginController.loggedInUser + "', '" + StudentScreenEvents_AllController.eventId + "', '" + maxCommentId + "')";
+            rs4 = statement.executeQuery(currentQuery4);
+        }
+        try {
+            populateTableView();
+            commentBox.setText("");
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void loadNext(String destination) {

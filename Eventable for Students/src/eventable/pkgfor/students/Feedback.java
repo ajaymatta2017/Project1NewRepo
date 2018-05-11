@@ -9,35 +9,49 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Feedback {
     
-    public final SimpleStringProperty event, endDate, societyName;
+    public final SimpleStringProperty event, endDate, societyName, startDate, eventEndTime, eventStartTime;
+    public final int eventId;
 
-    public String getSocietyName() {
-        return societyName.get();
-    }
-    
-    public void setSocietyName(String societyName) {
-        this.societyName.set(societyName);
+    public Feedback(String societyNames, String eventName, String endDates, String startDate, String eventEndTime, String eventStartTime, int eventId) {
+        event = new SimpleStringProperty(eventName);
+        endDate = new SimpleStringProperty(endDates);
+        societyName = new SimpleStringProperty(societyNames);
+        this.startDate = new SimpleStringProperty(startDate);
+        this.eventEndTime = new SimpleStringProperty(eventEndTime);
+        this.eventStartTime = new SimpleStringProperty(eventStartTime);
+        this.eventId = eventId;
     }
 
     public String getEvent() {
         return event.get();
     }
-    
-    public void setEvent(String event) {
-        this.event.set(event);
-    }
-    
+
     public String getEndDate() {
         return endDate.get();
     }
-    
-     public void setEndDate(String startDate) {
-        this.endDate.set(startDate);
+
+    public String getSocietyName() {
+        return societyName.get();
     }
 
-    public Feedback(String eventName, String startDates, String societyNames) {
-        event = new SimpleStringProperty(eventName);
-        endDate = new SimpleStringProperty(startDates);
-        societyName = new SimpleStringProperty(societyNames);
+    public String getStartDate() {
+        return startDate.get();
     }
+
+    public String getEventEndTime() {
+        return eventEndTime.get();
+    }
+
+    public String getEventStartTime() {
+        return eventStartTime.get();
+    }
+
+    public String getEventId() {
+        return Integer.toString(eventId);
+    }
+    
+    
+    
+    
+    
 }
