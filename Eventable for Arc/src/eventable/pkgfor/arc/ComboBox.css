@@ -1,0 +1,14 @@
+.combo-box {
+  -fx-background-color: transparent, transparent, transparent, transparent;
+  -fx-background-radius: 0, 0, 0, 0;
+  -fx-padding: 0.166667em;
+  -fx-border-color: #424242 ;
+  -fx-prompt-text-fill: #424242 ;
+  -fx-border-radius: 10px ;
+  -fx-alignment: left ;
+  -fx-height: 25px ;
+}
+
+.combo-box:hover {
+  -fx-border-color: #039be5 ;
+}
