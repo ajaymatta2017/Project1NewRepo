@@ -21,7 +21,7 @@ public class Codes {
     public String getEmail() {
         return email.get();
     }
-
+    
     public Codes(String society, String event, String email) {
         this.society = new SimpleStringProperty(society);
         this.event = new SimpleStringProperty(event);

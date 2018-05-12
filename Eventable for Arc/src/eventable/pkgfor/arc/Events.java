@@ -8,7 +8,10 @@ package eventable.pkgfor.arc;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Events {
-    public final SimpleStringProperty event, startDate, locationType, eventType;
+    private SimpleStringProperty event;
+    private SimpleStringProperty startDate;
+    private SimpleStringProperty locationType;
+    private SimpleStringProperty eventType;
     private SimpleStringProperty streetNo;
     private SimpleStringProperty streetName;
     private SimpleStringProperty postcode;
@@ -44,6 +47,10 @@ public class Events {
         this.event = new SimpleStringProperty(event);
         this.startDate = new SimpleStringProperty(startDate);
         this.locationType = new SimpleStringProperty(locationType);
+        this.eventType = new SimpleStringProperty(eventType);
+    }
+    
+    public Events(String eventType) {
         this.eventType = new SimpleStringProperty(eventType);
     }
 

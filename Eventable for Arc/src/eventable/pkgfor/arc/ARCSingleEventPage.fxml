@@ -11,11 +11,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.arc.ARCSingleEventPageController">
    <children>
       <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
          <content>
@@ -33,15 +34,11 @@
                         <Image url="@EventAble%20logo%20v2%20copy.png" />
                      </image>
                   </ImageView>
-                  <Text layoutX="88.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name">
-                     <font>
-                        <Font name="System Bold" size="24.0" />
-                     </font>
-                  </Text>
-                  <TableView layoutX="84.0" layoutY="257.0" prefHeight="583.0" prefWidth="1095.0" stylesheets="@TableView.css">
+                  <TableView fx:id="tableOfEventsArcExport" layoutX="84.0" layoutY="257.0" prefHeight="583.0" prefWidth="1095.0" stylesheets="@TableView.css">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
+                      <TableColumn fx:id="emailTableColumn" prefWidth="75.0" text="Email" />
+                      <TableColumn fx:id="studentName" prefWidth="75.0" text="Student Name" />
+                      <TableColumn fx:id="zid" prefWidth="75.0" text="zID" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -56,29 +53,9 @@
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Text layoutX="89.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="113.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
                   <Text fill="#0376ab" layoutX="87.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attendees">
                      <font>
                         <Font size="24.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="114.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="129.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attendees">
-                     <font>
-                        <Font size="16.0" />
                      </font>
                   </Text>
                   <Button layoutX="1007.0" layoutY="146.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="166.0" stylesheets="@PrimaryButton.css" text="EXPORT">
@@ -97,16 +74,38 @@
                      </font>
                   </Button>
                   <ComboBox layoutX="1047.0" layoutY="207.0" prefHeight="32.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@ComboBox.css" />
-                  <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="87.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="34.0" layoutX="420.0" layoutY="139.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../baseline_access_time_black_48dp.png" />
+                        <Image url="@baseline_access_time_black_48dp.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="87.0" layoutY="225.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="425.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../baseline_people_black_48dp.png" />
+                        <Image url="@baseline_people_black_48dp.png" />
                      </image>
                   </ImageView>
+                  <TextField fx:id="eventName" alignment="CENTER" editable="false" layoutX="83.0" layoutY="133.0" prefHeight="51.0" prefWidth="324.0">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="societyName" alignment="CENTER" editable="false" layoutX="84.0" layoutY="201.0" prefHeight="39.0" prefWidth="324.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="startDate" alignment="CENTER" editable="false" layoutX="459.0" layoutY="135.0" prefHeight="35.0" prefWidth="186.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="attendeeCount" alignment="CENTER" editable="false" layoutX="459.0" layoutY="201.0" prefHeight="35.0" prefWidth="186.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </TextField>
+                  <Circle fx:id="societyPage" fill="WHITE" layoutX="1222.0" layoutY="45.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
+                  <TextField fx:id="email" editable="false" layoutX="988.0" layoutY="33.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="211.0" />
                </children>
             </AnchorPane>
          </content>

@@ -60,6 +60,8 @@ public class ARCSocietyHomeController extends Application implements Initializab
     public static String emailAddress;
 
     public static String loggedInUser;
+    
+    public static int societyID;
 
     public static Boolean userInSystem;
 
@@ -86,7 +88,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
         if ((arcEmail.getText().isEmpty()) || (arcPassword.getText().isEmpty())) {
             setError2("Please enter username and/or password");
         } else {
-            currentQuery = "SELECT PASSWORD FROM APP_USER WHERE EMAIL = lower('" + loggedInUser + "')";
+            currentQuery = "SELECT PASSWORD, society_id FROM APP_USER WHERE EMAIL = lower('" + loggedInUser + "')";
             String passwordStoredInDB = null;
             int passwordStoredInDBHashed;
             String passwordStoredInDBHashedString = null;
@@ -98,6 +100,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
                         passwordStoredInDB = rs.getString("PASSWORD");
                         passwordStoredInDBHashed = passwordStoredInDB.hashCode();
                         passwordStoredInDBHashedString = passwordStoredInDBHashed + "";
+                        societyID = rs.getInt(2);
                     }
                 } catch (NullPointerException e) {
                     setError2("Incorrect username/password entered");

@@ -62,7 +62,7 @@
                                                         </TableView>
                                                         <TextField fx:id="societyName" editable="false" layoutX="100.0" layoutY="24.0" opacity="0.5" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
                                           <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                          <Text fx:id="newEvent" fill="WHITE" layoutX="37.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                          <Text fx:id="newEvent" fill="WHITE" layoutX="37.0" layoutY="55.0" onMouseClicked="#createNewEvent" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
                                              <font>
                                                 <Font name="Helvetica Neue" size="51.0" />
                                              </font>
@@ -292,7 +292,7 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-                <TextField fx:id="email" editable="false" layoutX="1085.0" layoutY="28.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="120.0" />
+                <TextField fx:id="email" editable="false" layoutX="994.0" layoutY="28.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="211.0" />
             </children>
         </AnchorPane>
     </children>

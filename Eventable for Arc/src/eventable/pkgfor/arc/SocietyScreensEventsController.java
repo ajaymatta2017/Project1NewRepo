@@ -160,6 +160,8 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TextField roomNo;
     @FXML
     private TextField eventDescription;
+    private String currentQuery6;
+    private ObservableList<Object> eventsDataDisplayAll;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -175,14 +177,15 @@ public class SocietyScreensEventsController extends Application implements Initi
         }
     }
 
-//    @FXML
-//    private void createNewEvent(MouseEvent event) throws SQLException {
-//            addNewEvent("SocietyScreens_NewEvent.fxml");
-//    }
+    @FXML
+    private void createNewEvent(MouseEvent event) throws SQLException {
+            addNewEvent("SocietyScreen_SingleEvent.fxml");
+    }
 //    @FXML
 //    private void updateSocietyAccountNavigation(MouseEvent event) throws SQLException {
 //            updateSocietyPage("SocietyScreens_SingleSociety.fxml");
 //    }
+//    
     public void populateSocietyPageTitle() throws SQLException {
         statement = openConnection();
         currentQuery = "SELECT UPPER(society_name), society_description from society JOIN app_user USING (society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
@@ -497,10 +500,6 @@ public class SocietyScreensEventsController extends Application implements Initi
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        //displayUserData();
-//            populateSocietyPageTitle();
-//            populateEmail();
-//            populateTableViewAll();
     }
 
     @FXML
@@ -535,15 +534,40 @@ public class SocietyScreensEventsController extends Application implements Initi
         stage.show();
     }
 
-    @FXML
-    private void tableviewItemClicked(MouseEvent event) throws SQLException {
-        if (event.getClickCount() == 2) {
-            Events eventSelected = tableOfEventsAll.getSelectionModel().getSelectedItem();
-            String eventSelectedStart = eventSelected.getEvent();
-            String eventSelectedLocation = eventSelected.getLocationType();
-            String eventStartDate = eventSelected.getStartDate();
-            String eventSelectedType = eventSelected.getEventType();
-            loadNext("SocietyScreen_SingleEvent.fxml");
-        }
-    }
+    public void displayUserDataAll() throws SQLException {
+        statement = openConnection();
+        currentQuery6 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'";
+        ResultSet rs4 = statement.executeQuery(currentQuery6);
+
+        eventNamePast.setCellValueFactory(new PropertyValueFactory<>("event"));
+        startDatePast.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        locationTypePast.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+        eventTypePast.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+
+        //Data added to observable List
+        eventsDataDisplayAll = FXCollections.observableArrayList();
+//        try {
+//            while (rs4.next()) {
+//                int i = 1;
+//                eventsDataPast.add(new Events(rs4.getString(i), rs4.getString(i + 1), rs4.getString(i + 2), rs4.getString(i + 3)));
+//            }        
+//    }
+//    }
+    
+    
+//    
+//    @FXML
+//    private void tableviewItemClicked(MouseEvent event) throws SQLException {
+//        if (event.getClickCount() == 2) {
+//            Events eventSelected = tableOfEventsAll.getSelectionModel().getSelectedItem();
+//            eventSelectedStart = eventSelected.getEvent();
+//            eventSelectedLocation = eventSelected.getLocationType();
+//            eventSelectedStartDate = eventSelected.getStartDate();
+//            eventSelectedType = eventSelected.getEventType();
+//            eventSelectedType
+//            loadNext("SocietyScreen_SingleEvent.fxml");
+//        }
+//    }
 }
+}
+    
