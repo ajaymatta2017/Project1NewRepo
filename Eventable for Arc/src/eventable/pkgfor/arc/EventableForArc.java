@@ -18,7 +18,6 @@ public class EventableForArc extends Application {
     public void start(Stage stage) throws IOException  {
         
         Parent root = FXMLLoader.load(getClass().getResource("ARCSocietyHome.fxml"));
-        
         stage.setResizable(false);
         Scene scene = new Scene(root);
         stage.setTitle("Eventable for Arc");

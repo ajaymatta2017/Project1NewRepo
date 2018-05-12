@@ -332,7 +332,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
         }
         newMaxSocietyID = maxSocietyID + 1;
         currentQuery = "INSERT INTO SOCIETY(society_id, society_name) VALUES(" + newMaxSocietyID + ", '" + newSociety + "')";
-        currentQuery1 = "INSERT INTO APP_USER(email, password, society_id) VALUES('" + newEmail + "', '" + userPasswordHashed + "', " + newMaxSocietyID + ")";
+        currentQuery1 = "INSERT INTO APP_USER(email, password, society_id, account_type) VALUES('" + newEmail + "', '" + userPasswordHashed + "', " + newMaxSocietyID + "', 'Society')";
         int update = statement.executeUpdate(currentQuery);
         int update1 = statement.executeUpdate(currentQuery1);
         return true;
@@ -374,7 +374,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
         userInSystem = true;
         //Checks if password is correct
         if (authenticateSocietyAccount()) {
-            loadNext("SocietyScreens.fxml");
+            loadNext("SocietyScreensEvents.fxml");
         }
     }
 

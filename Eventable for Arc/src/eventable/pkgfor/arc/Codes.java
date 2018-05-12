@@ -7,7 +7,7 @@ package eventable.pkgfor.arc;
 
 import javafx.beans.property.SimpleStringProperty;
 
-class Codes {
+public class Codes {
     public final SimpleStringProperty society, event, studentName;
 
     public String getSociety() {

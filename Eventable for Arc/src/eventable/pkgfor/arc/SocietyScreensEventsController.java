@@ -26,6 +26,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -38,13 +40,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SocietyScreensEventsController extends Application implements Initializable {
-    
+
+    @FXML
     Stage stage;
     Parent root;
-    
     @FXML
     private TextField societyName;
-    
     @FXML
     private TableView<Events> tableOfEventsAll;
     @FXML
@@ -55,7 +56,7 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TableColumn<Events, String> locationTypeAll;
     @FXML
     private TableColumn<Events, String> eventTypeAll;
-    
+
     @FXML
     private TextField societyName1;
     @FXML
@@ -69,22 +70,11 @@ public class SocietyScreensEventsController extends Application implements Initi
     @FXML
     private TableColumn<Events, String> eventTypeUpcoming;
 
-    
     @FXML
     private TextField societyName2;
     @FXML
-    private TableView<Events> tableOfEventsCodes;
-    @FXML
-    private TableColumn<Events, String> eventNameCodes;
-    @FXML
-    private TableColumn<Events, String> startDateCodes;
-    @FXML
-    private TableColumn<Events, String> locationTypeCodes;
-    @FXML
-    private TableColumn<Events, String> eventTypeCodes;
-
-    @FXML
     private TextField societyName3;
+    
     @FXML
     private TableView<Events> tableOfEventsPast;
     @FXML
@@ -95,92 +85,192 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TableColumn<Events, String> locationTypePast;
     @FXML
     private TableColumn<Events, String> eventTypePast;
+    @FXML
+    private TableView<Codes> tableOfEventsCodes;
+    @FXML
+    private TableColumn<Codes, String> societyNameCodes;
+    @FXML
+    private TableColumn<Codes, String> eventNameCodes;
+    @FXML
+    private TableColumn<Codes, String> studentNameCodes;
 
     @FXML
     private TextField email;
-    
     @FXML
-    private TextField societyName4;
-    
+    public TextField societyName4;
     @FXML
     private Text newEvent;
-    
-    @FXML
-    private Text newEvent1;
-    
-    @FXML
-    private Text newEvent2;
-        
+
     @FXML
     private Circle societyPage;
-    
+
     public String currentQuery;
-    
+
     public String currentQuery1;
-    
+
     public String currentQuery2;
-    
+
     public String currentQuery5;
-    
+
+    private String currentQuery3;
+    private String currentQuery4;
+
     ObservableList<Events> eventsData;
     ObservableList<Events> eventsDataUpcoming;
     ObservableList<Events> eventsDataPast;
-    
+    ObservableList<Codes> eventsCodeData;
+
     public static Connection conn;
 
     public static ResultSet rs;
 
     public static Statement statement;
-    
+
     @FXML
     private Button editAccountButton;
-    
+
     @FXML
     public TextField societyDescription;
-    
-    private String currentQuery3;
-    private String currentQuery4;
-    
+
+    @FXML
+    private Events eventName;
+    @FXML
+    private DatePicker startDate;
+    @FXML
+    private TextField startTime;
+    @FXML
+    private DatePicker endDate;
+    @FXML
+    private TextField endTIme;
+    @FXML
+    private RadioButton onCampus;
+    @FXML
+    private RadioButton offCampus;
+    @FXML
+    private TextField streetNo;
+    @FXML
+    private TextField streetName;
+    @FXML
+    private TextField buildingName;
+    @FXML
+    private TextField suburb;
+    @FXML
+    private TextField postcode;
+    @FXML
+    private TextField roomNo;
+    @FXML
+    private TextField eventDescription;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            System.out.print("Method 0");
             populateSocietyPageTitle();
+            System.out.print("Method 1");
             populateEmail();
+            System.out.print("Method 2");
             populateTableViewAll();
+            System.out.print("Method 3");
             populateTableViewUpcoming();
+            System.out.print("Method 4");
+            populateTableViewCodes();
+            System.out.print("Method 5");
             populateTableViewPast();
-            displayUserData();
+            System.out.print("Method 6");
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private void createNewEvent(MouseEvent event) throws SQLException {
-            addNewEvent("SocietyScreens_NewEvent.fxml");
-    }
-    
-    private void updateSocietyAccountNavigation(MouseEvent event) throws SQLException {
-            updateSocietyPage("SocietyScreens_SingleSociety.fxml");
-    }
-    
-    @FXML
+
+//    @FXML
+//    private void createNewEvent(MouseEvent event) throws SQLException {
+//            addNewEvent("SocietyScreens_NewEvent.fxml");
+//    }
+//    @FXML
+//    private void updateSocietyAccountNavigation(MouseEvent event) throws SQLException {
+//            updateSocietyPage("SocietyScreens_SingleSociety.fxml");
+//    }
     public void populateSocietyPageTitle() throws SQLException {
-            statement = openConnection();
-            currentQuery = "SELECT UPPER(society_name) from society JOIN app_user USING (society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
-            ResultSet rs = statement.executeQuery(currentQuery);
-            while (rs.next()) {
-                societyName.setText(rs.getString(1));
-                societyName1.setText(rs.getString(1));
-                societyName2.setText(rs.getString(1));
-                societyName4.setText(rs.getString(1));
-            }
+        statement = openConnection();
+        currentQuery = "SELECT UPPER(society_name), society_description from society JOIN app_user USING (society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
+        System.out.println(currentQuery);
+        ResultSet rs = statement.executeQuery(currentQuery);
+        while (rs.next()) {
+            System.out.println(rs.getString(1));
+            System.out.println(rs.getString(2));
+            societyName.setText(rs.getString(1));
+            societyName1.setText(rs.getString(1));
+            societyName2.setText(rs.getString(1));
+            societyName3.setText(rs.getString(1));
+            societyName4.setText(rs.getString(1));
+            societyDescription.setText(rs.getString(2));
+        }
     }
-    
+
     @FXML
     public void populateEmail() throws SQLException {
-                email.setText(ARCSocietyHomeController.loggedInUser);
+        email.setText(ARCSocietyHomeController.loggedInUser);
     }
-    
+
+    public void populateTableViewCodes() throws SQLException {
+        statement = openConnection();
+        currentQuery = "SELECT society_name, event_title, first_name || ' ' || last_name AS student_name FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
+        ResultSet rs = statement.executeQuery(currentQuery);
+
+        societyNameCodes.setCellValueFactory(new PropertyValueFactory<>("society"));
+        eventNameCodes.setCellValueFactory(new PropertyValueFactory<>("event"));
+        studentNameCodes.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+
+        //Data added to observable List
+        eventsCodeData = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                int i = 1;
+                eventsCodeData.add(new Codes(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        societyNameCodes.setCellFactory(tc -> {
+            TableCell<Codes, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(societyNameCodes.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        eventNameCodes.setCellFactory(tc -> {
+            TableCell<Codes, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventNameCodes.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        studentNameCodes.setCellFactory(tc -> {
+            TableCell<Codes, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(studentNameCodes.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        //Data added to TableView
+        try {
+            tableOfEventsCodes.setItems(eventsCodeData);
+            //tableofEvents.getColumns().setAll(event, startDate, location);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } //finally {
+        //closeConnection(conn, rs, statement);
+        //}
+    }
+
     public void populateTableViewAll() throws SQLException {
         statement = openConnection();
         currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
@@ -196,7 +286,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         try {
             while (rs.next()) {
                 int i = 1;
-                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i+3)));
+                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,7 +338,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         //closeConnection(conn, rs, statement);
         //}
     }
-    
+
     public void populateTableViewUpcoming() throws SQLException {
         statement = openConnection();
         currentQuery1 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start >= '10/MAY/2018'";
@@ -264,7 +354,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         try {
             while (rs1.next()) {
                 int i = 1;
-                eventsDataUpcoming.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i+3)));
+                eventsDataUpcoming.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i + 3)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -316,7 +406,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         //closeConnection(conn, rs, statement);
         //}
     }
-    
+
     public void populateTableViewPast() throws SQLException {
         statement = openConnection();
         currentQuery3 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'";
@@ -332,7 +422,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         try {
             while (rs3.next()) {
                 int i = 1;
-                eventsDataPast.add(new Events(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2), rs3.getString(i+3)));
+                eventsDataPast.add(new Events(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2), rs3.getString(i + 3)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -384,7 +474,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         //closeConnection(conn, rs, statement);
         //}
     }
-    
+
     public void addNewEvent(String destination) {
         stage = (Stage) newEvent.getScene().getWindow();
         try {
@@ -408,29 +498,19 @@ public class SocietyScreensEventsController extends Application implements Initi
         stage.setScene(scene);
         stage.show();
     }
-        
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = (Stage) societyName.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        displayUserData();
+        //displayUserData();
 //            populateSocietyPageTitle();
 //            populateEmail();
 //            populateTableViewAll();
     }
 
-        private void displayUserData() throws SQLException {
-        statement = openConnection();
-        currentQuery5 = "SELECT society_name, society_description from society WHERE society_name = '" + societyName4.getText() + "'";
-        ResultSet rs5 = statement.executeQuery(currentQuery5);
-        while(rs5.next()) {
-            societyName4.setText(rs5.getString(1));
-            societyDescription.setText(rs5.getString(2));
-        }
-    }
-    
     @FXML
     private void enableEditAccount(MouseEvent event) {
         if (!societyName4.isEditable()) {
@@ -446,8 +526,32 @@ public class SocietyScreensEventsController extends Application implements Initi
 
     @FXML
     private void updateAccount(MouseEvent event) throws SQLException {
-        currentQuery4 = "UPDATE society SET society_name = '" +  societyName4.getText() + "', " + "society_description = '" + societyDescription.getText()+ " WHERE society_name = '" + societyName4.getText() + "'";
+        currentQuery4 = "UPDATE society SET society_name = '" + societyName4.getText() + "', " + "society_description = '" + societyDescription.getText() + " WHERE society_name = '" + societyName4.getText() + "'";
         System.out.println(currentQuery4);
         int rs4 = statement.executeUpdate(currentQuery4);
+    }
+
+    public void loadNext(String destination) {
+        stage = (Stage) societyPage.getScene().getWindow();
+        try {
+            root = FXMLLoader.load(getClass().getResource(destination));
+        } catch (IOException ex) {
+            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void tableviewItemClicked(MouseEvent event) throws SQLException {
+        if (event.getClickCount() == 2) {
+            Events eventSelected = tableOfEventsAll.getSelectionModel().getSelectedItem();
+            String eventSelectedStart = eventSelected.getEvent();
+            String eventSelectedLocation = eventSelected.getLocationType();
+            String eventStartDate = eventSelected.getStartDate();
+            String eventSelectedType = eventSelected.getEventType();
+            loadNext("SocietyScreen_SingleEvent.fxml");
+        }
     }
 }
