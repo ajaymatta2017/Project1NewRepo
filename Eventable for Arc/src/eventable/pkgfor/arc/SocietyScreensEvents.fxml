@@ -157,7 +157,7 @@
                                                             <columns>
                                                                 <TableColumn fx:id="societyNameCodes" prefWidth="150.0" text="Society" />
                                                                 <TableColumn fx:id="eventNameCodes" prefWidth="150.0" text="Event" />
-                                                                <TableColumn fx:id="studentNameCodes" prefWidth="200.0" text="Student Name" />
+                                                                <TableColumn fx:id="emailCodes" prefWidth="200.0" text="Email" />
                                                             </columns>
                                                         </TableView>
                                                         <TextField layoutX="847.0" layoutY="53.0" prefHeight="26.0" prefWidth="285.0" promptText="Search" />
