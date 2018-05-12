@@ -92,7 +92,7 @@ public class SocietyScreensEventsController extends Application implements Initi
     @FXML
     private TableColumn<Codes, String> eventNameCodes;
     @FXML
-    private TableColumn<Codes, String> studentNameCodes;
+    private TableColumn<Codes, String> emailCodes;
 
     @FXML
     private TextField email;
@@ -164,19 +164,12 @@ public class SocietyScreensEventsController extends Application implements Initi
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            System.out.print("Method 0");
             populateSocietyPageTitle();
-            System.out.print("Method 1");
             populateEmail();
-            System.out.print("Method 2");
             populateTableViewAll();
-            System.out.print("Method 3");
             populateTableViewUpcoming();
-            System.out.print("Method 4");
             populateTableViewCodes();
-            System.out.print("Method 5");
             populateTableViewPast();
-            System.out.print("Method 6");
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -214,12 +207,11 @@ public class SocietyScreensEventsController extends Application implements Initi
 
     public void populateTableViewCodes() throws SQLException {
         statement = openConnection();
-        currentQuery = "SELECT society_name, event_title, first_name || ' ' || last_name AS student_name FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
+        currentQuery = "SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y'";
         ResultSet rs = statement.executeQuery(currentQuery);
-
         societyNameCodes.setCellValueFactory(new PropertyValueFactory<>("society"));
         eventNameCodes.setCellValueFactory(new PropertyValueFactory<>("event"));
-        studentNameCodes.setCellValueFactory(new PropertyValueFactory<>("studentName"));
+        emailCodes.setCellValueFactory(new PropertyValueFactory<>("email"));
 
         //Data added to observable List
         eventsCodeData = FXCollections.observableArrayList();
@@ -250,12 +242,12 @@ public class SocietyScreensEventsController extends Application implements Initi
             text.textProperty().bind(cell.itemProperty());
             return cell;
         });
-        studentNameCodes.setCellFactory(tc -> {
+        emailCodes.setCellFactory(tc -> {
             TableCell<Codes, String> cell = new TableCell<>();
             Text text = new Text();
             cell.setGraphic(text);
             cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(studentNameCodes.widthProperty());
+            text.wrappingWidthProperty().bind(emailCodes.widthProperty());
             text.textProperty().bind(cell.itemProperty());
             return cell;
         });
