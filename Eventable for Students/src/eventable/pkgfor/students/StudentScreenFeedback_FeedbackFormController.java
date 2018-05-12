@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -82,7 +83,7 @@ public class StudentScreenFeedback_FeedbackFormController implements Initializab
     @FXML
     private Button futureNa;
     @FXML
-    private Button errorText;
+    private Text errorText;
     
     public Integer radioButtonChoice = 0;
     public String recommendChoice;
@@ -144,26 +145,51 @@ public class StudentScreenFeedback_FeedbackFormController implements Initializab
 
     @FXML
     private void select1(ActionEvent event) {
+        radioButton1.setSelected(true);
+        radioButton2.setSelected(false);
+        radioButton3.setSelected(false);
+        radioButton4.setSelected(false);
+        radioButton5.setSelected(false);
         radioButtonChoice = 1;
     }
 
     @FXML
     private void select2(ActionEvent event) {
+        radioButton2.setSelected(true);
+        radioButton1.setSelected(false);
+        radioButton3.setSelected(false);
+        radioButton4.setSelected(false);
+        radioButton5.setSelected(false);
         radioButtonChoice = 2;
     }
 
     @FXML
     private void select3(ActionEvent event) {
+        radioButton3.setSelected(true);
+        radioButton1.setSelected(false);
+        radioButton2.setSelected(false);
+        radioButton4.setSelected(false);
+        radioButton5.setSelected(false);
         radioButtonChoice = 3;
     }
 
     @FXML
     private void select4(ActionEvent event) {
+        radioButton4.setSelected(true);
+        radioButton1.setSelected(false);
+        radioButton2.setSelected(false);
+        radioButton3.setSelected(false);
+        radioButton5.setSelected(false);
         radioButtonChoice = 4;
     }
 
     @FXML
     private void select5(ActionEvent event) {
+        radioButton5.setSelected(true);
+        radioButton1.setSelected(false);
+        radioButton2.setSelected(false);
+        radioButton3.setSelected(false);
+        radioButton4.setSelected(false);
         radioButtonChoice = 5;
     }
     

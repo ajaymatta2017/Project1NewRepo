@@ -38,7 +38,7 @@
                <children>
                   <ImageView fitHeight="168.0" fitWidth="438.0" layoutX="-86.0" layoutY="-1.0" opacity="0.19" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../BW_Banner16.jpg" />
+                        <Image url="@BW_Banner16.jpg" />
                      </image>
                   </ImageView>
                   <Accordion layoutX="77.0" layoutY="83.0" />

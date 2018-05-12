@@ -100,7 +100,7 @@ public class SignUp1Controller extends Application implements Initializable {
         int userPasswordHashed = userPassword.hashCode();
         String userPasswordHashedString = userPasswordHashed + "";
         statement = openConnection();
-        currentQuery = "INSERT INTO APP_USER(email, password) VALUES('" + email.getText() + "', '" + userPasswordHashedString + "')";
+        currentQuery = "INSERT INTO APP_USER(email, password, account_type) VALUES('" + email.getText() + "', '" + userPasswordHashedString + "', 'Personal')";
         int update = statement.executeUpdate(currentQuery);
         userEmailAddress = email.getText();
         return true;
