@@ -42,6 +42,7 @@ public class SocietyScreens_SingleEventController extends Application implements
     
     @FXML
     Stage stage;
+    @FXML
     Parent root;
     
     @FXML
@@ -103,7 +104,7 @@ public class SocietyScreens_SingleEventController extends Application implements
     private String currentQuery3;
     private int maxBuildingID;
     private int newMaxBuildingID;
-    
+       
     @FXML
     private void select0(MouseEvent event) {
         radioButtonChoice = 0;

@@ -60,9 +60,9 @@
                                                 <String fx:value="table-row-cell" />
                                              </styleClass>
                                                         </TableView>
-                                                        <TextField fx:id="societyName" editable="false" layoutX="100.0" layoutY="24.0" opacity="0.5" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
+                                                        <TextField fx:id="societyName" editable="false" layoutX="100.0" layoutY="24.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
                                           <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                          <Text fx:id="newEvent" fill="WHITE" layoutX="37.0" layoutY="55.0" onMouseClicked="#createNewEvent" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                          <Text fx:id="newEvent" fill="WHITE" layoutX="37.0" layoutY="56.0" onMouseClicked="#createNewEvent" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
                                              <font>
                                                 <Font name="Helvetica Neue" size="51.0" />
                                              </font>
@@ -115,9 +115,9 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                                         </TableView>
-                                                        <TextField fx:id="societyName1" editable="false" layoutX="100.0" layoutY="24.0" opacity="0.5" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
+                                                        <TextField fx:id="societyName1" editable="false" layoutX="100.0" layoutY="24.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
                                           <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                          <Text fx:id="newEvent1" fill="WHITE" layoutX="37.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                          <Text fx:id="newEvent1" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent1" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
                                              <font>
                                                 <Font name="Helvetica Neue" size="51.0" />
                                              </font>
@@ -169,9 +169,9 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                                         </TableView>
-                                                        <TextField fx:id="societyName2" editable="false" layoutX="100.0" layoutY="24.0" opacity="0.5" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
+                                                        <TextField fx:id="societyName2" editable="false" layoutX="100.0" layoutY="24.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
                                           <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                          <Text fx:id="newEvent2" fill="WHITE" layoutX="37.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                          <Text fx:id="newEvent2" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent2" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
                                              <font>
                                                 <Font name="Helvetica Neue" size="51.0" />
                                              </font>
@@ -222,9 +222,9 @@
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                              </columnResizePolicy>
                                                         </TableView>
-                                                        <TextField fx:id="societyName3" editable="false" layoutX="100.0" layoutY="24.0" opacity="0.5" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
+                                                        <TextField fx:id="societyName3" editable="false" layoutX="100.0" layoutY="24.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
                                           <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                          <Text fx:id="newEvent3" fill="WHITE" layoutX="37.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                          <Text fx:id="newEvent3" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent3" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
                                              <font>
                                                 <Font name="Helvetica Neue" size="51.0" />
                                              </font>
@@ -261,7 +261,7 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
                                                     <children>
-                                                        <TextField fx:id="societyName4" editable="false" layoutX="219.0" layoutY="36.0" opacity="0.5" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
+                                                        <TextField fx:id="societyName4" editable="false" layoutX="219.0" layoutY="36.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
                                                         <Text fill="#000000af" layoutX="38.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Who are we?">
                                                             <font>
                                                                 <Font name="System Bold" size="24.0" />
@@ -281,7 +281,10 @@
                                                 <String fx:value="text-area" />
                                                 <String fx:value="tab-pane" />
                                                 <String fx:value="content" />
-                                             </styleClass></TextField>
+                                             </styleClass>
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font></TextField>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -292,7 +295,7 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-                <TextField fx:id="email" editable="false" layoutX="994.0" layoutY="28.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="211.0" />
+                <TextField fx:id="email" editable="false" layoutX="1085.0" layoutY="28.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="120.0" />
             </children>
         </AnchorPane>
     </children>

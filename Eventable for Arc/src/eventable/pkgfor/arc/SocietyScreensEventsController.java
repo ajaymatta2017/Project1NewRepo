@@ -43,6 +43,7 @@ public class SocietyScreensEventsController extends Application implements Initi
 
     @FXML
     Stage stage;
+    @FXML
     Parent root;
     @FXML
     private TextField societyName;
@@ -160,8 +161,16 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TextField roomNo;
     @FXML
     private TextField eventDescription;
+    
     private String currentQuery6;
     private ObservableList<Object> eventsDataDisplayAll;
+    
+    @FXML
+    private Text newEvent1;
+    @FXML
+    private Text newEvent2;
+    @FXML
+    private Text newEvent3;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -181,6 +190,19 @@ public class SocietyScreensEventsController extends Application implements Initi
     private void createNewEvent(MouseEvent event) throws SQLException {
             addNewEvent("SocietyScreen_SingleEvent.fxml");
     }
+    @FXML
+        private void createNewEvent1(MouseEvent event) throws SQLException {
+            addNewEvent1("SocietyScreen_SingleEvent.fxml");
+    }
+    @FXML
+        private void createNewEvent2(MouseEvent event) throws SQLException {
+            addNewEvent2("SocietyScreen_SingleEvent.fxml");
+    }    
+    @FXML
+        private void createNewEvent3(MouseEvent event) throws SQLException {
+            addNewEvent3("SocietyScreen_SingleEvent.fxml");
+    }    
+       
 //    @FXML
 //    private void updateSocietyAccountNavigation(MouseEvent event) throws SQLException {
 //            updateSocietyPage("SocietyScreens_SingleSociety.fxml");
@@ -481,6 +503,42 @@ public class SocietyScreensEventsController extends Application implements Initi
         stage.setScene(scene);
         stage.show();
     }
+    
+    public void addNewEvent1(String destination) {
+        stage = (Stage) newEvent1.getScene().getWindow();
+        try {
+            root = FXMLLoader.load(getClass().getResource(destination));
+        } catch (IOException ex) {
+            Logger.getLogger(ARCSocietyHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void addNewEvent2(String destination) {
+        stage = (Stage) newEvent2.getScene().getWindow();
+        try {
+            root = FXMLLoader.load(getClass().getResource(destination));
+        } catch (IOException ex) {
+            Logger.getLogger(ARCSocietyHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+        
+    public void addNewEvent3(String destination) {
+        stage = (Stage) newEvent3.getScene().getWindow();
+        try {
+            root = FXMLLoader.load(getClass().getResource(destination));
+        } catch (IOException ex) {
+            Logger.getLogger(ARCSocietyHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }    
 
     public void updateSocietyPage(String destination) {
         stage = (Stage) societyPage.getScene().getWindow();
