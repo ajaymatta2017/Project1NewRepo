@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
@@ -68,6 +69,12 @@
                      </font>
                   </Text>
                   <Button fx:id="refreshButton" layoutX="25.0" layoutY="268.0" mnemonicParsing="false" onMouseClicked="#refreshClicked" prefHeight="33.0" prefWidth="278.0" stylesheets="@SecondaryButton.css" text="Refresh" />
+                  <Circle fx:id="confCircle" fill="#039be5" layoutX="164.0" layoutY="401.0" radius="54.0" stroke="TRANSPARENT" strokeType="INSIDE" visible="false" />
+                  <Text fx:id="confText" fill="WHITE" layoutX="131.0" layoutY="406.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Confirmed" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
         </content>
