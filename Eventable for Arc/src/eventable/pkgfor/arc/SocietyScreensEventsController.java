@@ -239,7 +239,7 @@ public class SocietyScreensEventsController extends Application implements Initi
     private void createNewEvent3(MouseEvent event) throws SQLException {
         addNewEvent3("SocietyScreen_SingleEvent.fxml");
     }
-
+    
 //    @FXML
 //    private void updateSocietyAccountNavigation(MouseEvent event) throws SQLException {
 //            updateSocietyPage("SocietyScreens_SingleSociety.fxml");

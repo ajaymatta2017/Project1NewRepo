@@ -128,7 +128,7 @@
                </font>
             </Text>
             <Button fx:id="cancelButton" layoutX="458.0" layoutY="649.0" mnemonicParsing="false" onMouseClicked="#cancelButton" prefHeight="34.0" prefWidth="167.0" stylesheets="@SecondaryButton.css" text="Cancel" />
-            <Button fx:id="updateButton" layoutX="642.0" layoutY="649.0" mnemonicParsing="false" onMouseClicked="#updateEventButton" prefHeight="34.0" prefWidth="167.0" stylesheets="@PrimaryButton.css" text="Update" />
+            <Button fx:id="updateButton" layoutX="642.0" layoutY="649.0" mnemonicParsing="false" onMouseClicked="#updateEventDetails" prefHeight="34.0" prefWidth="167.0" stylesheets="@PrimaryButton.css" text="Update" />
             <Text fx:id="errorText" fill="RED" layoutX="729.0" layoutY="900.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" visible="false" wrappingWidth="243.0">
                 <font>
                     <Font name="Helvetica Neue" size="12.0" />

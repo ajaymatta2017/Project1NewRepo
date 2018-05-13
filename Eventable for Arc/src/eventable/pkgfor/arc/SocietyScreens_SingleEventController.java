@@ -149,7 +149,7 @@ public class SocietyScreens_SingleEventController extends Application implements
     private void cancelButton (MouseEvent event) {
             loadNext("SocietyScreensEvents.fxml");
     }
-    
+       
     public void loadNext(String destination) {
         stage = (Stage) societyPage.getScene().getWindow();
         try {

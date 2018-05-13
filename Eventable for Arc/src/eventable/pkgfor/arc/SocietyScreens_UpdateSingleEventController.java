@@ -134,6 +134,12 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
         offCampus.setSelected(true);
         onCampus.setSelected(false);
     }
+    
+    @FXML
+    private void updateEventDetails(MouseEvent event) throws SQLException {
+        loadNext("SocietyScreensEvents.fxml");
+    }
+
 
     @FXML
     private void cancelButton(MouseEvent event) {
