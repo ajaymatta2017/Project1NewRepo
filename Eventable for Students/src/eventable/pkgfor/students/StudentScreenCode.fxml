@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenCodeController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.students.StudentScreenCodeController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="354.0">
          <children>
@@ -37,42 +37,37 @@
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Text layoutX="27.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name">
+                  <Text fx:id="ceSociety" layoutX="27.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society Name">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Text layoutX="28.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name">
+                  <Text fx:id="ceName" layoutX="28.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name">
                      <font>
                         <Font name="System Bold" size="16.0" />
                      </font>
                   </Text>
-                  <Text layoutX="28.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+                  <Text fx:id="ceTime" layoutX="28.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text layoutX="28.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time">
+                  <Text fx:id="ceLocation" layoutX="28.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <Text layoutX="28.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text layoutX="147.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code">
+                  <Text layoutX="146.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Text layoutX="136.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" textAlignment="CENTER">
+                  <Text fx:id="ceCode" layoutX="31.0" layoutY="242.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Code" textAlignment="CENTER" wrappingWidth="267.09214782714844">
                      <font>
                         <Font name="System Bold" size="24.0" />
                      </font>
                   </Text>
-                  <Button layoutX="25.0" layoutY="268.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="278.0" stylesheets="@SecondaryButton.css" text="Refresh" />
+                  <Button fx:id="refreshButton" layoutX="25.0" layoutY="268.0" mnemonicParsing="false" onMouseClicked="#refreshClicked" prefHeight="33.0" prefWidth="278.0" stylesheets="@SecondaryButton.css" text="Refresh" />
                </children>
             </AnchorPane>
         </content>
