@@ -171,7 +171,7 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
         //eventType.setValue();
         System.out.println(SocietyScreensEventsController.eventLocationType);
         if (SocietyScreensEventsController.eventLocationType.matches("On Campus")) {
-            System.out.println("Enter Oncampus Address Details");
+//            System.out.println("Enter Oncampus Address Details");
             locationTypeInt = 0;
             roomNo.setText(SocietyScreensEventsController.eventRoomNo);
             buildingName.setText(SocietyScreensEventsController.eventBuildingName);

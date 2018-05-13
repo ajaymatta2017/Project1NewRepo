@@ -100,7 +100,7 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
                                                     <children>
-                                                        <TableView fx:id="tableOfEventsUpcoming" layoutX="65.0" layoutY="88.0" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
+                                                        <TableView fx:id="tableOfEventsUpcoming" layoutX="65.0" layoutY="88.0" onMouseClicked="#tableviewItemUpcomingClicked" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
                                                             <columns>
                                                                 <TableColumn fx:id="eventNameUpcoming" prefWidth="75.0" text="Event" />
                                                                 <TableColumn fx:id="startDateUpcoming" prefWidth="75.0" text="Start Date" />
@@ -156,7 +156,7 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
                                                     <children>
-                                                        <TableView fx:id="tableOfEventsPast" layoutX="65.0" layoutY="88.0" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
+                                                        <TableView fx:id="tableOfEventsPast" layoutX="65.0" layoutY="88.0" onMouseClicked="#tableviewItemPastClicked" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
                                                             <columns>
                                                                 <TableColumn fx:id="eventNamePast" prefWidth="75.0" text="Event" />
                                                                 <TableColumn fx:id="startDatePast" prefWidth="75.0" text="Start Date" />
