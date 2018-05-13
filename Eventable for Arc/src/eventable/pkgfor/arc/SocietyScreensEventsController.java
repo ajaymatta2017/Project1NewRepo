@@ -36,6 +36,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -198,9 +199,23 @@ public class SocietyScreensEventsController extends Application implements Initi
     public static int eventEndDateMonthInteger;
 
     private Random rand = new Random();
+    
+    //Input variables
+    @FXML
+    private AnchorPane inputPane;
+    @FXML
+    private TextField codeInput;
+    @FXML
+    private Text errorMessage;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private Button confButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        statement = openConnection();
+
         try {
             System.out.println("Method0");
             populateSocietyPageTitle();
@@ -781,13 +796,47 @@ public class SocietyScreensEventsController extends Application implements Initi
 
     @FXML
     private void codeItemClicked(MouseEvent event) throws SQLException {
-        if (event.getClickCount() == 2) {
+        if (event.getClickCount() == 2) { // double click
+            //generate code
             int newCode = rand.nextInt(9999) + 1000;
-            System.out.println(tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + newCode);
-            statement = openConnection();
-            currentQuery = "UPDATE ATTENDANCE SET GENERATED_CODE = " + newCode + " WHERE EMAIL = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + "'";
-            //System.out.println(currentQuery);
+            currentQuery = "SELECT EVENT_ID FROM EVENT WHERE EVENT_TITLE = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().event.get() + "'";
             ResultSet rs = statement.executeQuery(currentQuery);
+            rs.next();
+            int eventID = Integer.parseInt(rs.getString("EVENT_ID"));
+            currentQuery = "UPDATE ATTENDANCE SET GENERATED_CODE = " + newCode + " WHERE EMAIL = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + "' AND EVENT_ID = " + eventID;
+            rs = statement.executeQuery(currentQuery);
+            
+            //open input
+            inputPane.setVisible(true);
+            errorMessage.setVisible(false);
         }
     }
+    
+    @FXML
+    private void closeInputPane(MouseEvent event){
+        inputPane.setVisible(false);
+    }
+    
+    @FXML
+    private void confClicked (MouseEvent event) throws SQLException{
+        //getDBcode
+        currentQuery = "SELECT EVENT_ID FROM EVENT WHERE EVENT_TITLE = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().event.get() + "'";
+        ResultSet rs = statement.executeQuery(currentQuery);
+        rs.next();
+        int eventID = Integer.parseInt(rs.getString("EVENT_ID"));
+        currentQuery = "SELECT GENERATED_CODE FROM ATTENDANCE WHERE EMAIL = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + "' AND EVENT_ID = " + eventID;
+        rs = statement.executeQuery(currentQuery);
+        rs.next();
+        if(rs.getString("GENERATED_CODE").equals(codeInput.getText())){
+            errorMessage.setVisible(false);
+            currentQuery = "UPDATE ATTENDANCE SET EVENT_ACTUAL_ATTENDANCE = 'Y' WHERE EMAIL = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + "' AND EVENT_ID = " + eventID;
+            rs = statement.executeQuery(currentQuery);
+            inputPane.setVisible(false);
+        }
+        else{
+            errorMessage.setVisible(true);
+        }
+
+    }
+    
 }
