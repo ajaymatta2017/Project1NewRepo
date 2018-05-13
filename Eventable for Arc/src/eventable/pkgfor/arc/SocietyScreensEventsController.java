@@ -175,12 +175,19 @@ public class SocietyScreensEventsController extends Application implements Initi
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            System.out.println("Method0");
             populateSocietyPageTitle();
+            System.out.println("Method1");
             populateEmail();
+            System.out.println("Method2");
             populateTableViewAll();
+            System.out.println("Method3");
             populateTableViewUpcoming();
+            System.out.println("Method4");
             populateTableViewCodes();
+            System.out.println("Method5");
             populateTableViewPast();
+            System.out.println("Method6");
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
         }

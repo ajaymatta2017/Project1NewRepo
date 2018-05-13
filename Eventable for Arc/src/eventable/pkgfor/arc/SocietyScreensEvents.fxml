@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.arc.SocietyScreensEventsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.arc.SocietyScreensEventsController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -51,39 +51,39 @@
                                                                 <TableColumn fx:id="locationTypeAll" prefWidth="75.0" text="Location" />
                                                                 <TableColumn fx:id="eventTypeAll" prefWidth="125.0" text="Type of Event" />
                                                             </columns>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
-                                             <styleClass>
-                                                <String fx:value="tab-pane" />
-                                                <String fx:value="table-cell" />
-                                                <String fx:value="table-row-cell" />
-                                             </styleClass>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                            </columnResizePolicy>
+                                                            <styleClass>
+                                                                <String fx:value="tab-pane" />
+                                                                <String fx:value="table-cell" />
+                                                                <String fx:value="table-row-cell" />
+                                                            </styleClass>
                                                         </TableView>
                                                         <TextField fx:id="societyName" editable="false" layoutX="100.0" layoutY="24.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
-                                          <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                          <Text fx:id="newEvent" fill="WHITE" layoutX="37.0" layoutY="56.0" onMouseClicked="#createNewEvent" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                                        <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                        <Text fx:id="newEvent" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
 
-                                             <font>
-                                                <Font name="Helvetica Neue" size="51.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField layoutX="776.0" layoutY="24.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SearchBox.css">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1132.0" layoutY="24.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/AZButton.css" text="Go" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
-                                          <ComboBox layoutX="1060.0" layoutY="24.0" prefHeight="0.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/ComboBox.css" />
-                                          <Button layoutX="682.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SecondaryButton.css" text="A-Z">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="51.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <TextField layoutX="776.0" layoutY="24.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SearchBox.css">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </TextField>
+                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1132.0" layoutY="24.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/AZButton.css" text="Go" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <ComboBox layoutX="1060.0" layoutY="24.0" prefHeight="0.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/ComboBox.css" />
+                                                        <Button layoutX="682.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SecondaryButton.css" text="A-Z">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -107,39 +107,39 @@
                                                                 <TableColumn fx:id="locationTypeUpcoming" prefWidth="75.0" text="Location" />
                                                                 <TableColumn fx:id="eventTypeUpcoming" prefWidth="125.0" text="Type of Event" />
                                                             </columns>
-                                             <styleClass>
-                                                <String fx:value="table-view" />
-                                                <String fx:value="table-row-cell" />
-                                                <String fx:value="table-cell" />
-                                             </styleClass>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
+                                                            <styleClass>
+                                                                <String fx:value="table-view" />
+                                                                <String fx:value="table-row-cell" />
+                                                                <String fx:value="table-cell" />
+                                                            </styleClass>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                            </columnResizePolicy>
                                                         </TableView>
                                                         <TextField fx:id="societyName1" editable="false" layoutX="100.0" layoutY="24.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
-                                          <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                          <Text fx:id="newEvent1" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent1" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                                        <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                        <Text fx:id="newEvent1" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent1" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
 
-                                             <font>
-                                                <Font name="Helvetica Neue" size="51.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField layoutX="777.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SearchBox.css">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/AZButton.css" text="Go" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
-                                          <ComboBox layoutX="1061.0" layoutY="25.0" prefHeight="0.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/ComboBox.css" />
-                                          <Button layoutX="689.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SecondaryButton.css" text="A-Z">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="51.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <TextField layoutX="777.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SearchBox.css">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </TextField>
+                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/AZButton.css" text="Go" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <ComboBox layoutX="1061.0" layoutY="25.0" prefHeight="0.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/ComboBox.css" />
+                                                        <Button layoutX="689.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SecondaryButton.css" text="A-Z">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -163,37 +163,37 @@
                                                                 <TableColumn fx:id="locationTypePast" prefWidth="75.0" text="Location" />
                                                                 <TableColumn fx:id="eventTypePast" prefWidth="125.0" text="Type of Event" />
                                                             </columns>
-                                             <styleClass>
-                                                <String fx:value="table-row-cell" />
-                                                <String fx:value="table-cell" />
-                                             </styleClass>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
+                                                            <styleClass>
+                                                                <String fx:value="table-row-cell" />
+                                                                <String fx:value="table-cell" />
+                                                            </styleClass>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                            </columnResizePolicy>
                                                         </TableView>
                                                         <TextField fx:id="societyName2" editable="false" layoutX="100.0" layoutY="24.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
-                                          <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                                          <Text fx:id="newEvent2" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent2" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
-                                             <font>
-                                                <Font name="Helvetica Neue" size="51.0" />
-                                             </font>
-                                          </Text>
-                                          <TextField layoutX="777.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SearchBox.css">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/AZButton.css" text="Go" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
-                                          <ComboBox layoutX="1061.0" layoutY="25.0" prefHeight="0.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/ComboBox.css" />
-                                          <Button layoutX="689.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SecondaryButton.css" text="A-Z">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
+                                                        <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                        <Text fx:id="newEvent2" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent2" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="51.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <TextField layoutX="777.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SearchBox.css">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </TextField>
+                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/AZButton.css" text="Go" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <ComboBox layoutX="1061.0" layoutY="25.0" prefHeight="0.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/ComboBox.css" />
+                                                        <Button layoutX="689.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SecondaryButton.css" text="A-Z">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -210,73 +210,44 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
                                                     <children>
-                                                        <TableView fx:id="tableOfEventsCodes" layoutX="91.0" layoutY="184.0" prefHeight="660.0" prefWidth="1102.0" stylesheets="@TableView.css">
+                                                        <TableView fx:id="tableOfEventsCodes" layoutX="65.0" layoutY="88.0" prefHeight="660.0" prefWidth="1102.0" stylesheets="@TableView.css">
                                                             <columns>
                                                                 <TableColumn fx:id="societyNameCodes" prefWidth="150.0" text="Society" />
                                                                 <TableColumn fx:id="eventNameCodes" prefWidth="150.0" text="Event" />
-                                                                <TableColumn fx:id="studentNameCodes" prefWidth="200.0" text="Student Name" />
+                                                                <TableColumn fx:id="emailCodes" prefWidth="200.0" text="Email" />
                                                             </columns>
-                                             <styleClass>
-                                                <String fx:value="table-row-cell" />
-                                                <String fx:value="table-cell" />
-                                             </styleClass>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
+                                                            <styleClass>
+                                                                <String fx:value="table-row-cell" />
+                                                                <String fx:value="table-cell" />
+                                                            </styleClass>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                            </columnResizePolicy>
                                                         </TableView>
                                                         <TextField fx:id="societyName3" editable="false" layoutX="100.0" layoutY="24.0" prefHeight="34.0" prefWidth="200.0" stylesheets="@SearchBox.css" />
-                                          <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                                                        <Circle fill="#47b5e8" layoutX="55.0" layoutY="42.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
 
-                                          <Text fx:id="newEvent3" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent3" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">                    <font>
-                                                <Font name="Helvetica Neue" size="51.0" />
-                                             </font>
-                                          </Text>
-                                          <Text layoutX="100.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name">
-                                             <font>
-                                                <Font name="System Bold" size="24.0" />
-                                             </font>
-                                          </Text>
-                                          <Text layoutX="127.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Text>
-                                          <Text layoutX="128.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Text>
-                                          <Text layoutX="146.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Attendees">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Text>
-                                          <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="100.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../USE/Eventable%20for%20Arc/baseline_access_time_black_48dp.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="101.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../USE/Eventable%20for%20Arc/baseline_people_black_48dp.png" />
-                                             </image>
-                                          </ImageView>
-                                          <TextField layoutX="780.0" layoutY="124.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SearchBox.css">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </TextField>
-                                          <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1136.0" layoutY="124.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/AZButton.css" text="Go" textAlignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
-                                          <ComboBox layoutX="1064.0" layoutY="124.0" prefHeight="0.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/ComboBox.css" />
-                                          <Button layoutX="686.0" layoutY="124.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SecondaryButton.css" text="A-Z">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Button>
+                                                        <Text fx:id="newEvent3" fill="WHITE" layoutX="38.0" layoutY="56.0" onMouseClicked="#createNewEvent3" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="30.600000381469727">                    
+                                                            <font>
+                                                                <Font name="Helvetica Neue" size="51.0" />
+                                                            </font>
+                                                        </Text>
+                                                        <TextField layoutX="756.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SearchBox.css">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </TextField>
+                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1112.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/AZButton.css" text="Go" textAlignment="CENTER">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
+                                                        <ComboBox layoutX="1040.0" layoutY="25.0" prefHeight="0.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/ComboBox.css" />
+                                                        <Button layoutX="662.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@../../../../../../USE/Eventable%20for%20Arc/src/eventable/pkgfor/arc/SecondaryButton.css" text="A-Z">
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
@@ -305,18 +276,20 @@
                                                             </font>
                                                         </Text>
                                                         <Button fx:id="editAccountButton" layoutX="1017.0" layoutY="36.0" mnemonicParsing="false" onMouseClicked="#updateAccount" onMouseEntered="#enableEditAccount" prefHeight="34.0" prefWidth="173.0" stylesheets="@PrimaryButton.css" text="Edit Account">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font></Button>
+                                                            <font>
+                                                                <Font size="14.0" />
+                                                            </font>
+                                                        </Button>
                                                         <TextField fx:id="societyDescription" editable="false" layoutX="219.0" layoutY="105.0" prefHeight="209.0" prefWidth="979.0" stylesheets="@TextArea.css">
-                                             <styleClass>
-                                                <String fx:value="text-area" />
-                                                <String fx:value="tab-pane" />
-                                                <String fx:value="content" />
-                                             </styleClass>
-                                             <font>
-                                                <Font size="18.0" />
-                                             </font></TextField>
+                                                            <styleClass>
+                                                                <String fx:value="text-area" />
+                                                                <String fx:value="tab-pane" />
+                                                                <String fx:value="content" />
+                                                            </styleClass>
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </TextField>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
