@@ -39,13 +39,13 @@ public class ARCSingleEventPageController implements Initializable {
     @FXML
     Parent root;
     @FXML
-    private TextField eventName;
+    private Text eventName;
     @FXML
-    private TextField societyName;
+    private Text societyName;
     @FXML
-    private TextField startDate;
+    private Text startDate;
     @FXML
-    private TextField attendeeCount;
+    private Text attendeeCount;
     @FXML
     private TextField email;
     @FXML
