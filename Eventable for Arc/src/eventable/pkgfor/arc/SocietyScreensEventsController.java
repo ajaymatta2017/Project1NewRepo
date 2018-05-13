@@ -6,6 +6,7 @@
 package eventable.pkgfor.arc;
 
 import static eventable.pkgfor.arc.ARCSocietyHomeController.emailAddress;
+import java.util.Random;
 import static eventable.pkgfor.arc.DBController.openConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -75,7 +76,7 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TextField societyName2;
     @FXML
     private TextField societyName3;
-    
+
     @FXML
     private TableView<Events> tableOfEventsPast;
     @FXML
@@ -159,10 +160,10 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TextField roomNo;
     @FXML
     private TextField eventDescription;
-    
+
     private String currentQuery6;
     private ObservableList<Events> eventsDataDisplayAll;
-    
+
     @FXML
     private Text newEvent1;
     @FXML
@@ -196,6 +197,8 @@ public class SocietyScreensEventsController extends Application implements Initi
     public static int eventStartDateMonthInteger;
     public static int eventEndDateMonthInteger;
 
+    private Random rand = new Random();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -219,21 +222,24 @@ public class SocietyScreensEventsController extends Application implements Initi
 
     @FXML
     private void createNewEvent(MouseEvent event) throws SQLException {
-            addNewEvent("SocietyScreen_SingleEvent.fxml");
+        addNewEvent("SocietyScreen_SingleEvent.fxml");
     }
+
     @FXML
-        private void createNewEvent1(MouseEvent event) throws SQLException {
-            addNewEvent1("SocietyScreen_SingleEvent.fxml");
+    private void createNewEvent1(MouseEvent event) throws SQLException {
+        addNewEvent1("SocietyScreen_SingleEvent.fxml");
     }
+
     @FXML
-        private void createNewEvent2(MouseEvent event) throws SQLException {
-            addNewEvent2("SocietyScreen_SingleEvent.fxml");
-    }    
+    private void createNewEvent2(MouseEvent event) throws SQLException {
+        addNewEvent2("SocietyScreen_SingleEvent.fxml");
+    }
+
     @FXML
-        private void createNewEvent3(MouseEvent event) throws SQLException {
-            addNewEvent3("SocietyScreen_SingleEvent.fxml");
-    }    
-       
+    private void createNewEvent3(MouseEvent event) throws SQLException {
+        addNewEvent3("SocietyScreen_SingleEvent.fxml");
+    }
+
 //    @FXML
 //    private void updateSocietyAccountNavigation(MouseEvent event) throws SQLException {
 //            updateSocietyPage("SocietyScreens_SingleSociety.fxml");
@@ -336,9 +342,9 @@ public class SocietyScreensEventsController extends Application implements Initi
             while (rs.next()) {
                 int i = 1;
                 //eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3)));
-                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4), 
-                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9), 
-                        rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13), rs.getInt(i+14), rs.getString(i + 15)));
+                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4),
+                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9),
+                        rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13), rs.getInt(i + 14), rs.getString(i + 15)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -408,9 +414,9 @@ public class SocietyScreensEventsController extends Application implements Initi
             while (rs1.next()) {
                 int i = 1;
 //                eventsDataUpcoming.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i + 3)));
-                eventsDataUpcoming.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i + 3), rs1.getString(i + 4), 
-                        rs1.getString(i + 5), rs1.getString(i + 6), rs1.getString(i + 7), rs1.getString(i + 8), rs1.getString(i + 9), 
-                        rs1.getString(i + 10), rs1.getString(i + 11), rs1.getString(i + 12), rs1.getString(i + 13), rs1.getInt(i+14), rs1.getString(i + 15)));
+                eventsDataUpcoming.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i + 3), rs1.getString(i + 4),
+                        rs1.getString(i + 5), rs1.getString(i + 6), rs1.getString(i + 7), rs1.getString(i + 8), rs1.getString(i + 9),
+                        rs1.getString(i + 10), rs1.getString(i + 11), rs1.getString(i + 12), rs1.getString(i + 13), rs1.getInt(i + 14), rs1.getString(i + 15)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -479,9 +485,9 @@ public class SocietyScreensEventsController extends Application implements Initi
         try {
             while (rs3.next()) {
                 int i = 1;
-                eventsDataPast.add(new Events(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2), rs3.getString(i + 3), rs3.getString(i + 4), 
-                        rs3.getString(i + 5), rs3.getString(i + 6), rs3.getString(i + 7), rs3.getString(i + 8), rs3.getString(i + 9), 
-                        rs3.getString(i + 10), rs3.getString(i + 11), rs3.getString(i + 12), rs3.getString(i + 13), rs3.getInt(i+14), rs3.getString(i + 15)));
+                eventsDataPast.add(new Events(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2), rs3.getString(i + 3), rs3.getString(i + 4),
+                        rs3.getString(i + 5), rs3.getString(i + 6), rs3.getString(i + 7), rs3.getString(i + 8), rs3.getString(i + 9),
+                        rs3.getString(i + 10), rs3.getString(i + 11), rs3.getString(i + 12), rs3.getString(i + 13), rs3.getInt(i + 14), rs3.getString(i + 15)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -545,7 +551,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public void addNewEvent1(String destination) {
         stage = (Stage) newEvent1.getScene().getWindow();
         try {
@@ -557,7 +563,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public void addNewEvent2(String destination) {
         stage = (Stage) newEvent2.getScene().getWindow();
         try {
@@ -569,7 +575,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         stage.setScene(scene);
         stage.show();
     }
-        
+
     public void addNewEvent3(String destination) {
         stage = (Stage) newEvent3.getScene().getWindow();
         try {
@@ -580,7 +586,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-    }    
+    }
 
     public void updateSocietyPage(String destination) {
         stage = (Stage) societyPage.getScene().getWindow();
@@ -653,7 +659,6 @@ public class SocietyScreensEventsController extends Application implements Initi
 ////            }        
 ////    }
 ////    }
-           
     @FXML
     private void tableviewItemAllClicked(MouseEvent event) throws SQLException {
         if (event.getClickCount() == 2) {
@@ -663,8 +668,7 @@ public class SocietyScreensEventsController extends Application implements Initi
             if (eventLocationTypeString.matches("On Campus")) {
                 eventRoomNo = eventSelected.getRoomNo();
                 eventBuildingName = eventSelected.getBuildingName();
-            }
-            else {
+            } else {
                 eventStreetNo = eventSelected.getStreetNo();
                 eventStreetName = eventSelected.getStreetName();
                 eventSuburb = eventSelected.getSuburb();
@@ -672,19 +676,19 @@ public class SocietyScreensEventsController extends Application implements Initi
             }
             eventLocationType = eventSelected.getLocationType();
             eventName = eventSelected.getEvent();
-            
+
             eventStartDate = eventSelected.getStartDate();
             String[] eventStartDateArray = eventStartDate.split("/");
             eventStartDateDay = Integer.parseInt(eventStartDateArray[0]);
             eventStartDateMonth = Integer.parseInt(eventStartDateArray[1]);
             eventStartDateYear = Integer.parseInt(eventStartDateArray[2]);
-            
+
             eventEndDate = eventSelected.getEventEnd();
             String[] eventEndDateArray = eventEndDate.split("/");
             eventEndDateDay = Integer.parseInt(eventEndDateArray[0]);
             eventEndDateMonth = Integer.parseInt(eventEndDateArray[1]);
             eventEndDateYear = Integer.parseInt(eventEndDateArray[2]);
-            
+
             eventStartTime = eventSelected.getEventStartTime();
             eventEndTime = eventSelected.getEventEndTime();
             eventText = eventSelected.getEventText();
@@ -694,7 +698,7 @@ public class SocietyScreensEventsController extends Application implements Initi
             loadNext("SocietyScreen_UpdateSingleEvent.fxml");
         }
     }
-    
+
     @FXML
     private void tableviewItemUpcomingClicked(MouseEvent event) throws SQLException {
         if (event.getClickCount() == 2) {
@@ -704,8 +708,7 @@ public class SocietyScreensEventsController extends Application implements Initi
             if (eventLocationTypeString.matches("On Campus")) {
                 eventRoomNo = eventSelected.getRoomNo();
                 eventBuildingName = eventSelected.getBuildingName();
-            }
-            else {
+            } else {
                 eventStreetNo = eventSelected.getStreetNo();
                 eventStreetName = eventSelected.getStreetName();
                 eventSuburb = eventSelected.getSuburb();
@@ -713,19 +716,19 @@ public class SocietyScreensEventsController extends Application implements Initi
             }
             eventLocationType = eventSelected.getLocationType();
             eventName = eventSelected.getEvent();
-            
+
             eventStartDate = eventSelected.getStartDate();
             String[] eventStartDateArray = eventStartDate.split("/");
             eventStartDateDay = Integer.parseInt(eventStartDateArray[0]);
             eventStartDateMonth = Integer.parseInt(eventStartDateArray[1]);
             eventStartDateYear = Integer.parseInt(eventStartDateArray[2]);
-            
+
             eventEndDate = eventSelected.getEventEnd();
             String[] eventEndDateArray = eventEndDate.split("/");
             eventEndDateDay = Integer.parseInt(eventEndDateArray[0]);
             eventEndDateMonth = Integer.parseInt(eventEndDateArray[1]);
             eventEndDateYear = Integer.parseInt(eventEndDateArray[2]);
-            
+
             eventStartTime = eventSelected.getEventStartTime();
             eventEndTime = eventSelected.getEventEndTime();
             eventText = eventSelected.getEventText();
@@ -735,7 +738,7 @@ public class SocietyScreensEventsController extends Application implements Initi
             loadNext("SocietyScreen_UpdateSingleEvent.fxml");
         }
     }
-    
+
     @FXML
     private void tableviewItemPastClicked(MouseEvent event) throws SQLException {
         if (event.getClickCount() == 2) {
@@ -745,8 +748,7 @@ public class SocietyScreensEventsController extends Application implements Initi
             if (eventLocationTypeString.matches("On Campus")) {
                 eventRoomNo = eventSelected.getRoomNo();
                 eventBuildingName = eventSelected.getBuildingName();
-            }
-            else {
+            } else {
                 eventStreetNo = eventSelected.getStreetNo();
                 eventStreetName = eventSelected.getStreetName();
                 eventSuburb = eventSelected.getSuburb();
@@ -754,19 +756,19 @@ public class SocietyScreensEventsController extends Application implements Initi
             }
             eventLocationType = eventSelected.getLocationType();
             eventName = eventSelected.getEvent();
-            
+
             eventStartDate = eventSelected.getStartDate();
             String[] eventStartDateArray = eventStartDate.split("/");
             eventStartDateDay = Integer.parseInt(eventStartDateArray[0]);
             eventStartDateMonth = Integer.parseInt(eventStartDateArray[1]);
             eventStartDateYear = Integer.parseInt(eventStartDateArray[2]);
-            
+
             eventEndDate = eventSelected.getEventEnd();
             String[] eventEndDateArray = eventEndDate.split("/");
             eventEndDateDay = Integer.parseInt(eventEndDateArray[0]);
             eventEndDateMonth = Integer.parseInt(eventEndDateArray[1]);
             eventEndDateYear = Integer.parseInt(eventEndDateArray[2]);
-            
+
             eventStartTime = eventSelected.getEventStartTime();
             eventEndTime = eventSelected.getEventEndTime();
             eventText = eventSelected.getEventText();
@@ -775,5 +777,17 @@ public class SocietyScreensEventsController extends Application implements Initi
 //            System.out.println(eventStartDateMonth + "..." + eventType + "..." + eventEndDateYear + "...");
             loadNext("SocietyScreen_UpdateSingleEvent.fxml");
         }
-    } 
+    }
+
+    @FXML
+    private void codeItemClicked(MouseEvent event) throws SQLException {
+        if (event.getClickCount() == 2) {
+            int newCode = rand.nextInt(9999) + 1000;
+            System.out.println(tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + newCode);
+            statement = openConnection();
+            currentQuery = "UPDATE ATTENDANCE SET GENERATED_CODE = " + newCode + " WHERE EMAIL = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + "'";
+            //System.out.println(currentQuery);
+            ResultSet rs = statement.executeQuery(currentQuery);
+        }
+    }
 }

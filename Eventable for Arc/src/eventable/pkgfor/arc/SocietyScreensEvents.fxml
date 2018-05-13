@@ -210,7 +210,7 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
                                                     <children>
-                                                        <TableView fx:id="tableOfEventsCodes" layoutX="65.0" layoutY="88.0" prefHeight="660.0" prefWidth="1102.0" stylesheets="@TableView.css">
+                                                        <TableView fx:id="tableOfEventsCodes" layoutX="65.0" layoutY="88.0" onMouseClicked="#codeItemClicked" prefHeight="660.0" prefWidth="1102.0" stylesheets="@TableView.css">
                                                             <columns>
                                                                 <TableColumn fx:id="societyNameCodes" prefWidth="150.0" text="Society" />
                                                                 <TableColumn fx:id="eventNameCodes" prefWidth="150.0" text="Event" />
