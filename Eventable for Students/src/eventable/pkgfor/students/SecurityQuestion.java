@@ -11,12 +11,20 @@ package eventable.pkgfor.students;
  */
 public class SecurityQuestion {
     public String securityQuestionWording;
+    public int id;
 
-    public SecurityQuestion(String securityQuestionWording) {
+    public SecurityQuestion(String securityQuestionWording, int id) {
         this.securityQuestionWording = securityQuestionWording;
+        this.id = id;
     }
 
     public String getSecurityQuestionWording() {
         return securityQuestionWording;
     }       
+
+    public int getId() {
+        return id;
+    }
+    
+    
 }

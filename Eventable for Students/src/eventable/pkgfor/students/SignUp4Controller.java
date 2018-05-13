@@ -83,14 +83,14 @@ public class SignUp4Controller implements Initializable {
 
     public void populatingComboBox() throws SQLException {
         statement = openConnection();
-        currentQuery = "SELECT securityquestion_wording from security_question";
+        currentQuery = "SELECT securityquestion_wording, securityquestion_id from security_question";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         securityQuestionData = FXCollections.observableArrayList();
         try {
             while (rs.next()) {
                 int i = 1;
-                securityQuestionData.add(new SecurityQuestion(rs.getString(i)));
+                securityQuestionData.add(new SecurityQuestion(rs.getString(i), Integer.parseInt(rs.getString(i + 1))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,17 +154,18 @@ public class SignUp4Controller implements Initializable {
             setError("Please answer 2 unique security questions");
             return false;
         }
-        
         //Adding security questions for user
         //TODO: NEED TO FINISH - NOTE: securityQuestion1.getId() does not work for this scenario
-//        statement = openConnection();
-//        currentQuery = "INSERT INTO SECURITY_FEATURE (securityquestion_id, email, security_answer) VALUES ('" + securityQuestion1.getId() + "', '" + 
-//                SignUp1Controller.userEmailAddress + "', '" + Utils.extractString(securityAnswer1) + "')";
-//        System.out.print(currentQuery);
-//        currentQuery1 = "INSERT INTO SECURITY_FEATURE (securityquestion_id, email, security_answer) VALUES ('" + securityQuestion2.getId() + 1 + "', '" + 
-//                SignUp1Controller.userEmailAddress + "', '" + Utils.extractString(securityAnswer2) + "')";
-//        int update = statement.executeUpdate(currentQuery);
-//        int update1 = statement.executeUpdate(currentQuery1);
+        statement = openConnection();
+        SecurityQuestion securityQuestion1Selected = (SecurityQuestion) securityQuestion1.getSelectionModel().getSelectedItem();
+        SecurityQuestion securityQuestion2Selected = (SecurityQuestion) securityQuestion2.getSelectionModel().getSelectedItem();
+        currentQuery = "INSERT INTO SECURITY_FEATURE (securityquestion_id, email, security_answer) VALUES ('" + securityQuestion1Selected.getId()  + "', '" + 
+                SignUp1Controller.userEmailAddress + "', '" + Utils.extractString(securityAnswer1) + "')";
+        System.out.print(currentQuery);
+        currentQuery1 = "INSERT INTO SECURITY_FEATURE (securityquestion_id, email, security_answer) VALUES ('" + securityQuestion2Selected.getId() + "', '" + 
+                SignUp1Controller.userEmailAddress + "', '" + Utils.extractString(securityAnswer2) + "')";
+        int update = statement.executeUpdate(currentQuery);
+        int update1 = statement.executeUpdate(currentQuery1);
         return true;
     }
 
