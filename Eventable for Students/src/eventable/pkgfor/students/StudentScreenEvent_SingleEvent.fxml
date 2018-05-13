@@ -72,11 +72,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Text>
-                  <Text fx:id="eventDate" layoutX="53.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date/Time" wrappingWidth="190.76952612400055">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
+                  <Text fx:id="eventDate" layoutX="53.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date/Time" wrappingWidth="256.76952612400055" />
                   <Text fx:id="eventLocation" layoutX="53.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location" wrappingWidth="229.1435546875">
                      <font>
                         <Font size="14.0" />

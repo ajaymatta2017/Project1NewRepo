@@ -104,7 +104,7 @@ public class StudentScreenEvents_GoingController extends Application implements 
         //Only display events that are in the future
         String loggedInUser = LoginController.loggedInUser;
         statement = openConnection();
-        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_CODE, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT e JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_CODE) JOIN ATTENDANCE a USING (event_id) WHERE a.event_theoretical_attendance = 'Y' and e.EVENT_START >= '05/MAY/2018' and a.email = '" + loggedInUser + "'";
+        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT e JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) JOIN ATTENDANCE a USING (event_id) WHERE a.event_theoretical_attendance = 'Y' and e.EVENT_START >= '05/MAY/2018' and a.email = '" + loggedInUser + "'";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         event.setCellValueFactory(new PropertyValueFactory<>("event"));
@@ -231,7 +231,7 @@ public class StudentScreenEvents_GoingController extends Application implements 
             eventName = eventSelected.getEvent();
             String eventLocationType = eventSelected.getLocationType();
             if (eventLocationType.equals("On Campus")) {
-                eventLocation = eventSelected.getRoomNo() + " " + eventSelected.getBuildingName() + ", " + eventSelected.getBuildingCode();
+                eventLocation = eventSelected.getRoomNo() + " " + eventSelected.getBuildingName();
             }
             else {
                 eventLocation = eventSelected.getStreetNo() + " " + eventSelected.getStreetName() + ", " + eventSelected.getSuburb() + ", " + 

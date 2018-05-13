@@ -102,7 +102,7 @@ public class StudentScreenEvents_FavouritesController extends Application implem
     public void populateTableView() throws SQLException {
         String loggedInUser = LoginController.loggedInUser;
         statement = openConnection();
-        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_CODE, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_CODE) JOIN favourites f USING (society_id) WHERE f.email = '"+ loggedInUser + "'";
+        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) JOIN favourites f USING (society_id) WHERE f.email = '"+ loggedInUser + "'";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         event.setCellValueFactory(new PropertyValueFactory<>("event"));
@@ -242,7 +242,7 @@ public class StudentScreenEvents_FavouritesController extends Application implem
             eventName = eventSelected.getEvent();
             String eventLocationType = eventSelected.getLocationType();
             if (eventLocationType.equals("On Campus")) {
-                eventLocation = eventSelected.getRoomNo() + " " + eventSelected.getBuildingName() + ", " + eventSelected.getBuildingCode();
+                eventLocation = eventSelected.getRoomNo() + " " + eventSelected.getBuildingName();
             }
             else {
                 eventLocation = eventSelected.getStreetNo() + " " + eventSelected.getStreetName() + ", " + eventSelected.getSuburb() + ", " + 
