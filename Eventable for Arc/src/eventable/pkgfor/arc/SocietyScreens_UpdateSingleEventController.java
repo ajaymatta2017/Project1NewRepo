@@ -45,8 +45,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-
 public class SocietyScreens_UpdateSingleEventController implements Initializable {
+
     @FXML
     Stage stage;
     @FXML
@@ -91,8 +91,8 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
     private Button updateButton;
     @FXML
     private Text errorText;
-    public static String eventTypeArray[] = {"", "",""};
-    
+    public static String eventTypeArray[] = {"", "", ""};
+
     public int locationTypeInt;
     private String currentQuery2;
     private ObservableList<Events> eventTypeData;
@@ -102,22 +102,21 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
     public void initialize(URL url, ResourceBundle rb) {
         populateEmail();
         try {
-                    try {
-            populatingComboBox();
-        } catch (SQLException ex) {
-            Logger.getLogger(SocietyScreens_UpdateSingleEventController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-displayUserData();
+            try {
+                populatingComboBox();
+            } catch (SQLException ex) {
+                Logger.getLogger(SocietyScreens_UpdateSingleEventController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            displayUserData();
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreens_UpdateSingleEventController.class.getName()).log(Level.SEVERE, null, ex);
         }
         if (locationTypeInt == 0) {
             select0();
-        }
-        else {
+        } else {
             select1();
         }
-    }    
+    }
 
     @FXML
     private void populateEmail() {
@@ -126,18 +125,18 @@ displayUserData();
 
     @FXML
     private void select0() {
-            onCampus.setSelected(true);
-            offCampus.setSelected(false);
+        onCampus.setSelected(true);
+        offCampus.setSelected(false);
     }
 
     @FXML
     private void select1() {
-            offCampus.setSelected(true);
-            onCampus.setSelected(false);
+        offCampus.setSelected(true);
+        onCampus.setSelected(false);
     }
 
     @FXML
-    private void cancelButton (MouseEvent event) {
+    private void cancelButton(MouseEvent event) {
         eventName.clear();
         eventDescription.clear();
 //        System.out.println("cleared values");
@@ -149,7 +148,7 @@ displayUserData();
         postcode.clear();
         loadNext("SocietyScreensEvents.fxml");
     }
-    
+
     public void loadNext(String destination) {
         stage = (Stage) societyPage.getScene().getWindow();
         try {
@@ -161,11 +160,11 @@ displayUserData();
         stage.setScene(scene);
         stage.show();
     }
-    
+
     @FXML
     private void updateEventButton(MouseEvent event) {
     }
-    
+
     public void displayUserData() throws SQLException {
         eventName.setText(SocietyScreensEventsController.eventName);
         eventDescription.setText(SocietyScreensEventsController.eventText);
@@ -176,8 +175,7 @@ displayUserData();
             locationTypeInt = 0;
             roomNo.setText(SocietyScreensEventsController.eventRoomNo);
             buildingName.setText(SocietyScreensEventsController.eventBuildingName);
-    }
-        else {
+        } else {
             locationTypeInt = 1;
             streetNo.setText(SocietyScreensEventsController.eventStreetNo);
             streetName.setText(SocietyScreensEventsController.eventStreetName);
@@ -188,7 +186,7 @@ displayUserData();
         endDate.setValue(LocalDate.of(eventEndDateYear, eventEndDateMonth, eventEndDateDay));
         startTime.setText(SocietyScreensEventsController.eventStartTime);
         endTime.setText(SocietyScreensEventsController.eventEndTime);
-        
+
         statement = openConnection();
         currentQuery2 = "SELECT distinct event_type FROM event";
         ResultSet rs3 = statement.executeQuery(currentQuery2);
@@ -203,7 +201,7 @@ displayUserData();
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreens_UpdateSingleEventController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         for (int k = 0; k < eventTypeArray.length; k++) {
             if (SocietyScreensEventsController.eventTypeValue.matches(eventTypeArray[k])) {
                 eventType.getSelectionModel().select(k);
@@ -211,7 +209,7 @@ displayUserData();
             }
         }
     }
-    
+
     public void populatingComboBox() throws SQLException {
         statement = openConnection();
         currentQuery2 = "SELECT distinct event_type FROM event";
@@ -223,11 +221,11 @@ displayUserData();
                 int i = 1;
                 eventTypeData.add(new Events(rs.getString(i)));
             }
-                    } catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(SocietyScreens_UpdateSingleEventController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-        eventType.setConverter(new StringConverter<Events>(){
+
+        eventType.setConverter(new StringConverter<Events>() {
             public String toString(Events object) {
                 eventTypeWording = object.getEventType();
                 return object.getEventType();
@@ -238,7 +236,7 @@ displayUserData();
                 return null;
             }
         });
-        
+
         //Data added to comboBox
         try {
             eventType.setItems(eventTypeData);
