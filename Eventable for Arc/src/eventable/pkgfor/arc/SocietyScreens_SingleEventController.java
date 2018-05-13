@@ -104,6 +104,10 @@ public class SocietyScreens_SingleEventController extends Application implements
     private String currentQuery3;
     private int maxBuildingID;
     private int newMaxBuildingID;
+    private String eventTypeWording;
+    private String currentQuery4;
+    private int societyIDValue;
+    private String currentQuery5;
        
     @FXML
     private void select0(MouseEvent event) {
@@ -113,6 +117,10 @@ public class SocietyScreens_SingleEventController extends Application implements
     @FXML
     private void select1(MouseEvent event) {
         radioButtonChoice = 1;
+    }
+    @FXML
+    private void setComboBoxValue(MouseEvent event) {
+        eventType.setValue(stage);
     }
     
     @Override
@@ -158,6 +166,41 @@ public class SocietyScreens_SingleEventController extends Application implements
         errorText.setText(errorMessage);
         errorText.setVisible(true);
     }
+    
+    public int getEventID() throws SQLException {
+        statement = openConnection();
+        currentQuery2 = "SELECT event_id FROM event ORDER BY event_id DESC";
+        ResultSet rs = statement.executeQuery(currentQuery2);
+        while (rs.next()) {
+            maxEventID = rs.getInt(1);
+            break;
+        }
+        newMaxEventID = maxEventID + 1;
+        return newMaxEventID;
+    }
+    
+    public int getBuildingID() throws SQLException {
+        statement = openConnection();
+        currentQuery3 = "SELECT CAST(building_id as INT) building_id FROM campus ORDER BY building_id DESC";
+        ResultSet rs1 = statement.executeQuery(currentQuery3);
+        while (rs1.next()) {
+            maxBuildingID = rs1.getInt(1);
+            break;
+        }
+        newMaxBuildingID = maxBuildingID + 1;
+        return newMaxBuildingID;
+    }
+    
+    public int getSocietyID() throws SQLException {
+        statement = openConnection();
+        currentQuery5 = "SELECT society_id FROM APP_USER WHERE EMAIL = lower('" + loggedInUser + "')";
+        ResultSet rs2 = statement.executeQuery(currentQuery5);
+        while (rs2.next()) {
+            societyIDValue = rs2.getInt(1);
+            break;
+        }
+        return societyIDValue;
+    }
         
    public Boolean validateFields() throws SQLException {
         errorText.setVisible(false);
@@ -178,36 +221,32 @@ public class SocietyScreens_SingleEventController extends Application implements
             setError("Event Description cannot be empty");
             return false;
         }
-        currentQuery2 = "SELECT event_id FROM event ORDER BY event_id DESC";
-        ResultSet rs = statement.executeQuery(currentQuery2);
-        while (rs.next()) {
-            maxEventID = rs.getInt(1);
-            break;
-        }
-        newMaxEventID = maxEventID + 1;
         
-        currentQuery3 = "SELECT building_id FROM campus ORDER BY building_id DESC";
-        ResultSet rs1 = statement.executeQuery(currentQuery3);
-        while (rs.next()) {
-            maxBuildingID = rs1.getInt(1);
-            break;
-        }
-        newMaxBuildingID = maxBuildingID + 1;
+        int maxEventID = getEventID();
+        int maxBuildingID = getBuildingID();
+        int societyIDCurrentValue = getSocietyID();
         
-        statement = openConnection();
-        
-        //NEED TO TEST
-        if (radioButtonChoice == 0) {       
-        currentQuery = "INSERT INTO event(event_id, event_title, location_type, event_text, event_start, event_end, society_id, building_id, room_no) VALUES(" + newMaxEventID + ", '" + eventName.getText() + "', '" + onCampus.getText() + "', '" + eventDescription.getText() + "', '" + startDate.getValue().toString() + " " + startTime.getText() + "', '" + endDate.getValue().toString() + " " + endTime.getText() + "', " + societyID + ", '" + eventType.getValue().toString() + "', " + newMaxBuildingID + ", " + roomNo + ")";
-        System.out.print(currentQuery);
-        int update = statement.executeUpdate(currentQuery);
-        return true;
+        if (radioButtonChoice == 0) {
+            statement = openConnection();
+//            System.out.print("Entered radiobutton = 0 method");
+            currentQuery4 = "INSERT INTO CAMPUS VALUES('" + maxBuildingID + "', '" + buildingName.getText() + "', '" + roomNo.getText() + "')";
+            int update2 = statement.executeUpdate(currentQuery4);
+            String startDateString = startDate.getValue().toString() + " " + startTime.getText();
+            String endDateString = endDate.getValue().toString() + " " + endTime.getText();
+            currentQuery = "INSERT INTO event(event_id, event_title, location_type, event_text, event_start, event_end, society_id, event_type, building_id, room_no) VALUES(" + maxEventID + ", '" + eventName.getText() + "', 'On Campus', '" + eventDescription.getText() + "', " + "TO_TIMESTAMP('" + startDateString + "','yyyy/mm/dd hh24:mi:ss')" + ", " + "TO_TIMESTAMP('" + endDateString + "','yyyy/mm/dd hh24:mi:ss'), " + societyIDCurrentValue + ", '" + eventTypeWording + "', '" + maxBuildingID + "', '" + roomNo.getText() + "')";
+            System.out.print(currentQuery);
+            int update = statement.executeUpdate(currentQuery);
+            return true;
 }
         else if (radioButtonChoice == 1) {
-        currentQuery1 = "INSERT INTO event(event_id, event_title, location_type, event_text, event_start, event_end, street_no, street_name, postcode, suburb, society_id, event_type) VALUES(" + newMaxEventID + ", '" + eventName.getText() + "', '" + offCampus.getText() + "', '" + eventDescription.getText() + "', '" + startDate.getValue().toString() + " " + startTime.getText() + "', '" + endDate.getValue().toString() + " " + endTime.getText() + "', " + streetNo.getText() + ", '" + streetName.getText() + "', '" + postcode.getText()+ "', '" + suburb.getText() + "', " + societyID + ", '" + eventType.getValue().toString() + "', " + newMaxBuildingID + ", " + roomNo + ")";
-        System.out.print(currentQuery1);
-        int update1 = statement.executeUpdate(currentQuery1);
-        return true;
+            statement = openConnection();
+//            System.out.print("Entered radiobutton = 1 method");
+            String startDateString = startDate.getValue().toString() + " " + startTime.getText();
+            String endDateString = endDate.getValue().toString() + " " + endTime.getText();
+            currentQuery1 = "INSERT INTO event(event_id, event_title, location_type, event_text, event_start, event_end, street_no, street_name, postcode, suburb, society_id, event_type) VALUES(" + maxEventID + ", '" + eventName.getText() + "', 'Off Campus', '" + eventDescription.getText() + "', " + "TO_TIMESTAMP('" + startDateString + "','yyyy/mm/dd hh24:mi:ss')" + ", " + "TO_TIMESTAMP('" + endDateString + "','yyyy/mm/dd hh24:mi:ss'), " + streetNo.getText() + ", '" + streetName.getText() + "', '" + postcode.getText()+ "', '" + suburb.getText() + "', " + societyIDCurrentValue + ", '" + eventTypeWording + "')";
+            System.out.print(currentQuery1);
+            int update1 = statement.executeUpdate(currentQuery1);
+            return true;
         }
         return false;
    }
@@ -230,6 +269,7 @@ public class SocietyScreens_SingleEventController extends Application implements
         //Format the strings in the ComboBox
         eventType.setConverter(new StringConverter<Events>(){
             public String toString(Events object) {
+                eventTypeWording = object.getEventType();
                 return object.getEventType();
             }
 

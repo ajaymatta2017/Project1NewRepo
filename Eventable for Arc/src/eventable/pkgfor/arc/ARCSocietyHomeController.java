@@ -100,7 +100,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
                         passwordStoredInDB = rs.getString("PASSWORD");
                         passwordStoredInDBHashed = passwordStoredInDB.hashCode();
                         passwordStoredInDBHashedString = passwordStoredInDBHashed + "";
-                        societyID = rs.getInt(2);
+                        societyID = rs.getInt("society_id");
                     }
                 } catch (NullPointerException e) {
                     setError2("Incorrect username/password entered");
