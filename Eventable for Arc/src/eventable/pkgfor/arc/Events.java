@@ -16,7 +16,7 @@ public class Events {
     private SimpleStringProperty streetName;
     private SimpleStringProperty postcode;
     private SimpleStringProperty suburb;
-    private SimpleStringProperty buildingCode;
+    private SimpleStringProperty buildingID;
     private SimpleStringProperty buildingName;
     private SimpleStringProperty roomNo;
     private SimpleStringProperty eventEndTime;
@@ -25,14 +25,15 @@ public class Events {
     private int id;
     private SimpleStringProperty eventText;
 
-    public Events(String event, String startDate, String locationType, String eventType, String streetNo, String postcode, String suburb, String buildingCode, String buildingName, String roomNo, String societyName, String eventEnd, String eventEndTime, String eventStartTime, String eventText, int id) {
+    public Events(String event, String startDate, String locationType, String streetNo, String streetName, String postcode, String suburb, String buildingID, String buildingName, String roomNo, String eventEnd, String eventEndTime, String eventStartTime, String eventText, int id, String eventType) {
         this.event = new SimpleStringProperty(event);
         this.startDate = new SimpleStringProperty(startDate);
         this.locationType = new SimpleStringProperty(locationType);
         this.streetNo = new SimpleStringProperty(streetNo);
+        this.streetName = new SimpleStringProperty(streetName);
         this.postcode = new SimpleStringProperty(postcode);
         this.suburb = new SimpleStringProperty(suburb);
-        this.buildingCode = new SimpleStringProperty(buildingCode);
+        this.buildingID = new SimpleStringProperty(buildingID);
         this.buildingName = new SimpleStringProperty(buildingName);
         this.roomNo = new SimpleStringProperty(roomNo);
         this.eventEnd = new SimpleStringProperty(eventEnd);
@@ -43,6 +44,32 @@ public class Events {
         this.eventType = new SimpleStringProperty(eventType);
     }
     
+    public Events(String event, String startDate, String locationType, String eventType, String streetNo, String streetName, String postcode, String suburb, String eventEnd, String eventEndTime, String eventStartTime, String eventText) {
+        this.event = new SimpleStringProperty(event);
+        this.startDate = new SimpleStringProperty(startDate);
+        this.eventEnd = new SimpleStringProperty(eventEnd);
+        this.eventEndTime = new SimpleStringProperty(eventEndTime);
+        this.eventStartTime = new SimpleStringProperty(eventStartTime);
+        this.locationType = new SimpleStringProperty(locationType);
+        this.streetNo = new SimpleStringProperty(streetNo);
+        this.streetName = new SimpleStringProperty(streetName);
+        this.postcode = new SimpleStringProperty(postcode);
+        this.suburb = new SimpleStringProperty(suburb);
+        this.eventText = new SimpleStringProperty(eventText);
+        this.eventType = new SimpleStringProperty(eventType);
+    }
+    
+    public Events(String event, String startDate, String locationType, String eventType, String buildingName, String roomNo, String eventEnd, String eventEndTime, String eventStartTime, String eventText) {
+        this.event = new SimpleStringProperty(event);
+        this.startDate = new SimpleStringProperty(startDate);
+        this.eventEnd = new SimpleStringProperty(eventEnd);
+        this.eventEndTime = new SimpleStringProperty(eventEndTime);
+        this.eventStartTime = new SimpleStringProperty(eventStartTime);
+        this.locationType = new SimpleStringProperty(locationType);
+        this.eventText = new SimpleStringProperty(eventText);
+        this.eventType = new SimpleStringProperty(eventType);
+    }
+   
     public Events(String event, String startDate, String locationType, String eventType) {
         this.event = new SimpleStringProperty(event);
         this.startDate = new SimpleStringProperty(startDate);
@@ -86,8 +113,8 @@ public class Events {
         return suburb.get();
     }
 
-    public String getBuildingCode() {
-        return buildingCode.get();
+    public String getBuildingID() {
+        return buildingID.get();
     }
 
     public String getRoomNo() {

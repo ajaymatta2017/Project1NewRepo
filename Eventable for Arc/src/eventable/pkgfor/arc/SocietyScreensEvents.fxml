@@ -44,7 +44,7 @@
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1242.0" prefWidth="1270.0">
                                                     <children>
-                                                        <TableView fx:id="tableOfEventsAll" layoutX="65.0" layoutY="88.0" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
+                                                        <TableView fx:id="tableOfEventsAll" layoutX="65.0" layoutY="88.0" onMouseClicked="#tableviewItemAllClicked" prefHeight="672.0" prefWidth="1123.0" stylesheets="@TableView.css">
                                                             <columns>
                                                                 <TableColumn fx:id="eventNameAll" prefWidth="75.0" text="Event" />
                                                                 <TableColumn fx:id="startDateAll" prefWidth="75.0" text="Start Date" />

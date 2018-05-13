@@ -288,13 +288,7 @@ public class SocietyScreens_SingleEventController extends Application implements
         //closeConnection(conn, rs, statement);
         //}
     }
-        
-    public void displayEventData() {
-        
-        
-        
-    }
-    
+            
     public void start(Stage primaryStage) throws Exception {
         stage = (Stage) societyPage.getScene().getWindow();
         Scene scene = new Scene(root);
