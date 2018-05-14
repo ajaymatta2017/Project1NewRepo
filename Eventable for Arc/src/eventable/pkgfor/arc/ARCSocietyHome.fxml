@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.arc.ARCSocietyHomeController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.arc.ARCSocietyHomeController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -30,7 +30,7 @@
                     </image>
                 </ImageView>
                 <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="491.0" layoutX="664.0" layoutY="171.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="INSIDE" width="460.0" />
-                <TextField fx:id="societyEmail" layoutX="256.0" layoutY="285.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
+                <TextField fx:id="societyEmail" layoutX="256.0" layoutY="283.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
                 <Text layoutX="301.0" layoutY="207.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Society">
                     <font>
                         <Font name="Helvetica Neue" size="24.0" />
@@ -64,19 +64,19 @@
                         <Font name="Helvetica Neue" size="24.0" />
                     </font>
                 </Text>
-                <Text layoutX="772.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+                <Text layoutX="772.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
                     <font>
                         <Font name="Helvetica Neue" size="17.0" />
                     </font>
                 </Text>
-                <TextField fx:id="newArcEmail" layoutX="822.0" layoutY="477.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
-                <Text layoutX="734.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARC Email">
+                <TextField fx:id="newArcEmail" layoutX="822.0" layoutY="476.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
+                <Text layoutX="734.0" layoutY="496.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARC Email">
                     <font>
                         <Font name="Helvetica Neue" size="17.0" />
                     </font>
                 </Text>
-                <TextField fx:id="newArcPosition" layoutX="822.0" layoutY="559.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
-                <Text layoutX="740.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+                <TextField fx:id="newArcPosition" layoutX="822.0" layoutY="567.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
+                <Text layoutX="740.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                     <font>
                         <Font name="Helvetica Neue" size="17.0" />
                     </font>
@@ -102,23 +102,23 @@
                   <Font name="Helvetica Neue" size="17.0" />
                </font>
             </Text>
-            <PasswordField fx:id="arcPassword" layoutX="823.0" layoutY="326.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
-            <Text layoutX="742.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+            <PasswordField fx:id="arcPassword" layoutX="823.0" layoutY="329.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
+            <Text layoutX="742.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
                <font>
                   <Font name="Helvetica Neue" size="17.0" />
                </font>
             </Text>
             <TextField fx:id="newSocietyPassword" layoutX="256.0" layoutY="567.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
-            <TextField fx:id="newArcPassword" layoutX="822.0" layoutY="517.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
-            <Text layoutX="716.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARC Position">
+            <TextField fx:id="newArcPassword" layoutX="822.0" layoutY="520.0" prefHeight="27.0" prefWidth="213.0" stylesheets="@SearchBox.css" />
+            <Text layoutX="716.0" layoutY="588.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ARC Position">
                <font>
                   <Font name="Helvetica Neue" size="17.0" />
                </font>
             </Text>
-            <Button fx:id="societyLogin" layoutX="283.0" layoutY="375.0" mnemonicParsing="false" onAction="#societyLogin" prefHeight="29.0" prefWidth="114.0" stylesheets="@PrimaryButton.css" text="Login" />
-            <Button fx:id="societyCreateAccount" layoutX="276.0" layoutY="609.0" mnemonicParsing="false" onMouseClicked="#createSocietyAccount" prefHeight="29.0" prefWidth="129.0" stylesheets="@PrimaryButton.css" text="Create Account" />
-            <Button fx:id="arcLogin" layoutX="845.0" layoutY="375.0" mnemonicParsing="false" onAction="#arcLogin" prefHeight="29.0" prefWidth="114.0" stylesheets="@PrimaryButton.css" text="Login" />
-            <Button fx:id="arcCreateAccount" layoutX="852.0" layoutY="609.0" mnemonicParsing="false" onMouseClicked="#createArcAccount" stylesheets="@PrimaryButton.css" text="Create Account" />
+            <Button fx:id="societyLogin" layoutX="289.0" layoutY="375.0" mnemonicParsing="false" onAction="#societyLogin" prefHeight="29.0" prefWidth="114.0" stylesheets="@PrimaryButton.css" text="Login" />
+            <Button fx:id="societyCreateAccount" layoutX="290.0" layoutY="609.0" mnemonicParsing="false" onMouseClicked="#createSocietyAccount" prefHeight="29.0" prefWidth="129.0" stylesheets="@PrimaryButton.css" text="Create Account" />
+            <Button fx:id="arcLogin" layoutX="862.0" layoutY="375.0" mnemonicParsing="false" onAction="#arcLogin" prefHeight="29.0" prefWidth="114.0" stylesheets="@PrimaryButton.css" text="Login" />
+            <Button fx:id="arcCreateAccount" layoutX="857.0" layoutY="609.0" mnemonicParsing="false" onMouseClicked="#createArcAccount" prefHeight="29.0" prefWidth="129.0" stylesheets="@PrimaryButton.css" text="Create Account" />
             <Text fx:id="errorText2" fill="RED" layoutX="805.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter username and/or password" textAlignment="CENTER" visible="false">
                <font>
                   <Font name="Helvetica Neue" size="12.0" />
