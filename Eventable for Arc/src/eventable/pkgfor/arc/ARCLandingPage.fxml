@@ -85,8 +85,12 @@
                      </font>
                   </Button>
                   <ComboBox layoutX="1042.0" layoutY="138.0" prefHeight="35.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@ComboBox.css" />
-                  <Circle fx:id="societyPage" fill="WHITE" layoutX="1222.0" layoutY="45.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
-                  <TextField fx:id="email" editable="false" layoutX="988.0" layoutY="33.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="211.0" />
+                  <Circle fx:id="societyPage" fill="WHITE" layoutX="1229.0" layoutY="40.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
+                  <Text fx:id="email" layoutX="1040.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="All Events" textAlignment="RIGHT" wrappingWidth="167.123046875">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </content>

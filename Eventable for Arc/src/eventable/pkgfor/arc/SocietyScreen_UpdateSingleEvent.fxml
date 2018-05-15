@@ -31,8 +31,7 @@
                         <Image url="@EventAble%20logo%20v2%20copy.png" />
                     </image>
                 </ImageView>
-                <Circle fx:id="societyPage" fill="WHITE" layoutX="1222.0" layoutY="45.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
-                <TextField fx:id="email" editable="false" layoutX="1031.0" layoutY="33.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="167.0" />
+                <Circle fx:id="societyPage" fill="WHITE" layoutX="1229.0" layoutY="40.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
             <TextField fx:id="eventName" editable="true" layoutX="164.0" layoutY="190.0" prefHeight="27.0" prefWidth="300.0" stylesheets="@SearchBox.css" />
             <Text layoutX="56.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name of Event">
                <font>
@@ -146,6 +145,11 @@
                </font>
             </Text>
             <Line endX="1025.0" layoutX="148.0" layoutY="490.0" startX="-100.0" />
+            <Text fx:id="email" layoutX="1044.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="159.666530251503">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
             </children>
         </AnchorPane>
     </children>

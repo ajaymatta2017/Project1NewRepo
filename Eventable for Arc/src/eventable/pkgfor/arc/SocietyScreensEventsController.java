@@ -98,7 +98,7 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TableColumn<Codes, String> emailCodes;
 
     @FXML
-    private TextField email;
+    private Text email;
     @FXML
     public TextField societyName4;
     @FXML

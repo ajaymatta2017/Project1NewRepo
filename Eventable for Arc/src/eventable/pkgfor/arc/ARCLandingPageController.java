@@ -53,7 +53,7 @@ public class ARCLandingPageController implements Initializable {
     @FXML
     private Circle societyPage;
     @FXML
-    private TextField email;
+    private Text email;
     
     public static Connection conn;
 

@@ -58,7 +58,7 @@
                         <Font size="24.0" />
                      </font>
                   </Text>
-                  <Button layoutX="1007.0" layoutY="146.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="166.0" stylesheets="@PrimaryButton.css" text="EXPORT">
+                  <Button layoutX="1007.0" layoutY="146.0" mnemonicParsing="false" onMouseClicked="#exportCSV" prefHeight="35.0" prefWidth="166.0" stylesheets="@PrimaryButton.css" text="EXPORT">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -74,8 +74,7 @@
                      </font>
                   </Button>
                   <ComboBox layoutX="1047.0" layoutY="207.0" prefHeight="35.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@ComboBox.css" />
-                  <Circle fx:id="societyPage" fill="WHITE" layoutX="1222.0" layoutY="45.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
-                  <TextField fx:id="email" editable="false" layoutX="988.0" layoutY="33.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="211.0" />
+                  <Circle fx:id="societyPage" fill="WHITE" layoutX="1229.0" layoutY="40.0" radius="17.0" stroke="WHITE" strokeType="INSIDE" />
                   <Text fx:id="eventName" layoutX="88.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name">
                      <font>
                         <Font name="System Bold" size="24.0" />
@@ -109,6 +108,11 @@
                   <Text layoutX="114.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="#">
                      <font>
                         <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="email" layoutX="1040.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name" textAlignment="RIGHT" wrappingWidth="167.2593994140625">
+                     <font>
+                        <Font size="13.0" />
                      </font>
                   </Text>
                </children>

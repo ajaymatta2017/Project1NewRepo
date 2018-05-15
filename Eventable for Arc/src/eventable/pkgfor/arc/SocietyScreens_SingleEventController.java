@@ -48,7 +48,7 @@ public class SocietyScreens_SingleEventController extends Application implements
     @FXML
     private Circle societyPage;
     @FXML
-    private TextField email;
+    private Text email;
     @FXML
     private TextField eventName;
     @FXML
@@ -243,7 +243,13 @@ public class SocietyScreens_SingleEventController extends Application implements
 //            System.out.print("Entered radiobutton = 1 method");
             String startDateString = startDate.getValue().toString() + " " + startTime.getText();
             String endDateString = endDate.getValue().toString() + " " + endTime.getText();
-            currentQuery1 = "INSERT INTO event(event_id, event_title, location_type, event_text, event_start, event_end, street_no, street_name, postcode, suburb, society_id, event_type) VALUES(" + maxEventID + ", '" + eventName.getText() + "', 'Off Campus', '" + eventDescription.getText() + "', " + "TO_TIMESTAMP('" + startDateString + "','yyyy/mm/dd hh24:mi:ss')" + ", " + "TO_TIMESTAMP('" + endDateString + "','yyyy/mm/dd hh24:mi:ss'), " + streetNo.getText() + ", '" + streetName.getText() + "', '" + postcode.getText()+ "', '" + suburb.getText() + "', " + societyIDCurrentValue + ", '" + eventTypeWording + "')";
+            currentQuery1 = "INSERT INTO event(event_id, event_title, location_type, event_text,"
+                    + " event_start, event_end, street_no, street_name, postcode, suburb, society_id, event_type)"
+                    + " VALUES(" + maxEventID + ", '" + eventName.getText() + "', 'Off Campus', '" + eventDescription.getText()
+                    + "', " + "TO_TIMESTAMP('" + startDateString + "','yyyy/mm/dd hh24:mi:ss')"
+                    + ", " + "TO_TIMESTAMP('" + endDateString + "','yyyy/mm/dd hh24:mi:ss'), "
+                    + streetNo.getText() + ", '" + streetName.getText() + "', '" + postcode.getText()+ "', '" +
+                    suburb.getText() + "', " + societyIDCurrentValue + ", '" + eventTypeWording + "')";
             System.out.print(currentQuery1);
             int update1 = statement.executeUpdate(currentQuery1);
             return true;

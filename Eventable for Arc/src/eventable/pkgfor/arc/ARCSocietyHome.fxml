@@ -81,7 +81,7 @@
                         <Font name="Helvetica Neue" size="17.0" />
                     </font>
                 </Text>
-                <Text fx:id="errorText" fill="RED" layoutX="245.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter username and/or password" textAlignment="CENTER" visible="false">
+                <Text fx:id="errorText" fill="RED" layoutX="240.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter username and/or password" textAlignment="CENTER" visible="false">
                     <font>
                         <Font name="Helvetica Neue" size="12.0" />
                     </font>
@@ -115,11 +115,11 @@
                   <Font name="Helvetica Neue" size="17.0" />
                </font>
             </Text>
-            <Button fx:id="societyLogin" layoutX="289.0" layoutY="375.0" mnemonicParsing="false" onAction="#societyLogin" prefHeight="29.0" prefWidth="114.0" stylesheets="@PrimaryButton.css" text="Login" />
-            <Button fx:id="societyCreateAccount" layoutX="290.0" layoutY="609.0" mnemonicParsing="false" onMouseClicked="#createSocietyAccount" prefHeight="29.0" prefWidth="129.0" stylesheets="@PrimaryButton.css" text="Create Account" />
-            <Button fx:id="arcLogin" layoutX="862.0" layoutY="375.0" mnemonicParsing="false" onAction="#arcLogin" prefHeight="29.0" prefWidth="114.0" stylesheets="@PrimaryButton.css" text="Login" />
-            <Button fx:id="arcCreateAccount" layoutX="857.0" layoutY="609.0" mnemonicParsing="false" onMouseClicked="#createArcAccount" prefHeight="29.0" prefWidth="129.0" stylesheets="@PrimaryButton.css" text="Create Account" />
-            <Text fx:id="errorText2" fill="RED" layoutX="805.0" layoutY="413.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter username and/or password" textAlignment="CENTER" visible="false">
+            <Button fx:id="societyLogin" layoutX="301.0" layoutY="375.0" mnemonicParsing="false" onAction="#societyLogin" prefHeight="29.0" prefWidth="114.0" stylesheets="@PrimaryButton.css" text="Login" />
+            <Button fx:id="societyCreateAccount" layoutX="295.0" layoutY="609.0" mnemonicParsing="false" onMouseClicked="#createSocietyAccount" prefHeight="29.0" prefWidth="129.0" stylesheets="@PrimaryButton.css" text="Create Account" />
+            <Button fx:id="arcLogin" layoutX="867.0" layoutY="375.0" mnemonicParsing="false" onAction="#arcLogin" prefHeight="29.0" prefWidth="114.0" stylesheets="@PrimaryButton.css" text="Login" />
+            <Button fx:id="arcCreateAccount" layoutX="860.0" layoutY="609.0" mnemonicParsing="false" onMouseClicked="#createArcAccount" prefHeight="29.0" prefWidth="129.0" stylesheets="@PrimaryButton.css" text="Create Account" />
+            <Text fx:id="errorText2" fill="RED" layoutX="812.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please enter username and/or password" textAlignment="CENTER" visible="false">
                <font>
                   <Font name="Helvetica Neue" size="12.0" />
                </font>

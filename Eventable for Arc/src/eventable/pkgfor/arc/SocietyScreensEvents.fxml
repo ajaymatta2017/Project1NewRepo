@@ -19,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.arc.SocietyScreensEventsController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="eventable.pkgfor.arc.SocietyScreensEventsController">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -69,7 +69,7 @@
                                                                 <Font name="Helvetica Neue" size="51.0" />
                                                             </font>
                                                         </Text>
-                                                        <TextField layoutX="776.0" layoutY="24.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;">
+                                                        <TextField layoutX="777.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
@@ -78,7 +78,7 @@
                                                 <URL value="@SearchBox.css" />
                                              </stylesheets>
                                                         </TextField>
-                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1132.0" layoutY="24.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" text="Go" textAlignment="CENTER">
+                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" text="Go" textAlignment="CENTER">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
@@ -87,8 +87,8 @@
                                                 <URL value="@AZButton.css" />
                                              </stylesheets>
                                                         </Button>
-                                                        <ComboBox layoutX="1060.0" layoutY="24.0" prefHeight="35.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@ComboBox.css" />
-                                                        <Button layoutX="682.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" text="A-Z">
+                                                        <ComboBox layoutX="1061.0" layoutY="25.0" prefHeight="35.0" prefWidth="73.0" promptText="By" style="-fx-border-radius: 0 0 0 0;" stylesheets="@ComboBox.css" />
+                                                        <Button layoutX="689.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" text="A-Z">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
@@ -387,7 +387,11 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-                <TextField fx:id="email" editable="false" layoutX="1036.0" layoutY="28.0" onAction="#populateEmail" opacity="0.5" prefHeight="25.0" prefWidth="169.0" />
+            <Text fx:id="email" layoutX="1040.0" layoutY="44.0" onMouseClicked="#createNewEvent1" strokeType="OUTSIDE" strokeWidth="0.0" text="+" textAlignment="RIGHT" wrappingWidth="167.93349647521973">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
             </children>
         </AnchorPane>
     </children>
