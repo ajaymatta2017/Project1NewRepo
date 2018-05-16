@@ -11,8 +11,10 @@ import static eventable.pkgfor.arc.ARCLandingPageController.societyNameSelected;
 import static eventable.pkgfor.arc.ARCLandingPageController.startDateSelected;
 import static eventable.pkgfor.arc.DBController.openConnection;
 import static eventable.pkgfor.arc.SocietyScreensEventsController.statement;
+import java.awt.Component;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -44,6 +46,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javax.swing.JFileChooser;
 
 public class ARCSingleEventPageController implements Initializable {
 
@@ -79,6 +82,7 @@ public class ARCSingleEventPageController implements Initializable {
     private String currentQuery2;
     private Statement statement1;
     private String emailAddress;
+    private Component modalToComponent;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -91,7 +95,7 @@ public class ARCSingleEventPageController implements Initializable {
             Logger.getLogger(ARCSingleEventPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void settingValues() {
         eventName.setText(eventNameSelected);
         societyName.setText(societyNameSelected);
@@ -105,7 +109,7 @@ public class ARCSingleEventPageController implements Initializable {
 
     @FXML
     public void exportCSV(MouseEvent event) throws SQLException, FileNotFoundException, ParseException {
-        convertToCsv();
+        exportTableView();
         loadNext("ARCLandingPage.fxml");
     }
 
@@ -207,43 +211,60 @@ public class ARCSingleEventPageController implements Initializable {
         //}
     }
 
-    public void exportCSVResultSet() throws SQLException {
+    public ResultSet exportCSVResultSet() throws SQLException {
         statement = openConnection();
         currentQuery1 = "SELECT email, first_name || ' ' || last_name as student_name, zid FROM app_user where lower(email) = '" + emailAddress + "'";
         rs = statement.executeQuery(currentQuery1);
+        return rs;
     }
 
-    public void convertToCsv() throws SQLException, FileNotFoundException, ParseException {
-        String fileNamePart1 = societyName.getText().replaceAll(" ", "_");
-        Date currentDate = new Date();
-        Date date = new Date();
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        int currentDateDay = cal.get(Calendar.DAY_OF_MONTH);
-        SimpleDateFormat simpleDateformat1 = new SimpleDateFormat("MM");
-        SimpleDateFormat simpleDateformat2 = new SimpleDateFormat("YYYY");
-        String currentDateMonth = simpleDateformat1.format(currentDate);
-        String currentDateYear = simpleDateformat2.format(currentDate);
+    public void exportTableView() throws SQLException, FileNotFoundException {
+        ResultSet rs1 = exportCSVResultSet();
+        String row = null;
+        String dataHeaders = null;
 
-        //NEED TO MAKE FILE PATH IS GENERIC
-        String filename = "C:\\Users\\Ajay Matta\\Desktop\\UNSW Yr 3 Sem 1\\INFS3611\\IS Project 1\\" + fileNamePart1 + "_" + currentDateDay + "-" + currentDateMonth + "-" + currentDateYear + ".csv";
-        
-        PrintWriter csvWriter = new PrintWriter(new File(filename));
-        exportCSVResultSet();
-        ResultSetMetaData meta = rs.getMetaData();
+        ResultSetMetaData meta = rs1.getMetaData();
         int numberOfColumns = meta.getColumnCount();
-        String dataHeaders = "\"" + meta.getColumnName(1) + "\"";
+        dataHeaders = "\"" + meta.getColumnName(1) + "\"";
         for (int i = 2; i < numberOfColumns + 1; i++) {
             dataHeaders += ",\"" + meta.getColumnName(i).replaceAll("\"", "\\\"") + "\"";
         }
-        csvWriter.println(dataHeaders);
-        while (rs.next()) {
-            String row = "\"" + rs.getString(1).replaceAll("\"", "\\\"") + "\"";
+        while (rs1.next()) {
+            row = "\"" + rs1.getString(1).replaceAll("\"", "\\\"") + "\"";
             for (int i = 2; i < numberOfColumns + 1; i++) {
-                row += ",\"" + rs.getString(i).replaceAll("\"", "\\\"") + "\"";
+                row += ",\"" + rs1.getString(i).replaceAll("\"", "\\\"") + "\"";
             }
-            csvWriter.println(row);
-        }
-        csvWriter.close();
+            
+            String content = dataHeaders+ "\n" + row;
+            JFileChooser fileChooser = new JFileChooser();
+            if (fileChooser.showSaveDialog(modalToComponent) == JFileChooser.APPROVE_OPTION) {
+                File file = fileChooser.getSelectedFile();
+                try {
+                    FileWriter fw = new FileWriter(file.getPath());
+                    fw.write(content);
+                    fw.flush();
+                } catch (IOException ex) {
+                    Logger.getLogger(ARCSingleEventPageController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+//        PrintWriter csvWriter = new PrintWriter(new File(filename));
+//
+//        ResultSetMetaData meta = rs.getMetaData();
+//        int numberOfColumns = meta.getColumnCount();
+//        String dataHeaders = "\"" + meta.getColumnName(1) + "\"";
+//        for (int i = 2; i < numberOfColumns + 1; i++) {
+//            dataHeaders += ",\"" + meta.getColumnName(i).replaceAll("\"", "\\\"") + "\"";
+//        }
+//        csvWriter.println(dataHeaders);
+//        while (rs.next()) {
+//            String row = "\"" + rs.getString(1).replaceAll("\"", "\\\"") + "\"";
+//            for (int i = 2; i < numberOfColumns + 1; i++) {
+//                row += ",\"" + rs.getString(i).replaceAll("\"", "\\\"") + "\"";
+//            }
+////            csvWriter.println(row);
+//        }
+//        csvWriter.close();
     }
+}
+}
 }
