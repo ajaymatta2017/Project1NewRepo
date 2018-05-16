@@ -258,12 +258,6 @@ public class StudentScreenEvents_AllController extends Application implements In
     private void topNavPast(MouseEvent event) throws SQLException {
         loadNext("StudentScreenEvents_Past.fxml");
     }
-    
-    @FXML
-    private void today (ActionEvent event) throws SQLException {
-        dateFrom.setValue(LocalDate.now());
-        dateTo.setValue(LocalDate.now());
-    }
 
     @FXML
     private void search(KeyEvent event) throws SQLException {
@@ -274,6 +268,12 @@ public class StudentScreenEvents_AllController extends Application implements In
                 + "LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) WHERE EVENT_START >= '13/MAY/2018' AND (lower(event_title) "
                 + "LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(event_text) LIKE '%"
                 + searchField.getText().trim().toLowerCase() + "')");
+    }
+    
+    @FXML
+    private void today (ActionEvent event) throws SQLException {
+        dateFrom.setValue(LocalDate.now());
+        dateTo.setValue(LocalDate.now());
     }
 
     @FXML
