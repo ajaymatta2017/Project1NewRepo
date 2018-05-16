@@ -212,8 +212,8 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
         });
         String newEventTypeWording = eventTypeWording;
         statement = openConnection();
-        String newStartDateString = newStartDate + " " + newStartTime;
-        String newEndDateString = newEndDate + " " + newEndTime;
+        String newStartDateString = newStartDate.replaceAll("-", "/") + " " + newStartTime;
+        String newEndDateString = newEndDate.replaceAll("-", "/") + " " + newEndTime;
 
         if (onCampus.isSelected()) {
             streetNo.clear();
@@ -221,16 +221,17 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
             suburb.clear();
             postcode.clear();
             currentQuery1 = "UPDATE event SET event_title = '" + newEventName + "', location_type = '" + "On Campus" + "', event_text = '" + newEventDescription
-                    + "', event_start = '" + newStartDateString + "', event_end = '" + newEndDateString + "', room_no = '" + newRoomNo + "' event_type = '" + eventTypeWording + "'";
-            currentQuery2 = "INSERT INTO CAMPUS VALUES('" + maxBuildingID + "', '" + buildingName.getText() + "', '" + roomNo.getText() + "')";
+                    + "', event_start = CAST(TO_TIMESTAMP('" + newStartDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", event_end = CAST(TO_TIMESTAMP('" + newEndDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", room_no = '" + newRoomNo + "' event_type = '" + eventTypeWording + "', " + "building_id = '" + maxBuildingID + "'";
+            currentQuery2 = "INSERT INTO CAMPUS VALUES('" + maxBuildingID + "', '" + buildingName.getText() + "', '" + newRoomNo + "')";
+            int update1 = statement.executeUpdate(currentQuery1);
             int update2 = statement.executeUpdate(currentQuery2);
         } else if (offCampus.isSelected()) {
             buildingName.clear();
             roomNo.clear();
             currentQuery = "UPDATE event SET event_title = '" + newEventName + "', location_type = '" + "Off Campus" + "', event_text = '" + newEventDescription
-                    + "', event_start = CAST(TO_TIMESTAMP('" + newStartDateString + "','YYYY-MM-DD hh24:mi:ss') AS TIMESTAMP)" + ", event_end = CAST(TO_TIMESTAMP('" + newEndDateString + "','YYYY-MM-DD hh24:mi:ss') AS TIMESTAMP)" + ", street_no = '" + newStreetNo + "', street_name = '" + newStreetName + "', postcode = '" + newPostcode
+                    + "', event_start = CAST(TO_TIMESTAMP('" + newStartDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", event_end = CAST(TO_TIMESTAMP('" + newEndDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", street_no = '" + newStreetNo + "', street_name = '" + newStreetName + "', postcode = '" + newPostcode
                     + "', suburb = '" + newSuburb + "', event_type = '" + eventTypeWording + "' WHERE event_title = '" + eventName.getText() + "'";
-            System.out.println(currentQuery);
+//            System.out.println(currentQuery);
             int update = statement.executeUpdate(currentQuery);
         }
     }
