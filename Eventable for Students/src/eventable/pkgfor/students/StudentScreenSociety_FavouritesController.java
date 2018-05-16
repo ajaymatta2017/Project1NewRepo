@@ -170,7 +170,7 @@ public class StudentScreenSociety_FavouritesController extends Application imple
     
     @FXML
     private void search (KeyEvent event) throws SQLException {
-        populateTableView("SELECT society_name, society_description, society_id FROM society JOIN favourites f USING (society_id) WHERE f.email = '"+ LoginController.loggedInUser + "' AND (society_description LIKE '%" + searchField.getText().trim() + "%' OR society_name LIKE '%" + searchField.getText().trim() + "')");
+        populateTableView("SELECT society_name, society_description, society_id FROM society JOIN favourites f USING (society_id) WHERE f.email = '"+ LoginController.loggedInUser + "' AND (lower(society_description) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(society_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "')");
     }
     
     public void loadNext(String destination){

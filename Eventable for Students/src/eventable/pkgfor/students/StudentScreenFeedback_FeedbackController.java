@@ -183,7 +183,8 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
                 + "CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), "
                 + "CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_id  FROM SOCIETY  JOIN EVENT USING (SOCIETY_ID) "
                 + "JOIN ATTENDANCE USING (EVENT_ID) WHERE EVENT_ACTUAL_ATTENDANCE = 'Y' AND email = '" + LoginController.loggedInUser + "' AND "
-                + "(event_text LIKE '%" + searchField.getText().trim() + "%' OR event_title LIKE '%" + searchField.getText().trim() + "')");
+                + "(lower(event_title) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(event_text) LIKE '%" + 
+                searchField.getText().trim().toLowerCase() + "')");
     }
 
     public void loadNext(String destination){

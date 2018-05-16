@@ -179,7 +179,7 @@ public class StudentScreenSociety_AllController extends Application implements I
     
     @FXML
     private void search (KeyEvent event) throws SQLException{
-        populateTableView("SELECT society_name, society_description, society_id FROM society WHERE (society_description LIKE '%" + searchField.getText().trim() + "%' OR society_name LIKE '%" + searchField.getText().trim() + "')");
+        populateTableView("SELECT society_name, society_description, society_id FROM society WHERE (lower(society_description) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(society_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "')");
     }
 
     public void loadNext(String destination) {

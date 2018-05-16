@@ -227,7 +227,7 @@ public class StudentScreenEvents_FavouritesController extends Application implem
     
     @FXML
     private void search (KeyEvent event) throws SQLException {
-        populateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) JOIN favourites f USING (society_id) WHERE (event_text LIKE '%" + searchField.getText().trim() + "%' OR event_title LIKE '%" + searchField.getText().trim() + "') AND f.email = '"+ LoginController.loggedInUser + "'");
+        populateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) JOIN favourites f USING (society_id) WHERE (lower(event_title) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(event_text) LIKE '%" + searchField.getText().trim().toLowerCase() + "') AND f.email = '"+ LoginController.loggedInUser + "'");
     }
     
     public void loadNext(String destination) {
