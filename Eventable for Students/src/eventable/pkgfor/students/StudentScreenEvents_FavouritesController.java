@@ -47,7 +47,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -80,6 +82,8 @@ public class StudentScreenEvents_FavouritesController extends Application implem
     @FXML
     private Text past;
     @FXML
+    private TextField searchField;
+    @FXML
     public TableView<Events> tableofEventsFavourites;
     @FXML
     public TableColumn<Events, String> event;
@@ -102,7 +106,7 @@ public class StudentScreenEvents_FavouritesController extends Application implem
     public void populateTableView() throws SQLException {
         String loggedInUser = LoginController.loggedInUser;
         statement = openConnection();
-        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) JOIN favourites f USING (society_id) WHERE f.email = '"+ loggedInUser + "'";
+        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) JOIN favourites f USING (society_id) WHERE f.email = '" + LoginController.loggedInUser + "'";
         ResultSet rs = statement.executeQuery(currentQuery);
 
         event.setCellValueFactory(new PropertyValueFactory<>("event"));
@@ -221,6 +225,11 @@ public class StudentScreenEvents_FavouritesController extends Application implem
         loadNext("StudentScreenEvents_Past.fxml");
     }
     
+    @FXML
+    private void search (KeyEvent event) throws SQLException {
+        populateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) JOIN favourites f USING (society_id) WHERE (event_text LIKE '%" + searchField.getText().trim() + "%' OR event_title LIKE '%" + searchField.getText().trim() + "') AND f.email = '"+ LoginController.loggedInUser + "'");
+    }
+    
     public void loadNext(String destination) {
         stage = (Stage) society.getScene().getWindow();
         try {
@@ -265,6 +274,67 @@ public class StudentScreenEvents_FavouritesController extends Application implem
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    public void populateTableView(String currentQuery) throws SQLException {
+        String loggedInUser = LoginController.loggedInUser;
+        statement = openConnection();
+        ResultSet rs = statement.executeQuery(currentQuery);
+
+        event.setCellValueFactory(new PropertyValueFactory<>("event"));
+        startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        location.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+
+        //Data added to observable List
+        eventsData = FXCollections.observableArrayList();
+        
+        try {
+            while (rs.next()) {
+                int i = 1;
+                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4), 
+                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9), 
+                        rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13), rs.getString(i + 14), Integer.parseInt(rs.getString(i + 15))));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvents_FavouritesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        event.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(event.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        startDate.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(startDate.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        location.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(location.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        
+        //Data added to TableView
+        try {
+            tableofEventsFavourites.setItems(eventsData);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }// finally {
+          //  closeConnection(conn, rs, statement);
+        //}
     }
     
     //    @FXML

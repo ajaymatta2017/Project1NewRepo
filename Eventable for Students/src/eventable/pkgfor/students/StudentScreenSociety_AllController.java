@@ -28,7 +28,9 @@ import javafx.scene.control.Control;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -49,6 +51,8 @@ public class StudentScreenSociety_AllController extends Application implements I
     private Text feedback;
     @FXML
     private Text profile;
+    @FXML
+    private TextField searchField;
     @FXML
     public TableView<FavouriteSocieties> tableOfSocieties;
     @FXML
@@ -172,6 +176,11 @@ public class StudentScreenSociety_AllController extends Application implements I
             loadNext("StudentScreenSociety_Favourites.fxml");
         }
     }
+    
+    @FXML
+    private void search (KeyEvent event) throws SQLException{
+        populateTableView("SELECT society_name, society_description, society_id FROM society WHERE (society_description LIKE '%" + searchField.getText().trim() + "%' OR society_name LIKE '%" + searchField.getText().trim() + "')");
+    }
 
     public void loadNext(String destination) {
         stage = (Stage) society.getScene().getWindow();
@@ -203,6 +212,56 @@ public class StudentScreenSociety_AllController extends Application implements I
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    public void populateTableView(String currentQuery) throws SQLException {
+        String loggedInUser = LoginController.loggedInUser;
+        statement = openConnection();
+        ResultSet rs = statement.executeQuery(currentQuery);
+
+        societyName.setCellValueFactory(new PropertyValueFactory<>("societyName"));
+        societyDescription.setCellValueFactory(new PropertyValueFactory<>("societyDescription"));
+
+        //Data added to observable List
+        societyData = FXCollections.observableArrayList();
+
+        try {
+            while (rs.next()) {
+                int i = 1;
+                societyData.add(new FavouriteSocieties(rs.getString(i), rs.getString(i + 1), Integer.parseInt(rs.getString(i + 2))));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvents_FavouritesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        societyDescription.setCellFactory(tc -> {
+            TableCell<FavouriteSocieties, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(societyDescription.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        societyName.setCellFactory(tc -> {
+            TableCell<FavouriteSocieties, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(societyName.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        //Data added to TableView
+        try {
+            tableOfSocieties.setItems(societyData);
+//            tableOfSocieties.setFixedCellSize(60.0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }// finally {
+        //  closeConnection(conn, rs, statement);
+        //}
     }
 }    
 //    @FXML

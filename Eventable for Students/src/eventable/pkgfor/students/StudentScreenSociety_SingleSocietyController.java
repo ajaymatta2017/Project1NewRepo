@@ -82,7 +82,7 @@ public class StudentScreenSociety_SingleSocietyController extends Application im
             try {
                 currentQuery = "INSERT INTO FAVOURITES (email, society_ID) VALUES ('" + LoginController.loggedInUser + "', '" + StudentScreenSociety_AllController.societySelectedId + "')";
                 rs = statement.executeQuery(currentQuery);
-                loadNext("StudentScreenSociety_Favourites.fxml");
+                populateSocietyData();
             } catch (SQLException ex) {
                 Logger.getLogger(StudentScreenEvents_FavouritesController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -92,12 +92,12 @@ public class StudentScreenSociety_SingleSocietyController extends Application im
             try {
                 currentQuery = "DELETE FROM FAVOURITES WHERE email = '" + LoginController.loggedInUser + "' AND society_id = '" + StudentScreenSociety_AllController.societySelectedId + "'";
                 rs = statement.executeQuery(currentQuery);
-                loadNext("StudentScreenSociety_Favourites.fxml");
+                alreadyFavourited = false;
+                populateSocietyData();
             } catch (SQLException ex) {
                 Logger.getLogger(StudentScreenEvents_FavouritesController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //TODO: Add message box/popup
     }
 
     @FXML

@@ -30,7 +30,9 @@ import javafx.scene.control.Control;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -51,6 +53,8 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
     private Text feedback;
     @FXML
     private Text profile;
+    @FXML
+    private TextField searchField;
     @FXML
     public TableView<Feedback> tableofFeedback;
     @FXML
@@ -172,6 +176,15 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
     private void bottomNavProfileButton(MouseEvent event) {
         loadNext("StudentScreenProfile.fxml");
     }
+    
+    @FXML
+    private void search (KeyEvent event) throws SQLException {
+        populateTableView("SELECT SOCIETY_NAME, EVENT_TITLE, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), "
+                + "CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), "
+                + "CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_id  FROM SOCIETY  JOIN EVENT USING (SOCIETY_ID) "
+                + "JOIN ATTENDANCE USING (EVENT_ID) WHERE EVENT_ACTUAL_ATTENDANCE = 'Y' AND email = '" + LoginController.loggedInUser + "' AND "
+                + "(event_text LIKE '%" + searchField.getText().trim() + "%' OR event_title LIKE '%" + searchField.getText().trim() + "')");
+    }
 
     public void loadNext(String destination){
         stage=(Stage) society.getScene().getWindow();
@@ -205,6 +218,66 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
                     " " + feedbackSelected.getEventEndTime();
             loadNext("StudentScreenFeedback_FeedbackForm.fxml");
         }
+    }
+    
+    public void populateTableView(String currentQuery) throws SQLException {
+        statement = openConnection();
+        ResultSet rs = statement.executeQuery(currentQuery);
+
+        societyName.setCellValueFactory(new PropertyValueFactory<>("societyName"));
+        event.setCellValueFactory(new PropertyValueFactory<>("event"));
+        endDate.setCellValueFactory(new PropertyValueFactory<>("endDate"));
+
+        //Data added to observable List
+        feedbackData = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                int i = 1;
+                feedbackData.add(new Feedback(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2),
+                rs.getString(i + 3), rs.getString(i + 4), rs.getString(i + 5), Integer.parseInt(rs.getString(i + 6))));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        societyName.setCellFactory(tc -> {
+            TableCell<Feedback, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(societyName.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        event.setCellFactory(tc -> {
+            TableCell<Feedback, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(event.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        endDate.setCellFactory(tc -> {
+            TableCell<Feedback, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(endDate.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        //Data added to TableView
+        try {
+            tableofFeedback.setItems(feedbackData);
+            //tableofEvents.getColumns().setAll(event, startDate, location);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } //finally {
+        //closeConnection(conn, rs, statement);
+        //}
+
     }
 }
     

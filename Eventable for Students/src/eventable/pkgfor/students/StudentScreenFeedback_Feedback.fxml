@@ -57,7 +57,7 @@
                   <Text fill="#979090" layoutX="28.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="The following events require your feedback" />
                   <AnchorPane layoutX="10.0" layoutY="16.0">
                      <children>
-                        <TextField prefHeight="30.0" prefWidth="309.0" promptText=" Search" stylesheets="@SearchBox.css">
+                        <TextField fx:id="searchField" onKeyTyped="#search" prefHeight="30.0" prefWidth="309.0" promptText=" Search" stylesheets="@SearchBox.css">
                            <styleClass>
                               <String fx:value="button" />
                               <String fx:value="search-box" />

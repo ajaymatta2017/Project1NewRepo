@@ -47,7 +47,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -79,6 +81,8 @@ public class StudentScreenEvents_GoingController extends Application implements 
     private Text going;
     @FXML
     private Text past;
+    @FXML
+    private TextField searchField;
     @FXML
     public TableView<Events> tableofEventsGoing;
     @FXML
@@ -225,6 +229,11 @@ public class StudentScreenEvents_GoingController extends Application implements 
     }
     
     @FXML
+    private void search (KeyEvent event) throws SQLException {
+        populateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT e JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) JOIN ATTENDANCE a USING (event_id) WHERE a.event_theoretical_attendance = 'Y' and e.EVENT_START >= '13/MAY/2018' and a.email = '" + LoginController.loggedInUser + "' AND (event_text LIKE '%" + searchField.getText().trim() + "%' OR event_title LIKE '%" + searchField.getText().trim() + "')");
+    }
+    
+    @FXML
     private void tableviewItemClicked(MouseEvent event) throws SQLException {
          if (event.getClickCount() == 2) {
             Events eventSelected = tableofEventsGoing.getSelectionModel().getSelectedItem();
@@ -269,6 +278,69 @@ public class StudentScreenEvents_GoingController extends Application implements 
         stage.setScene(scene);
         stage.show();
         populateTableView();
+    }
+    
+    public void populateTableView(String currentQuery) throws SQLException {
+        //Only display events that are in the future
+        String loggedInUser = LoginController.loggedInUser;
+        statement = openConnection();
+        ResultSet rs = statement.executeQuery(currentQuery);
+
+        event.setCellValueFactory(new PropertyValueFactory<>("event"));
+        startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        location.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+
+        //Data added to observable List
+        eventsGoingData = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                int i = 1;
+                eventsGoingData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4), 
+                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9), 
+                        rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13), rs.getString(i + 14), Integer.parseInt(rs.getString(i + 15))));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        event.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(event.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        startDate.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(startDate.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        location.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(location.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        //Data added to TableView
+        try {
+            tableofEventsGoing.setItems(eventsGoingData);
+            //tableofEvents.getColumns().setAll(event, startDate, location);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } //finally {
+            //closeConnection(conn, rs, statement);
+        //}
+
     }
     
     //    @FXML
