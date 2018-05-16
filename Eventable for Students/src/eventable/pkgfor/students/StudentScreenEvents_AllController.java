@@ -18,6 +18,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -34,7 +36,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -49,6 +55,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 /**
  * FXML Controller class
@@ -65,6 +72,18 @@ public class StudentScreenEvents_AllController extends Application implements In
     private Text society;
     @FXML
     private TextField searchField;
+    @FXML
+    private Button aToZButton;
+    @FXML
+    private Button applyButton;
+    @FXML
+    private ComboBox bySociety;
+    @FXML
+    private DatePicker dateFrom;
+    @FXML
+    private DatePicker dateTo;
+    @FXML
+    private Hyperlink today;
     @FXML
     private Text code;
     @FXML
@@ -93,6 +112,7 @@ public class StudentScreenEvents_AllController extends Application implements In
     Date currentDate;
 
     ObservableList<Events> eventsData;
+    ObservableList<FavouriteSocieties> listOfSocieties;
 
     public static Connection conn;
 
@@ -109,6 +129,9 @@ public class StudentScreenEvents_AllController extends Application implements In
     public static String eventSocietyName;
     public static String eventText;
     public static String eventId;
+    private boolean aToZ = false;
+    private String bySocietyFilterChoice;
+    private boolean filtersApplied = false;
 
     public void populateTableView() throws SQLException {
         //Only display events that are in the future
@@ -127,8 +150,8 @@ public class StudentScreenEvents_AllController extends Application implements In
         try {
             while (rs.next()) {
                 int i = 1;
-                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4), 
-                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9), 
+                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4),
+                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9),
                         rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13), rs.getString(i + 14), Integer.parseInt(rs.getString(i + 15))));
             }
         } catch (SQLException ex) {
@@ -179,6 +202,7 @@ public class StudentScreenEvents_AllController extends Application implements In
     public void initialize(URL url, ResourceBundle rb) {
         try {
             populateTableView();
+            populateComboBox();
         } catch (SQLException ex) {
             Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -236,8 +260,72 @@ public class StudentScreenEvents_AllController extends Application implements In
     }
     
     @FXML
+    private void today (ActionEvent event) throws SQLException {
+        dateFrom.setValue(LocalDate.now());
+        dateTo.setValue(LocalDate.now());
+    }
+
+    @FXML
     private void search(KeyEvent event) throws SQLException {
-        populateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) WHERE EVENT_START >= '13/MAY/2018' AND (lower(event_title) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(event_text) LIKE '%" + searchField.getText().trim().toLowerCase() + "')");
+        populateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, "
+                + "STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, "
+                + "CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), "
+                + "CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) "
+                + "LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) WHERE EVENT_START >= '13/MAY/2018' AND (lower(event_title) "
+                + "LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(event_text) LIKE '%"
+                + searchField.getText().trim().toLowerCase() + "')");
+    }
+
+    @FXML
+    private void alphabeticalSort(ActionEvent event) throws SQLException {
+        if (!aToZ) {
+            aToZ = true;
+            aToZButton.setText("A-Z");
+        } else {
+            aToZ = false;
+            aToZButton.setText("Z-A");
+        }
+    }
+
+    @FXML
+    private void applyFilters() throws SQLException {
+        if (!filtersApplied) {
+            currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, "
+                    + "STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, SOCIETY_NAME, "
+                    + "CAST(TO_CHAR(EVENT_END, 'dd/MON/yy') AS VARCHAR2(50)), CAST(TO_CHAR(EVENT_END, 'hh:mm am') AS VARCHAR2(50)), "
+                    + "CAST(TO_CHAR(EVENT_START, 'hh:mm am') AS VARCHAR2(50)), event_text, event_id FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) "
+                    + "LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) WHERE event_title LIKE '%' ";
+
+            //Checks society combo box
+            if (!(bySociety.getValue() == null)) {
+                currentQuery += " AND society_name = '" + bySocietyFilterChoice + "'";
+            }
+
+            //Checks datepicker objects
+            if (!(dateFrom.getValue() == null)) {
+                currentQuery += " AND event_start >= '" + dateFrom.getValue().format(DateTimeFormatter.ofPattern("d/MMM/yyyy")) + "'";
+            }
+            if (!(dateTo.getValue() == null)) {
+                currentQuery += " AND event_end <= '" + dateTo.getValue().format(DateTimeFormatter.ofPattern("d/MMM/yyyy")) + "'";
+            }
+
+            //Appends the a-z classifier
+            if (aToZButton.getText().toLowerCase().equals("a-z")) {
+                currentQuery += " ORDER BY event_title DESC";
+            } else {
+                currentQuery += " ORDER BY event_title ASC";
+            }
+            populateTableView(currentQuery);
+            filtersApplied = true;
+            applyButton.setText("Clear");
+            searchField.setText("");
+        }
+        else {
+            populateTableView();
+            filtersApplied = false;
+            applyButton.setText("Apply");
+            searchField.setText("");
+        }
     }
 
     @FXML
@@ -248,10 +336,9 @@ public class StudentScreenEvents_AllController extends Application implements In
             String eventLocationType = eventSelected.getLocationType();
             if (eventLocationType.equals("On Campus")) {
                 eventLocation = eventSelected.getRoomNo() + " " + eventSelected.getBuildingName();
-            }
-            else {
-                eventLocation = eventSelected.getStreetNo() + " " + eventSelected.getStreetName() + ", " + eventSelected.getSuburb() + ", " + 
-                        eventSelected.getPostcode();
+            } else {
+                eventLocation = eventSelected.getStreetNo() + " " + eventSelected.getStreetName() + ", " + eventSelected.getSuburb() + ", "
+                        + eventSelected.getPostcode();
             }
             eventStartDate = eventSelected.getStartDate() + " " + eventSelected.getEventStartTime();
             eventEndDate = eventSelected.getEventEnd() + " " + eventSelected.getEventEndTime();
@@ -285,7 +372,7 @@ public class StudentScreenEvents_AllController extends Application implements In
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public void populateTableView(String currentQuery) throws SQLException {
         //Only display events that are in the future
         statement = openConnection();
@@ -302,8 +389,8 @@ public class StudentScreenEvents_AllController extends Application implements In
         try {
             while (rs.next()) {
                 int i = 1;
-                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4), 
-                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9), 
+                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4),
+                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9),
                         rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13), rs.getString(i + 14), Integer.parseInt(rs.getString(i + 15))));
             }
         } catch (SQLException ex) {
@@ -350,45 +437,42 @@ public class StudentScreenEvents_AllController extends Application implements In
 
     }
 
-    //    @FXML
-//    private void SignInButton(MouseEvent event) throws Exception{
-//        DBController auth = new DBController();
-//        SignInError.setVisible(false);
-//        InjectionError.setVisible(false);
-//        
-//        if (auth.sanitise(username.getText(), password.getText())){
-//            //InjectionError.setVisible(false);
-//                if (auth.authenticate(username.getText(), password.getText())){
-//                    loggedInUser = username.getText();
-//                    //userType = Integer.parseInt(d.returnSingleQuery("SELECT USERTYPE FROM USER WHERE USERNAME LIKE '" + loggedInUser + "'"));
-//                    loadNext("Seek a Ride.fxml"); //Change this to the main report page
-//
-//                }
-//                else {
-//                    SignInError.setVisible(true);
-//                }
-//        }
-//        else {
-//            InjectionError.setVisible(true);
-//        }
-//
-//    }
-//    
-//    //Saves duplicates
-//    public void loadNext(String destination){
-//        SignInError.setVisible(false);
-//        stage=(Stage) SignIn.getScene().getWindow();
-//        try {
-//            root = FXMLLoader.load(getClass().getResource(destination)); //putting it to 'Seek a Ride' for now, before we know what type of user each person is
-//        } catch (IOException ex) {
-//            Logger.getLogger(SignInController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-//    
-//    public static String getUser(){
-//        return loggedInUser;
-//    } 
+    private void populateComboBox() throws SQLException {
+        statement = openConnection();
+        currentQuery = "SELECT society_name, society_description, society_id FROM SOCIETY";
+        ResultSet rs = statement.executeQuery(currentQuery);
+
+        listOfSocieties = FXCollections.observableArrayList();
+        try {
+            while (rs.next()) {
+                int i = 1;
+                listOfSocieties.add(new FavouriteSocieties(rs.getString(i), rs.getString(i + 1), Integer.parseInt(rs.getString(i + 2))));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentScreenEvents_AllController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //Format the strings in the ComboBox
+        bySociety.setConverter(new StringConverter<FavouriteSocieties>() {
+            @Override
+            public String toString(FavouriteSocieties object) {
+                bySocietyFilterChoice = object.getSocietyName();
+                return object.getSocietyName();
+            }
+
+            @Override
+            public FavouriteSocieties fromString(String string) {
+                return null;
+            }
+        });
+
+        //Data added to comboBox
+        try {
+            bySociety.setItems(listOfSocieties);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } //finally {
+        //closeConnection(conn, rs, statement);
+        //}
+    }
 }

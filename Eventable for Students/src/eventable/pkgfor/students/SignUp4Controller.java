@@ -155,7 +155,6 @@ public class SignUp4Controller implements Initializable {
             return false;
         }
         //Adding security questions for user
-        //TODO: NEED TO FINISH - NOTE: securityQuestion1.getId() does not work for this scenario
         statement = openConnection();
         SecurityQuestion securityQuestion1Selected = (SecurityQuestion) securityQuestion1.getSelectionModel().getSelectedItem();
         SecurityQuestion securityQuestion2Selected = (SecurityQuestion) securityQuestion2.getSelectionModel().getSelectedItem();

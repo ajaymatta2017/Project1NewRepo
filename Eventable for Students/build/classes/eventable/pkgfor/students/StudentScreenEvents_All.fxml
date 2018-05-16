@@ -107,22 +107,22 @@
                               <Font size="14.0" />
                            </font>
                         </TextField>
-                        <DatePicker layoutX="2.0" layoutY="65.0" prefHeight="31.0" prefWidth="131.0" promptText="From" stylesheets="@DatePicker.css">
+                        <DatePicker fx:id="dateFrom" layoutX="2.0" layoutY="65.0" prefHeight="31.0" prefWidth="131.0" promptText="From" stylesheets="@DatePicker.css">
                            <styleClass>
                               <String fx:value="date-picker" />
                               <String fx:value="text-field" />
                            </styleClass>
                         </DatePicker>
-                        <DatePicker layoutX="137.0" layoutY="65.0" prefHeight="31.0" prefWidth="123.0" promptText="To" stylesheets="@DatePicker.css">
+                        <DatePicker fx:id="dateTo" layoutX="137.0" layoutY="65.0" prefHeight="31.0" prefWidth="123.0" promptText="To" stylesheets="@DatePicker.css">
                            <styleClass>
                               <String fx:value="arrow-button" />
                               <String fx:value="date-picker" />
                               <String fx:value="text-field" />
                            </styleClass>
                         </DatePicker>
-                        <Hyperlink layoutX="262.0" layoutY="67.0" text="Today" />
-                        <Button contentDisplay="CENTER" graphicTextGap="0.0" layoutX="3.0" layoutY="102.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="84.0" stylesheets="@AZButton.css" text="A-Z" />
-                        <ComboBox layoutX="95.0" layoutY="102.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="33.0" prefWidth="211.0" promptText="By Society" stylesheets="@ComboBox.css">
+                        <Hyperlink fx:id="today" layoutX="262.0" layoutY="67.0" onAction="#today" text="Today" />
+                        <Button fx:id="aToZButton" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="3.0" layoutY="102.0" mnemonicParsing="false" onAction="#alphabeticalSort" prefHeight="33.0" prefWidth="84.0" stylesheets="@AZButton.css" text="A-Z" />
+                        <ComboBox fx:id="bySociety" layoutX="95.0" layoutY="102.0" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="33.0" prefWidth="211.0" promptText="By Society" stylesheets="@ComboBox.css">
                            <styleClass>
                               <String fx:value="combo-box" />
                               <String fx:value="combo-box-base" />
@@ -134,7 +134,7 @@
                               <Cursor fx:constant="OPEN_HAND" />
                            </cursor>
                         </ComboBox>
-                        <Button layoutY="144.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="309.0" stylesheets="@PrimaryButton.css" text="Apply">
+                        <Button fx:id="applyButton" layoutY="144.0" mnemonicParsing="false" onAction="#applyFilters" prefHeight="31.0" prefWidth="309.0" stylesheets="@PrimaryButton.css" text="Apply">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
