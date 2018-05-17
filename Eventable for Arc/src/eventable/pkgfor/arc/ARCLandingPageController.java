@@ -24,18 +24,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ARCLandingPageController implements Initializable {
+
     @FXML
     Stage stage;
     @FXML
@@ -54,16 +58,26 @@ public class ARCLandingPageController implements Initializable {
     private Circle societyPage;
     @FXML
     private Text email;
-    
+    @FXML
+    private Button AToZButton;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button goButton;
+    @FXML
+    private Button orderByDate;
+    @FXML
+    private Button orderByCount;
+
     public static Connection conn;
 
     public static ResultSet rs;
 
     public static Statement statement;
-    
+
     public static String currentQuery;
     private ObservableList<ArcEvent> eventsArcData;
-    
+
     public static String eventNameSelected;
     public static String societyNameSelected;
     public static String startDateSelected;
@@ -73,22 +87,61 @@ public class ARCLandingPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         populateEmail();
         try {
-            populateTableViewArc();
+            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018'");
         } catch (SQLException ex) {
             Logger.getLogger(ARCLandingPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }    
+    }
 
     @FXML
     private void populateEmail() {
         email.setText(ARCSocietyHomeController.loggedInUser);
     }
     
-     public void populateTableViewArc() throws SQLException {
-        statement = openConnection();
-        currentQuery = "SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start, event_id FROM app_user JOIN society USING(SOCIETY_ID) JOIN event using(society_id) WHERE event_start <= '14/MAY/2018'";
-        ResultSet rs = statement.executeQuery(currentQuery);
+    //NEED TO FIX
+    @FXML
+    private void orderByDateButton(MouseEvent event) throws SQLException {
+        if (orderByDate.getText().matches("Most Recent")){
+            System.out.println("Method 1 Entered");
+            orderByDate.setText("Least Recent");
+            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_start DESC");
+        }
+        if (orderByDate.getText().matches("Least Recent")) {
+            System.out.println("Method 1 Entered");
+            orderByDate.setText("Most Recent");
+         populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_start ASC");
+        }
+    }
+    
+    //NEED TO COMPLETE
+    @FXML
+    private void orderByCountButton(MouseEvent event) {
         
+    }
+
+    @FXML
+    private void alphabeticalSort(MouseEvent event) throws SQLException {
+        if (AToZButton.getText().toLowerCase().equals("a-z")) {
+            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_title ASC");
+            AToZButton.setText("Z-A");
+        } else {
+            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_title DESC");
+            AToZButton.setText("A-Z");
+        }
+    }
+
+    @FXML
+    private void search(KeyEvent event) throws SQLException {
+        populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' AND"
+                + "(lower(society_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(event_title) LIKE '%"
+                + searchField.getText().trim().toLowerCase() + "')");
+    }
+
+    public void populateTableViewArc(String currentQuery) throws SQLException {
+        statement = openConnection();
+        //currentQuery = "SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start, event_id FROM app_user JOIN society USING(SOCIETY_ID) JOIN event using(society_id) WHERE event_start <= '14/MAY/2018'";
+        ResultSet rs = statement.executeQuery(currentQuery);
+
         eventName.setCellValueFactory(new PropertyValueFactory<>("event"));
         societyName.setCellValueFactory(new PropertyValueFactory<>("society"));
         startDate.setCellValueFactory(new PropertyValueFactory<>("startDate"));
@@ -99,7 +152,7 @@ public class ARCLandingPageController implements Initializable {
         try {
             while (rs.next()) {
                 int i = 1;
-                eventsArcData.add(new ArcEvent(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getInt(i + 3)));
+                eventsArcData.add(new ArcEvent(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
@@ -142,7 +195,7 @@ public class ARCLandingPageController implements Initializable {
         //closeConnection(conn, rs, statement);
         //}
     }
-     
+
     @FXML
     private void tableviewItemClicked(MouseEvent event) throws SQLException {
         if (event.getClickCount() == 2) {
