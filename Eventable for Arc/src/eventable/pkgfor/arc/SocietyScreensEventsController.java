@@ -20,12 +20,14 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
@@ -35,6 +37,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
@@ -198,9 +201,29 @@ public class SocietyScreensEventsController extends Application implements Initi
     public static int eventStartDateMonthInteger;
     public static int eventEndDateMonthInteger;
 
+    @FXML
+    private TextField searchFieldAll;
+    @FXML
+    private Button AToZButtonAll;
+    @FXML
+    private Button goButtonAll;
+
+    @FXML
+    private TextField searchFieldUpcoming;
+    @FXML
+    private Button AToZButtonUpcoming;
+    @FXML
+    private Button goButtonUpcoming;
+
+    @FXML
+    private TextField searchFieldPast;
+    @FXML
+    private Button AToZButtonPast;
+    @FXML
+    private Button goButtonPast;
+
     private Random rand = new Random();
-    
-    //Input variables
+
     @FXML
     private AnchorPane inputPane;
     @FXML
@@ -212,24 +235,37 @@ public class SocietyScreensEventsController extends Application implements Initi
     @FXML
     private Button confButton;
 
+    private ObservableList<Events> eventsDataAll;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         statement = openConnection();
 
         try {
-            System.out.println("Method0");
+//            System.out.println("Method0");
             populateSocietyPageTitle();
-            System.out.println("Method1");
+//            System.out.println("Method1");
             populateEmail();
-            System.out.println("Method2");
-            populateTableViewAll();
-            System.out.println("Method3");
-            populateTableViewUpcoming();
-            System.out.println("Method4");
+//            System.out.println("Method2");
+//            populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')");
+
+            //Populate TableView for 'All' Tab
+            ResultSet outputAll = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')");            System.out.println("Method3");
+            ObservableList<Events> eventsDataAll = observableListPopulation(outputAll);
+            tableViewAllSetup(eventsDataAll);
+            
+            //Populate TableView for 'Upcoming' Tab
+            ResultSet outputUpcoming = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start >= '17/MAY/2018'");
+            ObservableList<Events> eventsDataUpcoming = observableListPopulation(outputUpcoming);
+            TableViewUpcomingSetup(eventsDataUpcoming);
+            
+            //Populate TableView for 'Past' Tab
+            ResultSet outputPast = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'");
+            ObservableList<Events> eventsDataPast = observableListPopulation(outputPast);
+            TableViewPastSetup(eventsDataPast);
+            
+            //Populate TableView for 'Past' Tab
             populateTableViewCodes();
-            System.out.println("Method5");
-            populateTableViewPast();
-            System.out.println("Method6");
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -255,11 +291,7 @@ public class SocietyScreensEventsController extends Application implements Initi
         addNewEvent3("SocietyScreen_SingleEvent.fxml");
     }
     
-//    @FXML
-//    private void updateSocietyAccountNavigation(MouseEvent event) throws SQLException {
-//            updateSocietyPage("SocietyScreens_SingleSociety.fxml");
-//    }
-//    
+    @FXML
     public void populateSocietyPageTitle() throws SQLException {
         statement = openConnection();
         currentQuery = "SELECT UPPER(society_name), society_description from society JOIN app_user USING (society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
@@ -280,6 +312,251 @@ public class SocietyScreensEventsController extends Application implements Initi
     @FXML
     public void populateEmail() throws SQLException {
         email.setText(ARCSocietyHomeController.loggedInUser);
+    }
+
+    private ObservableList<Events> observableListPopulation(ResultSet rs1) throws SQLException {
+        ObservableList<Events> eventsDataAll = FXCollections.observableArrayList();
+        try {
+            while (rs1.next()) {
+                int i = 1;
+                //eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3)));
+                eventsDataAll.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i + 3), rs1.getString(i + 4),
+                        rs1.getString(i + 5), rs1.getString(i + 6), rs1.getString(i + 7), rs1.getString(i + 8), rs1.getString(i + 9),
+                        rs1.getString(i + 10), rs1.getString(i + 11), rs1.getString(i + 12), rs1.getString(i + 13), rs1.getInt(i + 14), rs1.getString(i + 15)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return eventsDataAll;
+    }
+
+    private ObservableList<Events> observableListPopulationAllAlphabetical(ResultSet rs1) throws SQLException {
+        eventsData = FXCollections.observableArrayList();
+        try {
+            while (rs1.next()) {
+                int i = 1;
+                //eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3)));
+                eventsData.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i + 3)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return eventsData;
+    }
+
+    @FXML
+    private void alphabeticalSortAll(MouseEvent event) throws SQLException {
+        if (AToZButtonAll.getText().toLowerCase().equals("a-z")) {
+            AToZButtonAll.setText("Z-A");
+//            populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT ORDER BY event_title ASC");
+            ResultSet alphabeticalTableViewAll = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') ORDER BY EVENT_TITLE ASC");
+            ObservableList<Events> alphabeticalEventsDataAll = observableListPopulationAllAlphabetical(alphabeticalTableViewAll);
+            tableViewAllSetup(alphabeticalEventsDataAll);
+        } else {
+            AToZButtonAll.setText("A-Z");
+            ResultSet alphabeticalTableViewAll = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') ORDER BY EVENT_TITLE DESC");
+            ObservableList<Events> alphabeticalEventsDataAll = observableListPopulationAllAlphabetical(alphabeticalTableViewAll);
+            tableViewAllSetup(alphabeticalEventsDataAll);
+//          populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT ORDER BY event_title DESC");
+        }
+    }
+
+    @FXML
+    private void searchAll(KeyEvent event) throws SQLException {
+        ResultSet searchTableViewAll = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID)"
+                + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND ((lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'))");
+        ObservableList<Events> searchTableEventsDataAll = observableListPopulationAllAlphabetical(searchTableViewAll);
+        tableViewAllSetup(searchTableEventsDataAll);
+//        populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE"
+//                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
+    }
+    
+    @FXML
+    private void searchUpcoming(KeyEvent event) throws SQLException {
+        ResultSet searchTableViewUpcoming = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID)"
+                + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START >= '17/MAY/2018' AND ((lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'))");
+        ObservableList<Events> searchTableEventsDataUpcoming = observableListPopulationAllAlphabetical(searchTableViewUpcoming);
+        TableViewUpcomingSetup(searchTableEventsDataUpcoming);
+//        populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE"
+//                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
+    }
+    
+    @FXML
+    private void searchPast(KeyEvent event) throws SQLException {
+        ResultSet searchTableViewPast = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID)"
+                + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START <= '17/MAY/2018' AND ((lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'))");
+        ObservableList<Events> searchTableEventsDataPast = observableListPopulationAllAlphabetical(searchTableViewPast);
+        TableViewPastSetup(searchTableEventsDataPast);
+//        populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE"
+//                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
+    }
+    
+    public ResultSet queryPopulateTableView(String currentQuery) throws SQLException {
+        statement = openConnection();
+        //currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
+//        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
+        ResultSet rs = statement.executeQuery(currentQuery);
+        return rs;
+    }
+
+    public void tableViewAllSetup(ObservableList<Events> data) {
+        eventNameAll.setCellValueFactory(new PropertyValueFactory<>("event"));
+        startDateAll.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        locationTypeAll.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+        eventTypeAll.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+
+        eventNameAll.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventNameAll.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        startDateAll.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(startDateAll.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        locationTypeAll.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(locationTypeAll.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        eventTypeAll.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventTypeAll.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+
+        //Data added to TableView
+        try {
+            tableOfEventsAll.setItems(data);
+            //tableofEvents.getColumns().setAll(event, startDate, location);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } //finally {
+        //closeConnection(conn, rs, statement);
+        //}
+    }
+    
+    public void TableViewUpcomingSetup(ObservableList<Events> data)  {
+        eventNameUpcoming.setCellValueFactory(new PropertyValueFactory<>("event"));
+        startDateUpcoming.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        locationTypeUpcoming.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+        eventTypeUpcoming.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+
+        eventNameUpcoming.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventNameUpcoming.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        startDateUpcoming.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(startDateUpcoming.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        locationTypeUpcoming.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(locationTypeUpcoming.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        eventTypeUpcoming.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventTypeUpcoming.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        //Data added to TableView
+        try {
+            tableOfEventsUpcoming.setItems(data);
+            //tableofEvents.getColumns().setAll(event, startDate, location);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } //finally {
+        //closeConnection(conn, rs, statement);
+        //}
+    }
+    
+    public void TableViewPastSetup(ObservableList <Events> data) {
+        eventNamePast.setCellValueFactory(new PropertyValueFactory<>("event"));
+        startDatePast.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        locationTypePast.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+        eventTypePast.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        
+        eventNamePast.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventNamePast.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        startDatePast.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(startDatePast.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        locationTypePast.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(locationTypePast.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        eventTypePast.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventTypePast.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        //Data added to TableView
+        try {
+            tableOfEventsPast.setItems(data);
+            //tableofEvents.getColumns().setAll(event, startDate, location);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } //finally {
+        //closeConnection(conn, rs, statement);
+        //}
     }
 
     public void populateTableViewCodes() throws SQLException {
@@ -332,221 +609,6 @@ public class SocietyScreensEventsController extends Application implements Initi
         //Data added to TableView
         try {
             tableOfEventsCodes.setItems(eventsCodeData);
-            //tableofEvents.getColumns().setAll(event, startDate, location);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } //finally {
-        //closeConnection(conn, rs, statement);
-        //}
-    }
-
-    public void populateTableViewAll() throws SQLException {
-        statement = openConnection();
-        //currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
-        currentQuery = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
-        ResultSet rs = statement.executeQuery(currentQuery);
-
-        eventNameAll.setCellValueFactory(new PropertyValueFactory<>("event"));
-        startDateAll.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        locationTypeAll.setCellValueFactory(new PropertyValueFactory<>("locationType"));
-        eventTypeAll.setCellValueFactory(new PropertyValueFactory<>("eventType"));
-
-        //Data added to observable List
-        eventsData = FXCollections.observableArrayList();
-        try {
-            while (rs.next()) {
-                int i = 1;
-                //eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3)));
-                eventsData.add(new Events(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getString(i + 3), rs.getString(i + 4),
-                        rs.getString(i + 5), rs.getString(i + 6), rs.getString(i + 7), rs.getString(i + 8), rs.getString(i + 9),
-                        rs.getString(i + 10), rs.getString(i + 11), rs.getString(i + 12), rs.getString(i + 13), rs.getInt(i + 14), rs.getString(i + 15)));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        eventNameAll.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(eventNameAll.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        startDateAll.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(startDateAll.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        locationTypeAll.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(locationTypeAll.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        eventTypeAll.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(eventTypeAll.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        //Data added to TableView
-        try {
-            tableOfEventsAll.setItems(eventsData);
-            //tableofEvents.getColumns().setAll(event, startDate, location);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } //finally {
-        //closeConnection(conn, rs, statement);
-        //}
-    }
-
-    public void populateTableViewUpcoming() throws SQLException {
-        statement = openConnection();
-//        currentQuery1 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start >= '10/MAY/2018'";
-        currentQuery1 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start >= '10/MAY/2018'";
-        ResultSet rs1 = statement.executeQuery(currentQuery1);
-
-        eventNameUpcoming.setCellValueFactory(new PropertyValueFactory<>("event"));
-        startDateUpcoming.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        locationTypeUpcoming.setCellValueFactory(new PropertyValueFactory<>("locationType"));
-        eventTypeUpcoming.setCellValueFactory(new PropertyValueFactory<>("eventType"));
-
-        //Data added to observable List
-        eventsDataUpcoming = FXCollections.observableArrayList();
-        try {
-            while (rs1.next()) {
-                int i = 1;
-//                eventsDataUpcoming.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i + 3)));
-                eventsDataUpcoming.add(new Events(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2), rs1.getString(i + 3), rs1.getString(i + 4),
-                        rs1.getString(i + 5), rs1.getString(i + 6), rs1.getString(i + 7), rs1.getString(i + 8), rs1.getString(i + 9),
-                        rs1.getString(i + 10), rs1.getString(i + 11), rs1.getString(i + 12), rs1.getString(i + 13), rs1.getInt(i + 14), rs1.getString(i + 15)));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        eventNameUpcoming.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(eventNameUpcoming.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        startDateUpcoming.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(startDateUpcoming.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        locationTypeUpcoming.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(locationTypeUpcoming.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        eventTypeUpcoming.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(eventTypeUpcoming.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        //Data added to TableView
-        try {
-            tableOfEventsUpcoming.setItems(eventsDataUpcoming);
-            //tableofEvents.getColumns().setAll(event, startDate, location);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } //finally {
-        //closeConnection(conn, rs, statement);
-        //}
-    }
-
-    public void populateTableViewPast() throws SQLException {
-        statement = openConnection();
-//        currentQuery3 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'";
-        currentQuery3 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'";
-        ResultSet rs3 = statement.executeQuery(currentQuery3);
-
-        eventNamePast.setCellValueFactory(new PropertyValueFactory<>("event"));
-        startDatePast.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-        locationTypePast.setCellValueFactory(new PropertyValueFactory<>("locationType"));
-        eventTypePast.setCellValueFactory(new PropertyValueFactory<>("eventType"));
-
-        //Data added to observable List
-        eventsDataPast = FXCollections.observableArrayList();
-        try {
-            while (rs3.next()) {
-                int i = 1;
-                eventsDataPast.add(new Events(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2), rs3.getString(i + 3), rs3.getString(i + 4),
-                        rs3.getString(i + 5), rs3.getString(i + 6), rs3.getString(i + 7), rs3.getString(i + 8), rs3.getString(i + 9),
-                        rs3.getString(i + 10), rs3.getString(i + 11), rs3.getString(i + 12), rs3.getString(i + 13), rs3.getInt(i + 14), rs3.getString(i + 15)));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        eventNamePast.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(eventNamePast.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        startDatePast.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(startDatePast.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        locationTypePast.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(locationTypePast.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        eventTypePast.setCellFactory(tc -> {
-            TableCell<Events, String> cell = new TableCell<>();
-            Text text = new Text();
-            cell.setGraphic(text);
-            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
-            text.wrappingWidthProperty().bind(eventTypePast.widthProperty());
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        //Data added to TableView
-        try {
-            tableOfEventsPast.setItems(eventsDataPast);
             //tableofEvents.getColumns().setAll(event, startDate, location);
         } catch (Exception e) {
             e.printStackTrace();
@@ -655,25 +717,6 @@ public class SocietyScreensEventsController extends Application implements Initi
         stage.show();
     }
 
-//    public void displayUserDataAll() throws SQLException {
-//        statement = openConnection();
-//        currentQuery6 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'";
-//        ResultSet rs4 = statement.executeQuery(currentQuery6);
-//
-//        eventNamePast.setCellValueFactory(new PropertyValueFactory<>("event"));
-//        startDatePast.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-//        locationTypePast.setCellValueFactory(new PropertyValueFactory<>("locationType"));
-//        eventTypePast.setCellValueFactory(new PropertyValueFactory<>("eventType"));
-//
-//        //Data added to observable List
-//        eventsDataDisplayAll = FXCollections.observableArrayList();
-////        try {
-////            while (rs4.next()) {
-////                int i = 1;
-////                eventsDataPast.add(new Events(rs4.getString(i), rs4.getString(i + 1), rs4.getString(i + 2), rs4.getString(i + 3)));
-////            }        
-////    }
-////    }
     @FXML
     private void tableviewItemAllClicked(MouseEvent event) throws SQLException {
         if (event.getClickCount() == 2) {
@@ -805,20 +848,20 @@ public class SocietyScreensEventsController extends Application implements Initi
             int eventID = Integer.parseInt(rs.getString("EVENT_ID"));
             currentQuery = "UPDATE ATTENDANCE SET GENERATED_CODE = " + newCode + " WHERE EMAIL = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + "' AND EVENT_ID = " + eventID;
             rs = statement.executeQuery(currentQuery);
-            
+
             //open input
             inputPane.setVisible(true);
             errorMessage.setVisible(false);
         }
     }
-    
+
     @FXML
-    private void closeInputPane(MouseEvent event){
+    private void closeInputPane(MouseEvent event) {
         inputPane.setVisible(false);
     }
-    
+
     @FXML
-    private void confClicked (MouseEvent event) throws SQLException{
+    private void confClicked(MouseEvent event) throws SQLException {
         //getDBcode
         currentQuery = "SELECT EVENT_ID FROM EVENT WHERE EVENT_TITLE = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().event.get() + "'";
         ResultSet rs = statement.executeQuery(currentQuery);
@@ -827,16 +870,162 @@ public class SocietyScreensEventsController extends Application implements Initi
         currentQuery = "SELECT GENERATED_CODE FROM ATTENDANCE WHERE EMAIL = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + "' AND EVENT_ID = " + eventID;
         rs = statement.executeQuery(currentQuery);
         rs.next();
-        if(rs.getString("GENERATED_CODE").equals(codeInput.getText())){
+        if (rs.getString("GENERATED_CODE").equals(codeInput.getText())) {
             errorMessage.setVisible(false);
             currentQuery = "UPDATE ATTENDANCE SET EVENT_ACTUAL_ATTENDANCE = 'Y' WHERE EMAIL = '" + tableOfEventsCodes.getSelectionModel().getSelectedItem().email.get() + "' AND EVENT_ID = " + eventID;
             rs = statement.executeQuery(currentQuery);
             inputPane.setVisible(false);
-        }
-        else{
+        } else {
             errorMessage.setVisible(true);
         }
 
     }
-    
+    //    public void populateTableViewPast() throws SQLException {
+//        statement = openConnection();
+////        currentQuery3 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'";
+//        currentQuery3 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '17/MAY/2018'";
+//        ResultSet rs3 = statement.executeQuery(currentQuery3);
+//
+//        eventNamePast.setCellValueFactory(new PropertyValueFactory<>("event"));
+//        startDatePast.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+//        locationTypePast.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+//        eventTypePast.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+//
+//        //Data added to observable List
+//        eventsDataPast = FXCollections.observableArrayList();
+//        try {
+//            while (rs3.next()) {
+//                int i = 1;
+//                eventsDataPast.add(new Events(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2), rs3.getString(i + 3), rs3.getString(i + 4),
+//                        rs3.getString(i + 5), rs3.getString(i + 6), rs3.getString(i + 7), rs3.getString(i + 8), rs3.getString(i + 9),
+//                        rs3.getString(i + 10), rs3.getString(i + 11), rs3.getString(i + 12), rs3.getString(i + 13), rs3.getInt(i + 14), rs3.getString(i + 15)));
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        eventNamePast.setCellFactory(tc -> {
+//            TableCell<Events, String> cell = new TableCell<>();
+//            Text text = new Text();
+//            cell.setGraphic(text);
+//            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+//            text.wrappingWidthProperty().bind(eventNamePast.widthProperty());
+//            text.textProperty().bind(cell.itemProperty());
+//            return cell;
+//        });
+//        startDatePast.setCellFactory(tc -> {
+//            TableCell<Events, String> cell = new TableCell<>();
+//            Text text = new Text();
+//            cell.setGraphic(text);
+//            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+//            text.wrappingWidthProperty().bind(startDatePast.widthProperty());
+//            text.textProperty().bind(cell.itemProperty());
+//            return cell;
+//        });
+//        locationTypePast.setCellFactory(tc -> {
+//            TableCell<Events, String> cell = new TableCell<>();
+//            Text text = new Text();
+//            cell.setGraphic(text);
+//            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+//            text.wrappingWidthProperty().bind(locationTypePast.widthProperty());
+//            text.textProperty().bind(cell.itemProperty());
+//            return cell;
+//        });
+//        eventTypePast.setCellFactory(tc -> {
+//            TableCell<Events, String> cell = new TableCell<>();
+//            Text text = new Text();
+//            cell.setGraphic(text);
+//            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+//            text.wrappingWidthProperty().bind(eventTypePast.widthProperty());
+//            text.textProperty().bind(cell.itemProperty());
+//            return cell;
+//        });
+//        //Data added to TableView
+//        try {
+//            tableOfEventsPast.setItems(eventsDataPast);
+//            //tableofEvents.getColumns().setAll(event, startDate, location);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } //finally {
+//        //closeConnection(conn, rs, statement);
+//        //}
+//    }
+//
+////    public void populateTableViewUpcoming() throws SQLException {
+////        statement = openConnection();
+//////        currentQuery1 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start >= '10/MAY/2018'";
+////        currentQuery1 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start >= '17/MAY/2018'";
+////        ResultSet rs1 = statement.executeQuery(currentQuery1);
+////    }
+//
+//    public void populateTableViewPas1t() throws SQLException {
+//        statement = openConnection();
+////        currentQuery3 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/MON/yy') AS VARCHAR2(50)) EVENT_START, LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'";
+//        currentQuery3 = "SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'";
+//        ResultSet rs3 = statement.executeQuery(currentQuery3);
+//
+//        eventNamePast.setCellValueFactory(new PropertyValueFactory<>("event"));
+//        startDatePast.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+//        locationTypePast.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+//        eventTypePast.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+//
+//        //Data added to observable List
+//        eventsDataPast = FXCollections.observableArrayList();
+//        try {
+//            while (rs3.next()) {
+//                int i = 1;
+//                eventsDataPast.add(new Events(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2), rs3.getString(i + 3), rs3.getString(i + 4),
+//                        rs3.getString(i + 5), rs3.getString(i + 6), rs3.getString(i + 7), rs3.getString(i + 8), rs3.getString(i + 9),
+//                        rs3.getString(i + 10), rs3.getString(i + 11), rs3.getString(i + 12), rs3.getString(i + 13), rs3.getInt(i + 14), rs3.getString(i + 15)));
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        eventNamePast.setCellFactory(tc -> {
+//            TableCell<Events, String> cell = new TableCell<>();
+//            Text text = new Text();
+//            cell.setGraphic(text);
+//            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+//            text.wrappingWidthProperty().bind(eventNamePast.widthProperty());
+//            text.textProperty().bind(cell.itemProperty());
+//            return cell;
+//        });
+//        startDatePast.setCellFactory(tc -> {
+//            TableCell<Events, String> cell = new TableCell<>();
+//            Text text = new Text();
+//            cell.setGraphic(text);
+//            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+//            text.wrappingWidthProperty().bind(startDatePast.widthProperty());
+//            text.textProperty().bind(cell.itemProperty());
+//            return cell;
+//        });
+//        locationTypePast.setCellFactory(tc -> {
+//            TableCell<Events, String> cell = new TableCell<>();
+//            Text text = new Text();
+//            cell.setGraphic(text);
+//            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+//            text.wrappingWidthProperty().bind(locationTypePast.widthProperty());
+//            text.textProperty().bind(cell.itemProperty());
+//            return cell;
+//        });
+//        eventTypePast.setCellFactory(tc -> {
+//            TableCell<Events, String> cell = new TableCell<>();
+//            Text text = new Text();
+//            cell.setGraphic(text);
+//            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+//            text.wrappingWidthProperty().bind(eventTypePast.widthProperty());
+//            text.textProperty().bind(cell.itemProperty());
+//            return cell;
+//        });
+//        //Data added to TableView
+//        try {
+//            tableOfEventsPast.setItems(eventsDataPast);
+//            //tableofEvents.getColumns().setAll(event, startDate, location);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } //finally {
+//        //closeConnection(conn, rs, statement);
+//        //}
+//    }
 }

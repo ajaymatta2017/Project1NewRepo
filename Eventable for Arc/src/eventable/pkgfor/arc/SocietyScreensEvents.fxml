@@ -131,7 +131,7 @@
                                                                 <Font name="Helvetica Neue" size="51.0" />
                                                             </font>
                                                         </Text>
-                                                        <TextField layoutX="849.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;">
+                                                        <TextField fx:id="searchFieldUpcoming" layoutX="849.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
@@ -140,7 +140,7 @@
                                                 <URL value="@SearchBox.css" />
                                              </stylesheets>
                                                         </TextField>
-                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" text="Go" textAlignment="CENTER">
+                                                        <Button fx:id="goButtonUpcoming" alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" text="Go" textAlignment="CENTER">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
@@ -149,7 +149,7 @@
                                                 <URL value="@AZButton.css" />
                                              </stylesheets>
                                                         </Button>
-                                                        <Button layoutX="750.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@SecondaryButton.css" text="A-Z">
+                                                        <Button fx:id="AToZButtonUpcoming" layoutX="750.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@SecondaryButton.css" text="A-Z">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
@@ -192,7 +192,7 @@
                                                                 <Font name="Helvetica Neue" size="51.0" />
                                                             </font>
                                                         </Text>
-                                                        <TextField layoutX="849.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;">
+                                                        <TextField fx:id="searchFieldPast" layoutX="849.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
@@ -201,7 +201,7 @@
                                                 <URL value="@SearchBox.css" />
                                              </stylesheets>
                                                         </TextField>
-                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" text="Go" textAlignment="CENTER">
+                                                        <Button fx:id="goButtonPast" alignment="CENTER" graphicTextGap="10.0" layoutX="1133.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" text="Go" textAlignment="CENTER">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
@@ -210,7 +210,7 @@
                                                 <URL value="@AZButton.css" />
                                              </stylesheets>
                                                         </Button>
-                                                        <Button layoutX="750.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@SecondaryButton.css" text="A-Z">
+                                                        <Button fx:id="AToZButtonPast" layoutX="750.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" stylesheets="@SecondaryButton.css" text="A-Z">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
