@@ -27,6 +27,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -76,18 +77,20 @@ public class ARCLandingPageController implements Initializable {
     public static Statement statement;
 
     public static String currentQuery;
+    public static String currentQuery1;
+    
     private ObservableList<ArcEvent> eventsArcData;
-
     public static String eventNameSelected;
     public static String societyNameSelected;
     public static String startDateSelected;
-    public static String eventIdSelected;
+    public static int eventIdSelected;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         populateEmail();
+        orderByDate.setText("Most Recent");
         try {
-            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018'");
+            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start, event_id FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018'");
         } catch (SQLException ex) {
             Logger.getLogger(ARCLandingPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -97,42 +100,43 @@ public class ARCLandingPageController implements Initializable {
     private void populateEmail() {
         email.setText(ARCSocietyHomeController.loggedInUser);
     }
-    
-    //NEED TO FIX
+   
     @FXML
     private void orderByDateButton(MouseEvent event) throws SQLException {
-        if (orderByDate.getText().matches("Most Recent")){
-            System.out.println("Method 1 Entered");
-            orderByDate.setText("Least Recent");
-            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_start DESC");
+        if (orderByDate.getText().toLowerCase().matches("most recent")){
+//            System.out.println("Method 1 Entered");
+//            orderByDate.setText("Least Recent");
+            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start, event_id FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_start DESC");
         }
-        if (orderByDate.getText().matches("Least Recent")) {
-            System.out.println("Method 1 Entered");
-            orderByDate.setText("Most Recent");
-         populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_start ASC");
-        }
+//        if (orderByDate.getText().toLowerCase().matches("least recent")) {
+//            System.out.println("Method 2 Entered");
+////            Label mostRecent = new Label("Most Recent");
+//            orderByDate.setText("Most Recent");
+//            orderByDate.setVisible(true);
+//            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_start DESC");
+//        }
     }
     
     //NEED TO COMPLETE
-    @FXML
-    private void orderByCountButton(MouseEvent event) {
-        
-    }
+//    @FXML
+//    private void orderByCountButton(MouseEvent event) {
+//        currentQuery1 = "SELECT COUNT(
+//    }   
 
     @FXML
     private void alphabeticalSort(MouseEvent event) throws SQLException {
         if (AToZButton.getText().toLowerCase().equals("a-z")) {
-            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_title ASC");
+            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start, event_id FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_title ASC");
             AToZButton.setText("Z-A");
         } else {
-            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_title DESC");
+            populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start, event_id FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' ORDER BY event_title DESC");
             AToZButton.setText("A-Z");
         }
     }
 
     @FXML
     private void search(KeyEvent event) throws SQLException {
-        populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' AND"
+        populateTableViewArc("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start, event_id FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' AND"
                 + "(lower(society_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(event_title) LIKE '%"
                 + searchField.getText().trim().toLowerCase() + "')");
     }
@@ -152,7 +156,7 @@ public class ARCLandingPageController implements Initializable {
         try {
             while (rs.next()) {
                 int i = 1;
-                eventsArcData.add(new ArcEvent(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
+                eventsArcData.add(new ArcEvent(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2), rs.getInt(i+3)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);

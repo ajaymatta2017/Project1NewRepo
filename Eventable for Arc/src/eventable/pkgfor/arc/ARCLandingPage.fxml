@@ -64,7 +64,7 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
-                  <Button fx:id="orderByDate" layoutX="77.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#orderByDateButton" prefHeight="35.0" stylesheets="@SecondaryButton.css" text="Most Recent">
+                  <Button fx:id="orderByDate" layoutX="77.0" layoutY="139.0" mnemonicParsing="false" onMouseClicked="#orderByDateButton" prefHeight="35.0" stylesheets="@SecondaryButton.css" visible="true">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -89,7 +89,7 @@
                         <Font size="13.0" />
                      </font>
                   </Text>
-                  <Button fx:id="aToZButton" layoutX="740.0" layoutY="138.0" mnemonicParsing="false" onMouseClicked="#alphabeticalSort" prefHeight="35.0" prefWidth="66.0" stylesheets="@SecondaryButton.css" text="A-Z">
+                  <Button fx:id="AToZButton" layoutX="740.0" layoutY="138.0" mnemonicParsing="false" onMouseClicked="#alphabeticalSort" prefHeight="35.0" prefWidth="66.0" stylesheets="@SecondaryButton.css" text="A-Z">
                      <font>
                         <Font size="14.0" />
                      </font>
