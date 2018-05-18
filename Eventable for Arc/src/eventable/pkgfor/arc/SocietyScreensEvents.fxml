@@ -254,17 +254,17 @@
                                                                 <Font name="Helvetica Neue" size="51.0" />
                                                             </font>
                                                         </Text>
-                                                        <TextField layoutX="828.0" layoutY="25.0" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@SearchBox.css">
+                                                        <TextField fx:id="searchFieldCodes" layoutX="828.0" layoutY="25.0" onKeyPressed="#searchCodes" prefHeight="35.0" prefWidth="285.0" promptText="Search" style="-fx-border-radius: 10 0 0 10;" stylesheets="@SearchBox.css">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
                                                         </TextField>
-                                                        <Button alignment="CENTER" graphicTextGap="10.0" layoutX="1112.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@AZButton.css" text="Go" textAlignment="CENTER">
+                                                        <Button fx:id="goButtonCodes" alignment="CENTER" graphicTextGap="10.0" layoutX="1112.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="54.0" style="-fx-border-radius: 0 10 10 0;" stylesheets="@AZButton.css" text="Go" textAlignment="CENTER">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>
                                                         </Button>
-                                                        <Button layoutX="730.0" layoutY="25.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="66.0" text="A-Z">
+                                                        <Button fx:id="AToZButtonCodes" layoutX="730.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#alphabeticalSortCodes" prefHeight="35.0" prefWidth="66.0" text="A-Z">
                                                             <font>
                                                                 <Font size="14.0" />
                                                             </font>

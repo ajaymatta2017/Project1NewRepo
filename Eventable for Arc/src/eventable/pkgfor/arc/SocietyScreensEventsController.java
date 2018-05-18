@@ -221,6 +221,13 @@ public class SocietyScreensEventsController extends Application implements Initi
     private Button AToZButtonPast;
     @FXML
     private Button goButtonPast;
+    
+    @FXML
+    private TextField searchFieldCodes;
+    @FXML
+    private Button AToZButtonCodes;
+    @FXML
+    private Button goButtonCodes;
 
     private Random rand = new Random();
 
@@ -264,8 +271,12 @@ public class SocietyScreensEventsController extends Application implements Initi
             ObservableList<Events> eventsDataPast = observableListPopulation(outputPast);
             TableViewPastSetup(eventsDataPast);
             
-            //Populate TableView for 'Past' Tab
-            populateTableViewCodes();
+             //Populate TableView for 'Codes' Tab
+            ResultSet outputCodes = queryPopulateTableView("SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y'");
+            ObservableList<Codes> eventsDataCodes = observableListCodesPopulation(outputCodes);
+            TableViewCodesSetup(eventsDataCodes);
+            
+//            populateTableViewCodes();
         } catch (SQLException ex) {
             Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -329,9 +340,22 @@ public class SocietyScreensEventsController extends Application implements Initi
         }
         return eventsDataAll;
     }
+    
+    private ObservableList<Codes> observableListCodesPopulation(ResultSet rs1) throws SQLException {
+           ObservableList<Codes> eventsCodeData = FXCollections.observableArrayList();
+        try {
+            while (rs1.next()) {
+                int i = 1;
+                eventsCodeData.add(new Codes(rs1.getString(i), rs1.getString(i + 1), rs1.getString(i + 2)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return eventsCodeData;
+    }
 
     private ObservableList<Events> observableListPopulationAllAlphabetical(ResultSet rs1) throws SQLException {
-        eventsData = FXCollections.observableArrayList();
+        ObservableList<Events> eventsData = FXCollections.observableArrayList();
         try {
             while (rs1.next()) {
                 int i = 1;
@@ -379,6 +403,23 @@ public class SocietyScreensEventsController extends Application implements Initi
     }
     
     @FXML
+    private void alphabeticalSortCodes(MouseEvent event) throws SQLException {
+        if (AToZButtonCodes.getText().toLowerCase().equals("a-z")) {
+            AToZButtonCodes.setText("Z-A");
+//            populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT ORDER BY event_title ASC");
+            ResultSet alphabeticalTableViewCodes = queryPopulateTableView("SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y' ORDER BY EVENT_TITLE ASC");
+            ObservableList<Codes> alphabeticalEventsDataCodes = observableListCodesPopulation(alphabeticalTableViewCodes);
+            TableViewCodesSetup(alphabeticalEventsDataCodes);
+        } else {
+            AToZButtonCodes.setText("A-Z");
+            ResultSet alphabeticalTableViewUpcoming = queryPopulateTableView("SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y' ORDER BY EVENT_TITLE DESC");
+            ObservableList<Codes> alphabeticalEventsDataUpcoming = observableListCodesPopulation(alphabeticalTableViewUpcoming);
+            TableViewCodesSetup(alphabeticalEventsDataUpcoming);
+//          populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT ORDER BY event_title DESC");
+        }
+    }
+    
+    @FXML
     private void alphabeticalSortPast(MouseEvent event) throws SQLException {
         if (AToZButtonPast.getText().toLowerCase().equals("a-z")) {
             AToZButtonPast.setText("Z-A");
@@ -407,20 +448,30 @@ public class SocietyScreensEventsController extends Application implements Initi
     
     //NEED TO TEST
     @FXML
+    private void searchCodes(KeyEvent event) throws SQLException {
+        ResultSet searchTableViewCodes = queryPopulateTableView("SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE (UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y')"
+                + " AND ((lower(society_name) LIKE '%" + searchFieldCodes.getText().trim().toLowerCase() + "%' OR lower(event_type) LIKE '%" + searchFieldCodes.getText().trim().toLowerCase() + "%'" + " OR lower(a.email) LIKE '%" + searchFieldCodes.getText().trim().toLowerCase()+ "%'))");
+        ObservableList<Codes> searchTableEventsDataCodes = observableListCodesPopulation(searchTableViewCodes);
+        TableViewCodesSetup(searchTableEventsDataCodes);
+//        populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE"
+//                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
+    }
+    
+    @FXML
     private void searchUpcoming(KeyEvent event) throws SQLException {
         ResultSet searchTableViewUpcoming = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID)"
-                + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START >= '17/MAY/2018' AND ((lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'))");
+                + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START >= '17/MAY/2018' AND ((lower(event_title) LIKE '%" + searchFieldUpcoming.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldUpcoming.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldUpcoming.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldUpcoming.getText().trim().toLowerCase() + "%'))");
         ObservableList<Events> searchTableEventsDataUpcoming = observableListPopulationAllAlphabetical(searchTableViewUpcoming);
         TableViewUpcomingSetup(searchTableEventsDataUpcoming);
 //        populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE"
 //                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
     }
     
-    //NEED TO TEST
+    
     @FXML
     private void searchPast(KeyEvent event) throws SQLException {
         ResultSet searchTableViewPast = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID)"
-                + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START <= '17/MAY/2018' AND ((lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'))");
+                + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START <= '17/MAY/2018' AND ((lower(event_title) LIKE '%" + searchFieldPast.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldPast.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldPast.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldPast.getText().trim().toLowerCase() + "%'))");
         ObservableList<Events> searchTableEventsDataPast = observableListPopulationAllAlphabetical(searchTableViewPast);
         TableViewPastSetup(searchTableEventsDataPast);
 //        populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE"
@@ -595,24 +646,10 @@ public class SocietyScreensEventsController extends Application implements Initi
         //}
     }
 
-    public void populateTableViewCodes() throws SQLException {
-        statement = openConnection();
-        currentQuery = "SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y'";
-        ResultSet rs = statement.executeQuery(currentQuery);
+    public void TableViewCodesSetup(ObservableList<Codes> data) throws SQLException {
         societyNameCodes.setCellValueFactory(new PropertyValueFactory<>("society"));
         eventNameCodes.setCellValueFactory(new PropertyValueFactory<>("event"));
         emailCodes.setCellValueFactory(new PropertyValueFactory<>("email"));
-
-        //Data added to observable List
-        eventsCodeData = FXCollections.observableArrayList();
-        try {
-            while (rs.next()) {
-                int i = 1;
-                eventsCodeData.add(new Codes(rs.getString(i), rs.getString(i + 1), rs.getString(i + 2)));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         societyNameCodes.setCellFactory(tc -> {
             TableCell<Codes, String> cell = new TableCell<>();
@@ -644,7 +681,7 @@ public class SocietyScreensEventsController extends Application implements Initi
 
         //Data added to TableView
         try {
-            tableOfEventsCodes.setItems(eventsCodeData);
+            tableOfEventsCodes.setItems(data);
             //tableofEvents.getColumns().setAll(event, startDate, location);
         } catch (Exception e) {
             e.printStackTrace();
