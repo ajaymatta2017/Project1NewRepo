@@ -432,7 +432,6 @@ public class SocietyScreensEventsController extends Application implements Initi
             ResultSet alphabeticalTableViewPast = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START <= '17/MAY/2018' ORDER BY EVENT_TITLE DESC");
             ObservableList<Events> alphabeticalEventsDataPast = observableListPopulationAllAlphabetical(alphabeticalTableViewPast);
             TableViewPastSetup(alphabeticalEventsDataPast);
-//          populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT ORDER BY event_title DESC");
         }
     }
 
