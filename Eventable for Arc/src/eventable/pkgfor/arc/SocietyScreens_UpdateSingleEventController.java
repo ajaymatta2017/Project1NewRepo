@@ -10,6 +10,7 @@ import static eventable.pkgfor.arc.SocietyScreensEventsController.eventEndDateDa
 import static eventable.pkgfor.arc.SocietyScreensEventsController.eventEndDateMonth;
 import static eventable.pkgfor.arc.SocietyScreensEventsController.eventEndDateMonthInteger;
 import static eventable.pkgfor.arc.SocietyScreensEventsController.eventEndDateYear;
+import static eventable.pkgfor.arc.SocietyScreensEventsController.eventId;
 import static eventable.pkgfor.arc.SocietyScreensEventsController.eventStartDateDay;
 import static eventable.pkgfor.arc.SocietyScreensEventsController.eventStartDateMonth;
 import static eventable.pkgfor.arc.SocietyScreensEventsController.eventStartDateMonthInteger;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ResourceBundle;
@@ -102,6 +104,7 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
     private String currentQuery3;
     private int maxBuildingID;
     private int newMaxBuildingID;
+    private Statement statement;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -171,7 +174,7 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
         stage.setScene(scene);
         stage.show();
     }
-    
+
     public int getBuildingID() throws SQLException {
         statement = openConnection();
         currentQuery3 = "SELECT CAST(building_id as INT) building_id FROM campus ORDER BY building_id DESC";
@@ -221,17 +224,20 @@ public class SocietyScreens_UpdateSingleEventController implements Initializable
             suburb.clear();
             postcode.clear();
             currentQuery1 = "UPDATE event SET event_title = '" + newEventName + "', location_type = '" + "On Campus" + "', event_text = '" + newEventDescription
-                    + "', event_start = CAST(TO_TIMESTAMP('" + newStartDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", event_end = CAST(TO_TIMESTAMP('" + newEndDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", room_no = '" + newRoomNo + "' event_type = '" + eventTypeWording + "', " + "building_id = '" + maxBuildingID + "'";
+                    + "', event_start = CAST(TO_TIMESTAMP('" + newStartDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", event_end = CAST(TO_TIMESTAMP('" + newEndDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", room_no = '" + newRoomNo + "', event_type = '" + eventTypeWording + "', " + "building_id = '" + maxBuildingID + "'"
+                    + "WHERE event_id = " + eventId;
             currentQuery2 = "INSERT INTO CAMPUS VALUES('" + maxBuildingID + "', '" + buildingName.getText() + "', '" + newRoomNo + "')";
-            int update1 = statement.executeUpdate(currentQuery1);
-            int update2 = statement.executeUpdate(currentQuery2);
+            System.out.println(currentQuery1);
+            System.out.println(currentQuery2);
+            int update1 = statement.executeUpdate(currentQuery2);
+            int update2 = statement.executeUpdate(currentQuery1);
         } else if (offCampus.isSelected()) {
             buildingName.clear();
             roomNo.clear();
             currentQuery = "UPDATE event SET event_title = '" + newEventName + "', location_type = '" + "Off Campus" + "', event_text = '" + newEventDescription
                     + "', event_start = CAST(TO_TIMESTAMP('" + newStartDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", event_end = CAST(TO_TIMESTAMP('" + newEndDateString + "','YYYY/MM/DD hh24:mi:ss') AS TIMESTAMP)" + ", street_no = '" + newStreetNo + "', street_name = '" + newStreetName + "', postcode = '" + newPostcode
                     + "', suburb = '" + newSuburb + "', event_type = '" + eventTypeWording + "' WHERE event_title = '" + eventName.getText() + "'";
-//            System.out.println(currentQuery);
+            System.out.println(currentQuery);
             int update = statement.executeUpdate(currentQuery);
         }
     }

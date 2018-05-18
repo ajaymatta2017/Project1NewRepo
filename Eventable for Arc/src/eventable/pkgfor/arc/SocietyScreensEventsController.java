@@ -51,7 +51,7 @@ public class SocietyScreensEventsController extends Application implements Initi
     @FXML
     Parent root;
     @FXML
-    private TextField societyName;
+    private Text societyName;
     @FXML
     private TableView<Events> tableOfEventsAll;
     @FXML
@@ -64,7 +64,7 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TableColumn<Events, String> eventTypeAll;
 
     @FXML
-    private TextField societyName1;
+    private Text societyName1;
     @FXML
     private TableView<Events> tableOfEventsUpcoming;
     @FXML
@@ -77,9 +77,9 @@ public class SocietyScreensEventsController extends Application implements Initi
     private TableColumn<Events, String> eventTypeUpcoming;
 
     @FXML
-    private TextField societyName2;
+    private Text societyName2;
     @FXML
-    private TextField societyName3;
+    private Text societyName3;
 
     @FXML
     private TableView<Events> tableOfEventsPast;
@@ -257,24 +257,28 @@ public class SocietyScreensEventsController extends Application implements Initi
 //            populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')");
 
             //Populate TableView for 'All' Tab
-            ResultSet outputAll = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')");            System.out.println("Method3");
+            ResultSet outputAll = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh24:mi') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh24:mi') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')");            System.out.println("Method3");
             ObservableList<Events> eventsDataAll = observableListPopulation(outputAll);
             tableViewAllSetup(eventsDataAll);
+            System.out.println("Method 1");
             
             //Populate TableView for 'Upcoming' Tab
-            ResultSet outputUpcoming = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start >= '17/MAY/2018'");
+            ResultSet outputUpcoming = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh24:mi') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh24:mi') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start >= '17/MAY/2018'");
             ObservableList<Events> eventsDataUpcoming = observableListPopulation(outputUpcoming);
             TableViewUpcomingSetup(eventsDataUpcoming);
+            System.out.println("Method 2");
             
             //Populate TableView for 'Past' Tab
-            ResultSet outputPast = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh:mi AM') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh:mi AM') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '10/MAY/2018'");
+            ResultSet outputPast = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh24:mi') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh24:mi') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '17/MAY/2018'");
             ObservableList<Events> eventsDataPast = observableListPopulation(outputPast);
             TableViewPastSetup(eventsDataPast);
-            
+            System.out.println("Method 3");
+
              //Populate TableView for 'Codes' Tab
             ResultSet outputCodes = queryPopulateTableView("SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y'");
             ObservableList<Codes> eventsDataCodes = observableListCodesPopulation(outputCodes);
             TableViewCodesSetup(eventsDataCodes);
+            System.out.println("Method 4");
             
 //            populateTableViewCodes();
         } catch (SQLException ex) {
