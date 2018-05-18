@@ -64,7 +64,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
     public static int societyID;
 
     public static Boolean userInSystem;
-
+    
     public String userPassword;
 
     public char ch;
@@ -322,6 +322,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
             return false;
         }
         //Inputting details into database
+        loggedInUser = newSocietyEmail.getText();
         String newEmail = newSocietyEmail.getText();
         String newSociety = societyName.getText();
         int userPasswordHashed = newSocietyPassword.getText().hashCode();
@@ -335,7 +336,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
         }
         newMaxSocietyID = maxSocietyID + 1;
         currentQuery = "INSERT INTO SOCIETY(society_id, society_name) VALUES(" + newMaxSocietyID + ", '" + newSociety + "')";
-        currentQuery1 = "INSERT INTO APP_USER(email, password, society_id, account_type) VALUES('" + newEmail + "', '" + userPasswordHashed + "', " + newMaxSocietyID + "', 'Society')";
+        currentQuery1 = "INSERT INTO APP_USER(email, password, society_id, account_type) VALUES('" + newEmail + "', '" + userPasswordHashed + "', " + newMaxSocietyID + ", 'Society')";
         int update = statement.executeUpdate(currentQuery);
         int update1 = statement.executeUpdate(currentQuery1);
         return true;
@@ -346,6 +347,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
             return false;
         }
         //Inputting details into database
+        loggedInUser = newArcEmail.getText();
         String newEmail = newArcEmail.getText();
         String newArc = newArcPosition.getText();
         int userPasswordHashed = newArcPassword.getText().hashCode();
@@ -360,7 +362,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
     @FXML
     private void createSocietyAccount (MouseEvent event) throws SQLException {
         if (validatenewSocietyPassword()) {
-            loadNext("SocietyScreens.fxml");
+            loadNext("SocietyScreensEvents.fxml");
         }
     }
 

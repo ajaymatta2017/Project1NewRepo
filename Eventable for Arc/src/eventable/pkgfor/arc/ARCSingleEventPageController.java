@@ -32,20 +32,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import javax.swing.JFileChooser;
 
 public class ARCSingleEventPageController implements Initializable {
@@ -84,27 +90,69 @@ public class ARCSingleEventPageController implements Initializable {
     private String emailAddress;
     private Component modalToComponent;
 
+    @FXML
+    private Button AToZButton;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Button goButton;
+    
+    private ObservableList<Object> listOfUserAttributes;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             populateAttendeeCount();
             populateEmail();
             settingValues();
-            populateTableView();
+//          System.out.println(eventIdSelected);
+            populateTableView("select email, first_name || ' ' || last_name as student_name, zid from app_user a join attendance using (email) join event using (event_id) where event_actual_attendance = 'Y' and event_id = " + eventIdSelected);
+//            populateTableView("SELECT email, first_name || ' ' || last_name as student_name, zid FROM app_user where lower(email) = '" + emailAddress + "'");
         } catch (SQLException ex) {
             Logger.getLogger(ARCSingleEventPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void settingValues() {
         eventName.setText(eventNameSelected);
         societyName.setText(societyNameSelected);
         startDate.setText(startDateSelected);
     }
 
+    //NEED TO TEST
+    @FXML
+    private void alphabeticalSort(MouseEvent event) throws SQLException {
+        if (AToZButton.getText().toLowerCase().equals("a-z")) {
+            populateTableView("select email, first_name || ' ' || last_name as student_name, zid from app_user a join attendance using (email) join event using (event_id) where event_actual_attendance = 'Y' and event_id = " + eventIdSelected + " ORDER BY event_title ASC");
+            AToZButton.setText("Z-A");
+        } else {
+            populateTableView("select email, first_name || ' ' || last_name as student_name, zid from app_user a join attendance using (email) join event using (event_id) where event_actual_attendance = 'Y' and event_id = " + eventIdSelected + " ORDER BY event_title DESC");
+            AToZButton.setText("A-Z");
+        }
+    }
+    
+//    @FXML
+//    private void search(KeyEvent event) throws SQLException {
+//        populateTableView("SELECT DISTINCT society_name, event_title, CAST(TO_CHAR(event_start, 'dd/MON/yy') AS VARCHAR2(50)) event_start FROM society JOIN event using(society_id) WHERE event_start <= '14/MAY/2018' AND"
+//            + "(lower(society_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(event_title) LIKE '%"
+//            + searchField.getText().trim().toLowerCase() + "')");
+//    }
+    
+    //NEED TO TEST
+    @FXML
+    private void search(KeyEvent event) throws SQLException {
+            populateTableView("select email, first_name || ' ' || last_name as student_name, zid from app_user a join attendance using (email) join event using (event_id) where event_actual_attendance = 'Y' and event_id = " + eventIdSelected +
+                " AND (lower(email) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(first_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "%'" + " OR lower(last_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR zid LIKE '%" + searchField.getText().trim().toLowerCase() + "%')");
+    }
+
     @FXML
     public void populateEmail() throws SQLException {
         email.setText(ARCSocietyHomeController.loggedInUser);
+    }
+       
+    @FXML
+    public void backButton() {
+        loadNext("ARCLandingPage.fxml");
     }
 
     @FXML
@@ -112,7 +160,7 @@ public class ARCSingleEventPageController implements Initializable {
         exportTableView();
         loadNext("ARCLandingPage.fxml");
     }
-
+  
     public void loadNext(String destination) {
         stage = (Stage) eventName.getScene().getWindow();
         try {
@@ -134,9 +182,9 @@ public class ARCSingleEventPageController implements Initializable {
         }
     }
 
-    public void populateTableView() throws SQLException {
+    public void populateTableView(String currentQuery2) throws SQLException {
         statement = openConnection();
-        currentQuery1 = "SELECT a.email FROM app_user JOIN society USING (society_id) JOIN event USING (society_id) JOIN attendance a USING(event_id) WHERE event_actual_attendance = 'Y' AND event_id = " + eventIdSelected;
+//        currentQuery1 = "SELECT a.email FROM app_user JOIN society USING (society_id) JOIN event USING (society_id) JOIN attendance a USING(event_id) WHERE event_actual_attendance = 'Y' AND event_id = " + eventIdSelected;
 
         emailTableColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         studentName.setCellValueFactory(new PropertyValueFactory<>("studentName"));
@@ -145,34 +193,21 @@ public class ARCSingleEventPageController implements Initializable {
         //Data added to observable List
         eventsArcData = FXCollections.observableArrayList();
 
-        ResultSet rs1 = statement.executeQuery(currentQuery1);
-        while (rs1.next()) {
-            emailAddress = rs1.getString(1);
-        }
+//        ResultSet rs1 = statement.executeQuery(currentQuery1);
+//        while (rs1.next()) {
+//            emailAddress = rs1.getString(1);
+//        }
 
-        currentQuery2 = "SELECT email, first_name || ' ' || last_name as student_name, zid FROM app_user where lower(email) = '" + emailAddress + "'";
-        ResultSet rs2 = statement.executeQuery(currentQuery2);
-        while (rs2.next()) {
+//        currentQuery2 = "SELECT email, first_name || ' ' || last_name as student_name, zid FROM app_user where lower(email) = '" + emailAddress + "'";
+        System.out.println(currentQuery2);
+        ResultSet rs3 = statement.executeQuery(currentQuery2);
+        while (rs3.next()) {
             int i = 1;
-            eventsArcData.add(new ArcEvent_1(rs2.getString(i), rs2.getString(i + 1), rs2.getString(i + 2)));
+            System.out.println(rs3.getString(1) + rs3.getString(2) + rs3.getString(2));
+            eventsArcData.add(new ArcEvent_1(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2)));
             break;
         }
-
-//        try {
-//            while (rs1.next()) {
-//                int i = 1;
-//                String emailAddress = rs1.getString(i);
-//                currentQuery2 = "SELECT first_name || ' ' || last_name as student_name, zid FROM app_user where lower(email) = '" + emailAddress + "'";
-////                System.out.println(currentQuery2);
-//                ResultSet rs2 = statement.executeQuery(currentQuery2);
-//                while (rs2.next()) {
-//                    eventsArcData.add(new ArcEvent_1(rs1.getString(i), rs2.getString(i), rs2.getString(i + 1)));
-//                    break;
-//                }
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(SocietyScreensEventsController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        
         emailTableColumn.setCellFactory(tc -> {
             TableCell<ArcEvent_1, String> cell = new TableCell<>();
             Text text = new Text();
@@ -213,7 +248,8 @@ public class ARCSingleEventPageController implements Initializable {
 
     public ResultSet exportCSVResultSet() throws SQLException {
         statement = openConnection();
-        currentQuery1 = "SELECT email, first_name || ' ' || last_name as student_name, zid FROM app_user where lower(email) = '" + emailAddress + "'";
+        currentQuery1 = "select email, first_name || ' ' || last_name as student_name, zid from app_user a join attendance using (email) join event using (event_id) where event_actual_attendance = 'Y' and event_id = " + eventIdSelected;
+//        currentQuery1 = "SELECT email, first_name || ' ' || last_name as student_name, zid FROM app_user where lower(email) = '" + emailAddress + "'";
         rs = statement.executeQuery(currentQuery1);
         return rs;
     }
@@ -234,8 +270,8 @@ public class ARCSingleEventPageController implements Initializable {
             for (int i = 2; i < numberOfColumns + 1; i++) {
                 row += ",\"" + rs1.getString(i).replaceAll("\"", "\\\"") + "\"";
             }
-            
-            String content = dataHeaders+ "\n" + row;
+
+            String content = dataHeaders + "\n" + row;
             JFileChooser fileChooser = new JFileChooser();
             if (fileChooser.showSaveDialog(modalToComponent) == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
@@ -246,25 +282,7 @@ public class ARCSingleEventPageController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(ARCSingleEventPageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-//        PrintWriter csvWriter = new PrintWriter(new File(filename));
-//
-//        ResultSetMetaData meta = rs.getMetaData();
-//        int numberOfColumns = meta.getColumnCount();
-//        String dataHeaders = "\"" + meta.getColumnName(1) + "\"";
-//        for (int i = 2; i < numberOfColumns + 1; i++) {
-//            dataHeaders += ",\"" + meta.getColumnName(i).replaceAll("\"", "\\\"") + "\"";
-//        }
-//        csvWriter.println(dataHeaders);
-//        while (rs.next()) {
-//            String row = "\"" + rs.getString(1).replaceAll("\"", "\\\"") + "\"";
-//            for (int i = 2; i < numberOfColumns + 1; i++) {
-//                row += ",\"" + rs.getString(i).replaceAll("\"", "\\\"") + "\"";
-//            }
-////            csvWriter.println(row);
-//        }
-//        csvWriter.close();
+            }
+        }
     }
-}
-}
 }

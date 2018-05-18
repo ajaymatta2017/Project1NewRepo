@@ -23,8 +23,8 @@ public class ArcEvent {
         return startDate.get();
     }
     
-    public String getId() {
-        return Integer.toString(id);
+    public int getId() {
+        return id;
     }
     
     public ArcEvent(String society, String event, String startDate) {
