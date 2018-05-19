@@ -205,7 +205,6 @@ public class ARCSingleEventPageController implements Initializable {
             int i = 1;
             System.out.println(rs3.getString(1) + rs3.getString(2) + rs3.getString(2));
             eventsArcData.add(new ArcEvent_1(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2)));
-            break;
         }
         
         emailTableColumn.setCellFactory(tc -> {
