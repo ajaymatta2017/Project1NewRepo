@@ -129,7 +129,7 @@ public class StudentScreenEvents_AllController extends Application implements In
     public static String eventSocietyName;
     public static String eventText;
     public static String eventId;
-    private boolean aToZ = false;
+    private boolean aToZ = true;
     private String bySocietyFilterChoice;
     private boolean filtersApplied = false;
 
@@ -311,9 +311,9 @@ public class StudentScreenEvents_AllController extends Application implements In
 
             //Appends the a-z classifier
             if (aToZButton.getText().toLowerCase().equals("a-z")) {
-                currentQuery += " ORDER BY event_title DESC";
-            } else {
                 currentQuery += " ORDER BY event_title ASC";
+            } else {
+                currentQuery += " ORDER BY event_title DESC";
             }
             populateTableView(currentQuery);
             filtersApplied = true;

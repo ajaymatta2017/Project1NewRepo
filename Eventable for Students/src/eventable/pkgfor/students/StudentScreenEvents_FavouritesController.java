@@ -122,7 +122,7 @@ public class StudentScreenEvents_FavouritesController extends Application implem
 
     public static Statement statement;   
 //  public static String loggedInUser;
-    private boolean aToZ = false;
+    private boolean aToZ = true;
     private String bySocietyFilterChoice;
     private boolean filtersApplied = false;
     
@@ -296,9 +296,9 @@ public class StudentScreenEvents_FavouritesController extends Application implem
 
             //Appends the a-z classifier
             if (aToZButton.getText().toLowerCase().equals("a-z")) {
-                currentQuery += " ORDER BY event_title DESC";
-            } else {
                 currentQuery += " ORDER BY event_title ASC";
+            } else {
+                currentQuery += " ORDER BY event_title DESC";
             }
             populateTableView(currentQuery);
             filtersApplied = true;

@@ -99,7 +99,7 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
     
     ObservableList<Feedback> feedbackData;
     ObservableList<FavouriteSocieties> listOfSocieties;
-    private boolean aToZ = false;
+    private boolean aToZ = true;
     private String bySocietyFilterChoice;
     private boolean filtersApplied = false;
     
@@ -252,9 +252,9 @@ public class StudentScreenFeedback_FeedbackController extends Application implem
 
             //Appends the a-z classifier
             if (aToZButton.getText().toLowerCase().equals("a-z")) {
-                currentQuery += " ORDER BY event_title DESC";
-            } else {
                 currentQuery += " ORDER BY event_title ASC";
+            } else {
+                currentQuery += " ORDER BY event_title DESC";
             }
             populateTableView(currentQuery);
             filtersApplied = true;
