@@ -103,7 +103,19 @@ public class SocietyScreensEventsController extends Application implements Initi
     @FXML
     private Text email;
     @FXML
-    public TextField societyName4;
+    private TextField societyName4;
+    @FXML
+    private Text societyName5;
+    @FXML
+    private TableView<Events> tableOfEventsFeedback;
+    @FXML
+    private TableColumn<Events, String> eventNameFeedback;
+    @FXML
+    private TableColumn<Events, String> startDateFeedback;
+    @FXML
+    private TableColumn<Events, String> locationTypeFeedback;
+    @FXML
+    private TableColumn<Events, String> eventTypeFeedback;
     @FXML
     private Text newEvent;
 
@@ -167,14 +179,17 @@ public class SocietyScreensEventsController extends Application implements Initi
 
     private String currentQuery6;
     private ObservableList<Events> eventsDataDisplayAll;
-
+    private ObservableList<Events> eventsDataFeedback;
+    
     @FXML
     private Text newEvent1;
     @FXML
     private Text newEvent2;
     @FXML
     private Text newEvent3;
-//    private ObservableList<Object> eventsDataAllColumns;
+    @FXML
+    private Text newEvent4;
+    
     public static String eventName;
     public static String eventLocation;
     public static String eventStartDate;
@@ -221,6 +236,13 @@ public class SocietyScreensEventsController extends Application implements Initi
     private Button AToZButtonPast;
     @FXML
     private Button goButtonPast;
+    
+    @FXML
+    private TextField searchFieldFeedback;
+    @FXML
+    private Button AToZButtonFeedback;
+    @FXML
+    private Button goButtonFeedback;
     
     @FXML
     private TextField searchFieldCodes;
@@ -274,11 +296,17 @@ public class SocietyScreensEventsController extends Application implements Initi
             TableViewPastSetup(eventsDataPast);
             System.out.println("Method 3");
 
-             //Populate TableView for 'Codes' Tab
+            //Populate TableView for 'Codes' Tab
             ResultSet outputCodes = queryPopulateTableView("SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y'");
             ObservableList<Codes> eventsDataCodes = observableListCodesPopulation(outputCodes);
             TableViewCodesSetup(eventsDataCodes);
             System.out.println("Method 4");
+            
+            //Populate TableView for 'Feedback' Tab
+            ResultSet outputFeedback = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, STREET_NO, STREET_NAME, POSTCODE, SUBURB, BUILDING_ID, BUILDING_NAME, ROOM_NO, CAST(TO_CHAR(EVENT_END, 'dd/mm/yyyy') AS VARCHAR2(50)), cast(to_char(cast(event_end as date),'hh24:mi') AS VARCHAR2(50)), cast(to_char(cast(event_start as date),'hh24:mi') AS VARCHAR2(50)), event_text, event_id, event_type FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND event_start <= '17/MAY/2018'");
+            ObservableList<Events> eventsDataFeedback = observableListPopulation(outputFeedback);
+            TableViewFeedbackSetup(eventsDataFeedback);
+            System.out.println("Method 5");
             
 //            populateTableViewCodes();
         } catch (SQLException ex) {
@@ -307,6 +335,11 @@ public class SocietyScreensEventsController extends Application implements Initi
     }
     
     @FXML
+    private void createNewEvent4(MouseEvent event) throws SQLException {
+        addNewEvent4("SocietyScreen_SingleEvent.fxml");
+    }
+    
+    @FXML
     public void populateSocietyPageTitle() throws SQLException {
         statement = openConnection();
         currentQuery = "SELECT UPPER(society_name), society_description from society JOIN app_user USING (society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "')";
@@ -320,6 +353,7 @@ public class SocietyScreensEventsController extends Application implements Initi
             societyName2.setText(rs.getString(1));
             societyName3.setText(rs.getString(1));
             societyName4.setText(rs.getString(1));
+            societyName5.setText(rs.getString(1));
             societyDescription.setText(rs.getString(2));
         }
     }
@@ -438,6 +472,22 @@ public class SocietyScreensEventsController extends Application implements Initi
             TableViewPastSetup(alphabeticalEventsDataPast);
         }
     }
+    
+    @FXML
+    private void alphabeticalSortFeedback(MouseEvent event) throws SQLException {
+        if (AToZButtonFeedback.getText().toLowerCase().equals("a-z")) {
+            AToZButtonFeedback.setText("Z-A");
+//            populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT ORDER BY event_title ASC");
+            ResultSet alphabeticalTableViewFeedback = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START <= '17/MAY/2018' ORDER BY EVENT_TITLE ASC");
+            ObservableList<Events> alphabeticalEventsDataFeedback = observableListPopulationAllAlphabetical(alphabeticalTableViewFeedback);
+            TableViewFeedbackSetup(alphabeticalEventsDataFeedback);
+        } else {
+            AToZButtonFeedback.setText("A-Z");
+            ResultSet alphabeticalTableViewFeedback = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) LEFT OUTER JOIN CAMPUS USING(ROOM_NO, BUILDING_ID) join app_user USING(society_id) WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START <= '17/MAY/2018' ORDER BY EVENT_TITLE DESC");
+            ObservableList<Events> alphabeticalEventsDataFeedback = observableListPopulationAllAlphabetical(alphabeticalTableViewFeedback);
+            TableViewFeedbackSetup(alphabeticalEventsDataFeedback);
+        }
+    }
 
     @FXML
     private void searchAll(KeyEvent event) throws SQLException {
@@ -449,7 +499,6 @@ public class SocietyScreensEventsController extends Application implements Initi
 //                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
     }
     
-    //NEED TO TEST
     @FXML
     private void searchCodes(KeyEvent event) throws SQLException {
         ResultSet searchTableViewCodes = queryPopulateTableView("SELECT society_name, event_title, a.email FROM app_user JOIN society USING(SOCIETY_ID) JOIN event USING(SOCIETY_ID) JOIN attendance a USING(EVENT_ID) WHERE (UPPER(society_name) = '" + societyName4.getText() + "'" + " AND event_theoretical_attendance = 'Y')"
@@ -470,13 +519,22 @@ public class SocietyScreensEventsController extends Application implements Initi
 //                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
     }
     
-    
     @FXML
     private void searchPast(KeyEvent event) throws SQLException {
         ResultSet searchTableViewPast = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID)"
                 + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START <= '17/MAY/2018' AND ((lower(event_title) LIKE '%" + searchFieldPast.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldPast.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldPast.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldPast.getText().trim().toLowerCase() + "%'))");
         ObservableList<Events> searchTableEventsDataPast = observableListPopulationAllAlphabetical(searchTableViewPast);
         TableViewPastSetup(searchTableEventsDataPast);
+//        populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE"
+//                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
+    }
+    
+    @FXML
+    private void searchFeedback(KeyEvent event) throws SQLException {
+        ResultSet searchTableViewFeedback = queryPopulateTableView("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE FROM EVENT JOIN SOCIETY USING(SOCIETY_ID) JOIN APP_USER USING(SOCIETY_ID)"
+                + " WHERE email = lower('" + ARCSocietyHomeController.loggedInUser + "') AND EVENT_START <= '17/MAY/2018' AND ((lower(event_title) LIKE '%" + searchFieldFeedback.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldFeedback.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldFeedback.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldFeedback.getText().trim().toLowerCase() + "%'))");
+        ObservableList<Events> searchTableEventsDataFeedback = observableListPopulationAllAlphabetical(searchTableViewFeedback);
+        TableViewFeedbackSetup(searchTableEventsDataFeedback);
 //        populateTableViewAll("SELECT EVENT_TITLE, CAST(TO_CHAR(EVENT_START, 'dd/mm/yyyy') AS VARCHAR2(50)), LOCATION_TYPE, EVENT_TYPE"
 //                + " WHERE (lower(event_title) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR event_start LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%'" + " OR lower(event_type) LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%' OR location_type LIKE '%" + searchFieldAll.getText().trim().toLowerCase() + "%')");
     }
@@ -648,6 +706,59 @@ public class SocietyScreensEventsController extends Application implements Initi
         //closeConnection(conn, rs, statement);
         //}
     }
+    
+    public void TableViewFeedbackSetup(ObservableList <Events> data) {
+        eventNameFeedback.setCellValueFactory(new PropertyValueFactory<>("event"));
+        startDateFeedback.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+        locationTypeFeedback.setCellValueFactory(new PropertyValueFactory<>("locationType"));
+        eventTypeFeedback.setCellValueFactory(new PropertyValueFactory<>("eventType"));
+        
+        eventNameFeedback.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventNameFeedback.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        startDateFeedback.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(startDateFeedback.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        locationTypeFeedback.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(locationTypeFeedback.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        eventTypeFeedback.setCellFactory(tc -> {
+            TableCell<Events, String> cell = new TableCell<>();
+            Text text = new Text();
+            cell.setGraphic(text);
+            cell.setPrefHeight(Control.USE_COMPUTED_SIZE);
+            text.wrappingWidthProperty().bind(eventTypeFeedback.widthProperty());
+            text.textProperty().bind(cell.itemProperty());
+            return cell;
+        });
+        //Data added to TableView
+        try {
+            tableOfEventsFeedback.setItems(data);
+            //tableofEvents.getColumns().setAll(event, startDate, location);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } //finally {
+        //closeConnection(conn, rs, statement);
+        //}
+    }
 
     public void TableViewCodesSetup(ObservableList<Codes> data) throws SQLException {
         societyNameCodes.setCellValueFactory(new PropertyValueFactory<>("society"));
@@ -731,6 +842,18 @@ public class SocietyScreensEventsController extends Application implements Initi
 
     public void addNewEvent3(String destination) {
         stage = (Stage) newEvent3.getScene().getWindow();
+        try {
+            root = FXMLLoader.load(getClass().getResource(destination));
+        } catch (IOException ex) {
+            Logger.getLogger(ARCSocietyHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    public void addNewEvent4(String destination) {
+        stage = (Stage) newEvent4.getScene().getWindow();
         try {
             root = FXMLLoader.load(getClass().getResource(destination));
         } catch (IOException ex) {
@@ -910,6 +1033,46 @@ public class SocietyScreensEventsController extends Application implements Initi
             eventTypeValue = eventSelected.getEventType();
 //            System.out.println(eventStartDateMonth + "..." + eventType + "..." + eventEndDateYear + "...");
             loadNext("SocietyScreen_UpdateSingleEvent.fxml");
+        }
+    }
+    
+    @FXML
+    private void tableviewItemFeedbackClicked(MouseEvent event) throws SQLException {
+        if (event.getClickCount() == 2) {
+            Events eventSelected = tableOfEventsFeedback.getSelectionModel().getSelectedItem();
+//            String eventLocationTypeString = eventSelected.getLocationType();
+//            System.out.println(eventLocationTypeString);;
+//            if (eventLocationTypeString.matches("On Campus")) {
+//                eventRoomNo = eventSelected.getRoomNo();
+//                eventBuildingName = eventSelected.getBuildingName();
+//            } else {
+//                eventStreetNo = eventSelected.getStreetNo();
+//                eventStreetName = eventSelected.getStreetName();
+//                eventSuburb = eventSelected.getSuburb();
+//                eventPostcode = eventSelected.getPostcode();
+//            }
+//            eventLocationType = eventSelected.getLocationType();
+            eventName = eventSelected.getEvent();
+
+//            eventStartDate = eventSelected.getStartDate();
+//            String[] eventStartDateArray = eventStartDate.split("/");
+//            eventStartDateDay = Integer.parseInt(eventStartDateArray[0]);
+//            eventStartDateMonth = Integer.parseInt(eventStartDateArray[1]);
+//            eventStartDateYear = Integer.parseInt(eventStartDateArray[2]);
+
+//            eventEndDate = eventSelected.getEventEnd();
+//            String[] eventEndDateArray = eventEndDate.split("/");
+//            eventEndDateDay = Integer.parseInt(eventEndDateArray[0]);
+//            eventEndDateMonth = Integer.parseInt(eventEndDateArray[1]);
+//            eventEndDateYear = Integer.parseInt(eventEndDateArray[2]);
+
+//            eventStartTime = eventSelected.getEventStartTime();
+//            eventEndTime = eventSelected.getEventEndTime();
+//            eventText = eventSelected.getEventText();
+            eventId = eventSelected.getId();
+//            eventTypeValue = eventSelected.getEventType();
+//            System.out.println(eventStartDateMonth + "..." + eventType + "..." + eventEndDateYear + "...");
+            loadNext("SocietyScreen_SingleFeedback.fxml");
         }
     }
 
