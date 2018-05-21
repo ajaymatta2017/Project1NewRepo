@@ -31,6 +31,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
@@ -40,9 +42,7 @@ import javafx.util.StringConverter;
 
 public class SocietyScreens_SingleEventController extends Application implements Initializable {
     
-    @FXML
     Stage stage;
-    @FXML
     Parent root;
     
     @FXML
@@ -51,39 +51,19 @@ public class SocietyScreens_SingleEventController extends Application implements
     private Text email;
     @FXML
     private TextField eventName;
-    @FXML
     private DatePicker startDate;
-    @FXML
     private TextField startTime;
-    @FXML
     private DatePicker endDate;
-    @FXML
     private TextField endTime;
-    @FXML
-    private RadioButton onCampus;
-    @FXML
-    private RadioButton offCampus;
-    @FXML
     private TextField streetNo;
-    @FXML
     private TextField streetName;
-    @FXML
     private TextField buildingName;
-    @FXML
     private TextField suburb;
-    @FXML
     private TextField postcode;
-    @FXML
     private TextField roomNo;
-    @FXML
     private TextField eventDescription;
     @FXML
-    private Button createButton;
-    @FXML        
-    private Button cancelButton;
-    @FXML
     private Text errorText;
-    @FXML
     private ComboBox eventType;
     
     public static Connection conn;
@@ -108,17 +88,36 @@ public class SocietyScreens_SingleEventController extends Application implements
     private String currentQuery4;
     private int societyIDValue;
     private String currentQuery5;
-       
     @FXML
+    private Button backButton;
+    @FXML
+    private TextField averageRating;
+    @FXML
+    private Text percentageTotalYes;
+    @FXML
+    private Text totalYes;
+    @FXML
+    private Text percentageTotalNo;
+    @FXML
+    private Text totalNo;
+    @FXML
+    private TableView<?> tableOfEventsFeedbackQ;
+    @FXML
+    private TableColumn<?, ?> eventNameAll;
+    @FXML
+    private TableColumn<?, ?> startDateAll;
+    @FXML
+    private TableColumn<?, ?> locationTypeAll;
+    @FXML
+    private TableColumn<?, ?> eventTypeAll;
+       
     private void select0(MouseEvent event) {
         radioButtonChoice = 0;
     }
     
-    @FXML
     private void select1(MouseEvent event) {
         radioButtonChoice = 1;
     }
-    @FXML
     private void setComboBoxValue(MouseEvent event) {
         eventType.setValue(stage);
     }
@@ -133,12 +132,10 @@ public class SocietyScreens_SingleEventController extends Application implements
         }
     }    
 
-    @FXML
     private void populateEmail() {
         email.setText(ARCSocietyHomeController.loggedInUser);
     }
     
-    @FXML
     private void createEventButton (MouseEvent event) throws SQLException {
         if (validateFields()) {
             loadNext("SocietyScreensEvents.fxml");
@@ -300,5 +297,9 @@ public class SocietyScreens_SingleEventController extends Application implements
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void tableviewItemAllClicked(MouseEvent event) {
     }
 }

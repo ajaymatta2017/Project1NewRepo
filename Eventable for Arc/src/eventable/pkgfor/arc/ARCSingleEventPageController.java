@@ -141,7 +141,7 @@ public class ARCSingleEventPageController implements Initializable {
     //NEED TO TEST
     @FXML
     private void search(KeyEvent event) throws SQLException {
-            populateTableView("select email, first_name || ' ' || last_name as student_name, zid from app_user join attendance using (email) join event using (event_id) where event_actual_attendance = 'Y' and event_id = " + eventIdSelected +
+            populateTableView("select email, first_name || ' ' || last_name as student_name, zid from app_user a join attendance using (email) join event using (event_id) where event_actual_attendance = 'Y' and event_id = " + eventIdSelected +
                 " AND (lower(email) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR lower(first_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "%'" + " OR lower(last_name) LIKE '%" + searchField.getText().trim().toLowerCase() + "%' OR zid LIKE '%" + searchField.getText().trim().toLowerCase() + "%')");
     }
 
@@ -203,7 +203,7 @@ public class ARCSingleEventPageController implements Initializable {
         ResultSet rs3 = statement.executeQuery(currentQuery2);
         while (rs3.next()) {
             int i = 1;
-            System.out.println(rs3.getString(1) + rs3.getString(2) + rs3.getString(3));
+            System.out.println(rs3.getString(1) + rs3.getString(2) + rs3.getString(2));
             eventsArcData.add(new ArcEvent_1(rs3.getString(i), rs3.getString(i + 1), rs3.getString(i + 2)));
         }
         

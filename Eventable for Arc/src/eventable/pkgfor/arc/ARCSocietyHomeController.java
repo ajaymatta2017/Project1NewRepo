@@ -65,7 +65,7 @@ public class ARCSocietyHomeController extends Application implements Initializab
 
     public static Boolean userInSystem;
     
-    public String userPassword;
+    private String userPassword;
 
     public char ch;
     
