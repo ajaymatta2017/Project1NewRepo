@@ -69,8 +69,6 @@ public class StudentScreenFeedback_FeedbackFormController implements Initializab
     @FXML
     private RadioButton radioButton5;
     @FXML
-    private TextArea thoughts;
-    @FXML
     private TextArea enjoy;
     @FXML
     private TextArea improve;
@@ -223,7 +221,7 @@ public class StudentScreenFeedback_FeedbackFormController implements Initializab
             rs = statement.executeQuery(currentQuery);
             
             currentQuery1 = "INSERT INTO FEEDBACK (email, question_id, event_id, feedback_answer) VALUES ('" + LoginController.loggedInUser +
-                    "', '2', '" + StudentScreenFeedback_FeedbackController.eventId + "', '" + thoughts.getText().trim() + "')";
+                    "', '2', '" + StudentScreenFeedback_FeedbackController.eventId + "', '" + enjoy.getText().trim() + "')";
             rs1 = statement.executeQuery(currentQuery1);
             
             currentQuery2 = "INSERT INTO FEEDBACK (email, question_id, event_id, feedback_answer) VALUES ('" + LoginController.loggedInUser +
